@@ -2,6 +2,19 @@
 
 All notable changes to the AP Statistics Hub will be documented in this file.
 
+## [2.2.0] - 2025-03-20
+
+### Added
+- Separate sections for AI content and multimedia resources on unit pages
+- New AIContentCard component with blue accent for study materials
+- New MultimediaResourceCard component with green accent for interactive resources
+- Visual indicators to distinguish between content types
+
+### Changed
+- Reorganized unit page layout to group content by type rather than just by section
+- Improved content organization to reduce confusion between overlapping section numbers
+- Enhanced visual hierarchy with section headers and color coding
+
 ## [2.1.0] - 2025-03-15
 
 ### Added

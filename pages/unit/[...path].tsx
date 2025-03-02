@@ -1,11 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
-import QuizCard from '@/components/QuizCard';
+import AIContentCard from '@/components/AIContentCard';
+import MultimediaResourceCard from '@/components/MultimediaResourceCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import { getQuizzesForUnit, Quiz } from '@/utils/contentApi';
-import { FaArrowLeft, FaBook, FaListOl } from 'react-icons/fa';
+import { FaArrowLeft, FaBook, FaListOl, FaRobot, FaVideo } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function UnitPage() {
@@ -69,6 +70,20 @@ export default function UnitPage() {
     }
   }, [path, fetchQuizzes, from, id]);
 
+  // Check if any quiz has multimedia resources
+  const hasMultimediaResources = quizzes.some(quiz => 
+    quiz.resources && (
+      (quiz.resources.videos && quiz.resources.videos.length > 0) ||
+      (quiz.resources.practice && quiz.resources.practice.length > 0) ||
+      (quiz.resources.other && quiz.resources.other.length > 0)
+    )
+  );
+
+  // Check if any quiz has AI content
+  const hasAIContent = quizzes.some(quiz => 
+    quiz.pdfs.length > 0 || quiz.prompts.length > 0 || (quiz.images && quiz.images.length > 0)
+  );
+
   if (!path) {
     return null;
   }
@@ -114,15 +129,43 @@ export default function UnitPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-              {quizzes.map((quiz) => (
-                <QuizCard 
-                  key={quiz.path} 
-                  quiz={quiz} 
-                  unitPath={unitPath} 
-                />
-              ))}
-            </div>
+            {hasMultimediaResources && (
+              <div className="mb-8">
+                <div className="mac-window p-4 mb-4">
+                  <h2 className="text-xl font-bold mb-0 flex items-center mac-header p-2">
+                    <FaVideo className="mr-2 text-mac-white" /> <span className="text-mac-white">Multimedia Resources</span>
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {quizzes.map((quiz) => (
+                    <MultimediaResourceCard 
+                      key={`multimedia-${quiz.path}`} 
+                      quiz={quiz} 
+                      unitPath={unitPath} 
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {hasAIContent && (
+              <div className="mb-8">
+                <div className="mac-window p-4 mb-4">
+                  <h2 className="text-xl font-bold mb-0 flex items-center mac-header p-2">
+                    <FaRobot className="mr-2 text-mac-white" /> <span className="text-mac-white">AI Content & Study Materials</span>
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {quizzes.map((quiz) => (
+                    <AIContentCard 
+                      key={`ai-${quiz.path}`} 
+                      quiz={quiz} 
+                      unitPath={unitPath} 
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="mac-window p-4 mt-8">
               <QRCodeGenerator url={`/unit/${unitPath}`} title={unitName} />

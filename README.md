@@ -2,13 +2,13 @@
 
 A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a local directory structure, making it easy to update and maintain.
 
-## Latest Release - v2.0.0 (March 10, 2025)
+## Latest Release - v2.2.0 (March 20, 2025)
 
-This release adds external multimedia resources:
-- Google Drive video links for educational content
-- YouTube video integration for supplementary learning
-- Blooket flashcard game links for interactive practice
-- Enhanced content organization and display
+This release improves content organization:
+- Separate sections for AI content and multimedia resources
+- Color-coded cards for different content types
+- Improved visual hierarchy with clear section headers
+- Reduced confusion between overlapping section numbers
 
 See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 
@@ -21,6 +21,7 @@ See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 - Knowledge tree visualization
 - QR code generation for sharing
 - External multimedia resources (videos and practice games)
+- Organized content by type (AI vs. multimedia)
 
 ## Deployment Instructions
 
