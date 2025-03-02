@@ -6,7 +6,7 @@ import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
-import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt, FaListOl } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -21,6 +21,8 @@ export default function QuizPage() {
   const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [fromMcq, setFromMcq] = useState(false);
+  const [mcqNumber, setMcqNumber] = useState<string | null>(null);
 
   const fetchQuizContents = useCallback(async (fullPath: string) => {
     try {
@@ -78,24 +80,32 @@ export default function QuizPage() {
       const fullPath = path.join('/');
       setQuizPath(fullPath);
       
-      // Extract unit path and quiz name
-      const pathParts = path.slice();
-      const quizDirName = pathParts.pop() || '';
-      
-      // Format quiz name
-      let formattedQuizName = quizDirName;
-      if (formattedQuizName.includes('{') && formattedQuizName.includes('}')) {
-        // Handle cases like 1-{7,8} to display as "Quiz 1-7,8"
-        formattedQuizName = formattedQuizName.replace('{', '').replace('}', '');
+      // Extract quiz name from path (e.g., "unit1/1-6" -> "Quiz 1-6")
+      const quizMatch = fullPath.match(/(\d+-\d+(?:,\d+)?)/i);
+      if (quizMatch && quizMatch[1]) {
+        setQuizName(`Quiz ${quizMatch[1]}`);
+      } else {
+        setQuizName(fullPath);
       }
       
-      setQuizName(`Quiz ${formattedQuizName}`);
-      
-      // Extract unit path
-      const unitPathParts = pathParts.slice();
-      setUnitPath(unitPathParts.join('/'));
+      // Extract unit path for back navigation
+      const unitMatch = fullPath.match(/(unit\d+)/i);
+      if (unitMatch && unitMatch[1]) {
+        setUnitPath(unitMatch[1]);
+      }
       
       fetchQuizContents(fullPath);
+    }
+
+    // Check if we came from MCQ detail
+    const referrer = document.referrer;
+    if (referrer.includes('/mcq-detail/')) {
+      setFromMcq(true);
+      // Extract MCQ number from referrer
+      const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
+      if (mcqMatch && mcqMatch[1]) {
+        setMcqNumber(mcqMatch[1]);
+      }
     }
   }, [path, fetchQuizContents]);
 
@@ -107,11 +117,19 @@ export default function QuizPage() {
     <Layout title={`${quizName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <Link href={unitPath ? `/unit/${unitPath}` : '/'}>
-            <a className="mac-button inline-flex items-center">
-              <FaArrowLeft className="mr-2" /> Back to Unit
-            </a>
-          </Link>
+          {fromMcq && mcqNumber ? (
+            <Link href={`/mcq-detail/${mcqNumber}`}>
+              <a className="mac-button inline-flex items-center">
+                <FaArrowLeft className="mr-2" /> Back to MCQ #{mcqNumber}
+              </a>
+            </Link>
+          ) : (
+            <Link href={`/unit/${unitPath}`}>
+              <a className="mac-button inline-flex items-center">
+                <FaArrowLeft className="mr-2" /> Back to Unit
+              </a>
+            </Link>
+          )}
         </div>
         
         <h1 className="text-3xl font-bold mb-6">{quizName}</h1>

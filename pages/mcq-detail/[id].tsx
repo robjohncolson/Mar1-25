@@ -130,7 +130,7 @@ export default function MCQDetail() {
                 </p>
                 <div className="w-full space-y-2">
                   {mcqData.sections.map((section) => (
-                    <Link key={section} href={`/unit/${mcqData.unit}/${section}`}>
+                    <Link key={section} href={`/quiz/${mcqData.unit}/${section}`}>
                       <a className="mac-button py-2 px-6 w-full text-center block">
                         Go to Section {section}
                       </a>
