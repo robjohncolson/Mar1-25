@@ -1,9 +1,7 @@
 import { Octokit } from 'octokit';
 
-// Initialize Octokit with a GitHub token (optional for public repos)
-const octokit = new Octokit({
-  auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN,
-});
+// Initialize Octokit without a token (sufficient for public repos)
+const octokit = new Octokit();
 
 // GitHub repository information
 const owner = process.env.NEXT_PUBLIC_GITHUB_OWNER || 'OWNER_NAME';

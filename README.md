@@ -25,9 +25,8 @@ A mobile-friendly web application that serves as a front end for a GitHub reposi
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Create a `.env.local` file with your GitHub token and repository information:
+3. Create a `.env.local` file with your GitHub repository information:
    ```
-   NEXT_PUBLIC_GITHUB_TOKEN=your_github_token_here
    NEXT_PUBLIC_GITHUB_OWNER=OWNER_NAME
    NEXT_PUBLIC_GITHUB_REPO=REPO_NAME
    ```

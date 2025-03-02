@@ -13,7 +13,6 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_GITHUB_TOKEN": "@github_token",
     "NEXT_PUBLIC_GITHUB_OWNER": "OWNER_NAME",
     "NEXT_PUBLIC_GITHUB_REPO": "REPO_NAME"
   }
