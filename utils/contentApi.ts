@@ -39,14 +39,33 @@ export interface Prompt {
   content: string;
 }
 
+// Simple in-memory cache
+const directoryCache: Record<string, { data: ContentFile[], timestamp: number }> = {};
+const fileContentCache: Record<string, { content: string, timestamp: number }> = {};
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 // Function to get directory contents
 export async function getDirectoryContents(dirPath = ''): Promise<ContentFile[]> {
+  // Check cache first
+  const cacheKey = dirPath;
+  const cachedData = directoryCache[cacheKey];
+  const now = Date.now();
+  
+  if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
+    return cachedData.data;
+  }
+  
   try {
     const response = await fetch(`/api/content?path=${encodeURIComponent(dirPath)}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch directory contents: ${response.statusText}`);
     }
-    return await response.json();
+    const data = await response.json();
+    
+    // Update cache
+    directoryCache[cacheKey] = { data, timestamp: now };
+    
+    return data;
   } catch (error) {
     console.error('Error fetching directory contents:', error);
     return [];
@@ -55,12 +74,26 @@ export async function getDirectoryContents(dirPath = ''): Promise<ContentFile[]>
 
 // Function to get file content
 export async function getFileContent(filePath: string): Promise<string> {
+  // Check cache first
+  const cacheKey = filePath;
+  const cachedData = fileContentCache[cacheKey];
+  const now = Date.now();
+  
+  if (cachedData && (now - cachedData.timestamp) < CACHE_TTL) {
+    return cachedData.content;
+  }
+  
   try {
     const response = await fetch(`/api/content/file?path=${encodeURIComponent(filePath)}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch file content: ${response.statusText}`);
     }
-    return await response.text();
+    const content = await response.text();
+    
+    // Update cache
+    fileContentCache[cacheKey] = { content, timestamp: now };
+    
+    return content;
   } catch (error) {
     console.error('Error fetching file content:', error);
     return '';

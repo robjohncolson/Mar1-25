@@ -26,7 +26,7 @@ export default function Layout({ children, title = 'AP Statistics Hub' }: Layout
             </a>
           </Link>
           <a 
-            href="https://github.com/OWNER_NAME/REPO_NAME" 
+            href="https://github.com/robjohncolson/Mar1-25" 
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center"

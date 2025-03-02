@@ -5,10 +5,16 @@ import path from 'path';
 // Base content directory - updated to use the existing content in public folder
 const CONTENT_DIR = path.join(process.cwd(), 'public', 'content');
 
+// Cache duration in seconds (1 hour)
+const CACHE_DURATION = 60 * 60;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const dirPath = req.query.path ? String(req.query.path) : '';
     const fullPath = path.join(CONTENT_DIR, dirPath);
+    
+    // Set cache headers
+    res.setHeader('Cache-Control', `public, max-age=${CACHE_DURATION}, s-maxage=${CACHE_DURATION}, stale-while-revalidate=${CACHE_DURATION * 2}`);
     
     // Check if directory exists
     if (!fs.existsSync(fullPath)) {

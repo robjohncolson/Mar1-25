@@ -2,8 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import { getAllUnits, getAPExamContent, Unit } from '@/utils/contentApi';
-import { FaSpinner, FaFileAlt, FaBookOpen, FaImage, FaGraduationCap, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaFileAlt, FaBookOpen, FaImage, FaGraduationCap, FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Home() {
@@ -49,9 +50,7 @@ export default function Home() {
         <HowToUse />
         
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-mac-black text-4xl" />
-          </div>
+          <LoadingIndicator message="Loading AP Statistics resources..." />
         ) : error ? (
           <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}

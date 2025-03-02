@@ -4,8 +4,9 @@ import Layout from '@/components/Layout';
 import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -116,9 +117,7 @@ export default function QuizPage() {
         <h1 className="text-3xl font-bold mb-6">{quizName}</h1>
         
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-mac-black text-4xl" />
-          </div>
+          <LoadingIndicator message="Loading quiz contents..." />
         ) : error ? (
           <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}

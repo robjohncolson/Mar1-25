@@ -5,6 +5,9 @@ import path from 'path';
 // Base content directory - updated to use the existing content in public folder
 const CONTENT_DIR = path.join(process.cwd(), 'public', 'content');
 
+// Cache duration in seconds (1 day for static files)
+const CACHE_DURATION = 60 * 60 * 24;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const filePath = req.query.path ? String(req.query.path) : '';
@@ -66,6 +69,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     console.log(`Serving file: ${fullPath} with content type: ${contentType}`);
+    
+    // Set cache headers - longer cache for static files
+    res.setHeader('Cache-Control', `public, max-age=${CACHE_DURATION}, s-maxage=${CACHE_DURATION}, stale-while-revalidate=${CACHE_DURATION * 2}`);
     
     // For binary files like PDFs and images, read as buffer
     if (contentType.startsWith('image/') || contentType === 'application/pdf') {
