@@ -10,10 +10,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const filePath = req.query.path ? String(req.query.path) : '';
     const fullPath = path.join(CONTENT_DIR, filePath);
     
+    console.log(`Attempting to serve file: ${fullPath}`);
+    
+    // Check if content directory exists
+    if (!fs.existsSync(CONTENT_DIR)) {
+      console.error(`Content directory does not exist: ${CONTENT_DIR}`);
+      return res.status(500).json({ error: 'Content directory not found' });
+    }
+    
     // Check if file exists
-    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) {
+    if (!fs.existsSync(fullPath)) {
+      console.error(`File not found: ${fullPath}`);
       return res.status(404).json({ error: 'File not found' });
     }
+    
+    // Check if it's a file
+    const stats = fs.statSync(fullPath);
+    if (!stats.isFile()) {
+      console.error(`Not a file: ${fullPath}`);
+      return res.status(400).json({ error: 'Not a file' });
+    }
+    
+    // Get file name for Content-Disposition header
+    const fileName = path.basename(fullPath);
     
     // Determine content type based on file extension
     const ext = path.extname(fullPath).toLowerCase();
@@ -46,24 +65,46 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         contentType = 'application/octet-stream';
     }
     
-    // For binary files like PDFs and images, stream the file
+    console.log(`Serving file: ${fullPath} with content type: ${contentType}`);
+    
+    // For binary files like PDFs and images, read as buffer
     if (contentType.startsWith('image/') || contentType === 'application/pdf') {
-      const fileStream = fs.createReadStream(fullPath);
-      res.setHeader('Content-Type', contentType);
-      return fileStream.pipe(res);
+      try {
+        // Read file as buffer for binary files
+        const fileBuffer = await fs.promises.readFile(fullPath);
+        
+        // Set appropriate headers
+        res.setHeader('Content-Type', contentType);
+        
+        // For PDFs, set Content-Disposition to attachment to force download if requested
+        if (contentType === 'application/pdf' && req.query.download === 'true') {
+          res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        }
+        
+        // Send the file
+        return res.send(fileBuffer);
+      } catch (readError) {
+        console.error(`Error reading file: ${fullPath}`, readError);
+        return res.status(500).json({ error: 'Failed to read file' });
+      }
     }
     
     // For text files, read and return the content
-    const content = await fs.promises.readFile(fullPath, 'utf-8');
-    
-    if (contentType === 'application/json') {
-      return res.status(200).json(JSON.parse(content));
+    try {
+      const content = await fs.promises.readFile(fullPath, 'utf-8');
+      
+      if (contentType === 'application/json') {
+        return res.status(200).json(JSON.parse(content));
+      }
+      
+      res.setHeader('Content-Type', contentType);
+      return res.status(200).send(content);
+    } catch (readError) {
+      console.error(`Error reading text file: ${fullPath}`, readError);
+      return res.status(500).json({ error: 'Failed to read file' });
     }
-    
-    res.setHeader('Content-Type', contentType);
-    res.status(200).send(content);
   } catch (error) {
-    console.error('Error reading file:', error);
-    res.status(500).json({ error: 'Failed to read file' });
+    console.error('Error in file API handler:', error);
+    return res.status(500).json({ error: 'Failed to serve file' });
   }
 } 

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "create-content": "node scripts/create-content-structure.js",
+    "setup-content": "node scripts/setup-content.js",
     "deploy": "node scripts/deploy.js"
   },
   "dependencies": {

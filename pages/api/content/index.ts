@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         name: item.name,
         path: itemPath,
         type: isDirectory ? 'dir' : 'file',
-        download_url: isDirectory ? null : `/api/file?path=${encodeURIComponent(itemPath)}`,
+        download_url: isDirectory ? null : `/api/content/file?path=${encodeURIComponent(itemPath)}`,
       };
     });
     

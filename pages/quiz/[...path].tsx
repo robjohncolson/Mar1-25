@@ -5,7 +5,7 @@ import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft, FaImage, FaFilePdf, FaRobot } from 'react-icons/fa';
+import { FaSpinner, FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -133,18 +133,29 @@ export default function QuizPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {images.map((image) => (
                     <div key={image.path} className="mac-window p-2">
-                      <a 
-                        href={image.download_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                      >
+                      <div className="relative">
                         <img 
                           src={image.download_url} 
                           alt={image.name} 
                           className="w-full h-auto border border-mac-border"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = '/filemissing.png'; // Use the file missing graphic
+                          }}
                         />
                         <p className="text-sm text-center mt-1 truncate">{image.name}</p>
-                      </a>
+                        <div className="mt-2 flex justify-center">
+                          <a 
+                            href={image.download_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="mac-button text-xs"
+                          >
+                            <FaExternalLinkAlt className="mr-1 inline-block" /> View Full Size
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

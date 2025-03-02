@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
-import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/contentApi';
-import { FaSpinner, FaFileAlt, FaTree, FaBookOpen, FaImage, FaGraduationCap } from 'react-icons/fa';
+import { getAllUnits, getAPExamContent, Unit } from '@/utils/contentApi';
+import { FaSpinner, FaFileAlt, FaBookOpen, FaImage, FaGraduationCap, FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Home() {
@@ -13,21 +13,18 @@ export default function Home() {
     prompts: { name: string; path: string; content: string }[];
     images: { name: string; path: string; download_url: string }[];
   } | null>(null);
-  const [knowledgeTree, setKnowledgeTree] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const fetchData = useCallback(async () => {
     try {
-      const [unitsData, apExamData, knowledgeTreeData] = await Promise.all([
+      const [unitsData, apExamData] = await Promise.all([
         getAllUnits(),
-        getAPExamContent(),
-        getKnowledgeTree()
+        getAPExamContent()
       ]);
       
       setUnits(unitsData);
       setAPExam(apExamData);
-      setKnowledgeTree(knowledgeTreeData);
       setLoading(false);
     } catch (err) {
       console.error('Error fetching data:', err);
@@ -113,18 +110,29 @@ export default function Home() {
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         {apExam.images.map((image) => (
                           <div key={image.path} className="mac-window p-2">
-                            <a 
-                              href={image.download_url} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                            >
+                            <div className="relative">
                               <img 
                                 src={image.download_url} 
                                 alt={image.name} 
                                 className="w-full h-auto border border-mac-border"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.onerror = null;
+                                  target.src = '/filemissing.png'; // Use the file missing graphic
+                                }}
                               />
                               <p className="text-sm text-center mt-1 truncate">{image.name}</p>
-                            </a>
+                              <div className="mt-2 flex justify-center">
+                                <a 
+                                  href={image.download_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="mac-button text-xs"
+                                >
+                                  <FaExternalLinkAlt className="mr-1 inline-block" /> View Full Size
+                                </a>
+                              </div>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -133,22 +141,6 @@ export default function Home() {
                 </div>
               )}
             </div>
-            
-            {/* Knowledge Tree Section */}
-            {knowledgeTree && (
-              <div className="mac-window p-4 mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
-                  <FaTree className="mr-2 text-mac-white" /> <span className="text-mac-white">Knowledge Tree</span>
-                </h2>
-                <div>
-                  <Link href="/knowledge-tree">
-                    <a className="mac-button inline-flex items-center">
-                      <FaTree className="mr-2" /> View AP Statistics Knowledge Tree
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            )}
             
             {/* Units Section */}
             <div className="mac-window p-4 mb-8">
