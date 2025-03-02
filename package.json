@@ -1,6 +1,6 @@
 {
   "name": "ap-stats-hub",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,8 @@
     "lint": "next lint",
     "create-content": "node scripts/create-content-structure.js",
     "setup-content": "node scripts/setup-content.js",
-    "deploy": "node scripts/deploy.js"
+    "deploy": "node scripts/deploy.js",
+    "release": "node scripts/release.js"
   },
   "dependencies": {
     "autoprefixer": "^10.4.15",

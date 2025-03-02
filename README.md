@@ -2,6 +2,17 @@
 
 A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a local directory structure, making it easy to update and maintain.
 
+## Latest Release - v1.0.0 (March 2, 2025)
+
+This initial release includes:
+- Complete navigation system for AP Statistics content
+- MCQ navigation for all 40 questions from the 2017 AP Exam
+- QR codes for easy sharing of all pages
+- Mobile-friendly responsive design
+- Improved error handling for missing content
+
+See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
+
 ## Features
 
 - Mobile-friendly interface
@@ -93,6 +104,22 @@ To customize the application:
 1. Update the content in the `public/content` directory
 2. Modify the UI components in the `components` directory
 3. Adjust the styling using Tailwind CSS classes
+
+## Releases and Deployment
+
+For information about the release process, see [RELEASE.md](RELEASE.md).
+
+To create a new release:
+
+```bash
+npm run release
+```
+
+To deploy to Vercel:
+
+```bash
+npm run deploy
+```
 
 ## License
 
