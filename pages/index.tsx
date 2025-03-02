@@ -3,6 +3,7 @@ import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
 import LoadingIndicator from '@/components/LoadingIndicator';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
 import { getAllUnits, getAPExamContent, Unit } from '@/utils/contentApi';
 import { FaFileAlt, FaBookOpen, FaImage, FaGraduationCap, FaExternalLinkAlt } from 'react-icons/fa';
 import Link from 'next/link';
@@ -151,6 +152,11 @@ export default function Home() {
                   <UnitCard key={unit.path} unit={unit} />
                 ))}
               </div>
+            </div>
+            
+            {/* QR Code for Home Page */}
+            <div className="mac-window p-4 mt-8">
+              <QRCodeGenerator url="/" title="AP Statistics Hub - Home" />
             </div>
           </>
         )}
