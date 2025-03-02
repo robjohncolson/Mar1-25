@@ -1,0 +1,172 @@
+MCQ File Locations Report - Generated on 2025-03-01 15:50:53
+
+MCQ Files Summary:
+================================================================================
+
+MCQ #1:
+  - .\unit2\2-1\2017APExamMCQ1.png
+  - .\unit2\2017APExamMCQ1.png
+
+MCQ #2:
+  - .\unit1\1-6\2017 apstats exam mcq2.png
+
+MCQ #3:
+  - .\unit2\2-1\2017APexamMCQ3.png
+  - .\unit2\2017APexamMCQ3.png
+
+MCQ #4:
+  - .\unit7\2017APexamMCQ4.png
+  - .\unit7\7-{1,2}\2017APexamMCQ4.png
+
+MCQ #5:
+  - .\unit6\2017 APexam MCQ5.png
+  - .\unit6\6-{3,4}\2017 APexam MCQ5.png
+
+MCQ #6:
+  - .\unit1\1-{7,8}\2017 apstats exam mcq6.png
+  - .\unit1\2017 apstats exam mcq6.png
+
+MCQ #7:
+  - .\unit4\2017 apstats mcq7.png
+  - .\unit4\4-{4,5}\2017 apstats mcq7.png
+
+MCQ #8:
+  - .\unit4\2017 apstats mcq8.png
+  - .\unit4\4-{7,8}\2017 apstats mcq8.png
+
+MCQ #9:
+  - .\unit1\1-{7,8}\2017 ap statistics mcq9.png
+  - .\unit1\2017 ap statistics mcq9.png
+
+MCQ #10:
+  - .\unit3\2017 apstats exam mcq10.png
+  - .\unit3\3-{1,2,3}\2017 apstats exam mcq10.png
+
+MCQ #11:
+  - .\unit7\2017 apstats exam mcq11.png
+  - .\unit7\7-{1,2}\2017 apstats exam mcq11.png
+
+MCQ #12:
+  - .\unit3\2017 apstats exam mcq12.png
+  - .\unit3\3-{1,2,3}\2017 apstats exam mcq12.png
+
+MCQ #13:
+  - .\unit1\1-{7,8}\2017 apstats exam mcq13.png
+  - .\unit1\2017 apstats exam mcq13.png
+
+MCQ #14:
+  - .\unit1\1-10\2017 apstats exam mcq14.png
+  - .\unit1\2017 apstats exam mcq14.png
+
+MCQ #15:
+  - .\unit1\1-6\2017 apstats exam mcq15.png
+  - .\unit1\2017 apstats exam mcq15.png
+
+MCQ #16:
+  - .\unit2\2-2\2017 apstats exam MCQ16.png
+  - .\unit2\2017 apstats exam MCQ16.png
+
+MCQ #17:
+  - .\unit7\2017 apstats exam MCQ17.png
+  - .\unit7\7-{3,4}\2017 apstats exam MCQ17.png
+
+MCQ #18:
+  - .\unit2\2-4\2017 apstats exam MCQ18.png
+  - .\unit2\2017 apstats exam MCQ18.png
+
+MCQ #19:
+  - .\unit1\1-10\2017 apstats exam MCQ19.png
+  - .\unit1\2017 apstats exam MCQ19.png
+
+MCQ #20:
+  - .\unit6\2017 apstats exam mcq20.png
+  - .\unit6\6-{7,8}\2017 apstats exam mcq20.png
+
+MCQ #21:
+  - .\unit5\2017 APstatsExam MCQ21.png
+  - .\unit5\5-{3,4}\2017 APstatsExam MCQ21.png
+  - .\unit5\5-{7,8}\2017 APstatsExam MCQ21.png
+
+MCQ #22:
+  - .\unit6\2017 APstatsExam MCQ22.png
+  - .\unit6\6-{5,6}\2017 APstatsExam MCQ22.png
+
+MCQ #23:
+  - .\unit6\2017 APstatsExam MCQ23.png
+  - .\unit6\6-{1,2}\2017 APstatsExam MCQ23.png
+
+MCQ #24:
+  - .\unit3\2017 APstatsExam MCQ24.png
+  - .\unit3\3-{6,7}\2017 APstatsExam MCQ24.png
+
+MCQ #25:
+  - .\unit4\2017 APstatsExam MCQ25.png
+  - .\unit4\4-{7,8}\2017 APstatsExam MCQ25.png
+
+MCQ #26:
+  - .\unit8\2017 APstatsExam MCQ26.png
+  - .\unit8\8-{3,4}\2017 APstatsExam MCQ26.png
+
+MCQ #27:
+  - .\unit9\2017 APstatsExam MCQ27.png
+  - .\unit9\9-{5,6}\2017 APstatsExam MCQ27.png
+
+MCQ #28:
+  - .\unit6\2017 APstatsExam MCQ28.png
+  - .\unit6\6-{1,2}\2017 APstatsExam MCQ28.png
+
+MCQ #29:
+  - .\unit1\1-6\2017 APstatsExam MCQ29.png
+  - .\unit1\1-9\2017 APstatsExam MCQ29.png
+  - .\unit1\1-{7,8}\2017 APstatsExam MCQ29.png
+  - .\unit1\2017 APstatsExam MCQ29.png
+
+MCQ #30:
+  - .\unit5\2017 APstatsExam MCQ30.png
+  - .\unit5\5-{7,8}\2017 APstatsExam MCQ30.png
+
+MCQ #31:
+  - .\unit2\2-5\2017 APstatsExam MCQ31.png
+  - .\unit2\2017 APstatsExam MCQ31.png
+
+MCQ #32:
+  - .\unit4\2017 APstatsExam MCQ32.png
+  - .\unit4\4-12\2017 APstatsExam MCQ32.png
+
+MCQ #33:
+  - .\unit9\2017 APstatsExam MCQ33.png
+  - .\unit9\9-{1,2}\2017 APstatsExam MCQ33.png
+
+MCQ #34:
+  - .\unit4\2017 APstatsExam MCQ34.png
+  - .\unit4\4-{9,10}\2017 APstatsExam MCQ34.png
+
+MCQ #35:
+  - .\unit3\2017 APstatsExam MCQ35.png
+  - .\unit3\3-{1,2,3}\2017 APstatsExam MCQ35.png
+
+MCQ #36:
+  - .\unit6\2017 APstatsExam MCQ36.png
+  - .\unit6\6-{7,8}\2017 APstatsExam MCQ36.png
+
+MCQ #37:
+  - .\unit3\2017 APstatsExam MCQ37.png
+  - .\unit3\3-{1,2,3}\2017 APstatsExam MCQ37.png
+
+MCQ #38:
+  - .\unit7\2017 APstatsExam MCQ38.png
+  - .\unit7\7-{5,6}\2017 APstatsExam MCQ38.png
+
+MCQ #39:
+  - .\unit6\2017 APstatsExam MCQ39.png
+  - .\unit6\6-{1,2}\2017 APstatsExam MCQ39.png
+
+MCQ #40:
+  - .\unit6\2017 APstatsExam MCQ40.png
+  - .\unit6\6-11\2017 APstatsExam MCQ40.png
+  - .\unit6\6-{5,6}\2017 APstatsExam MCQ40.png
+
+Summary Statistics:
+================================================================================
+Total unique MCQ numbers found: 40
+Total MCQ files found: 83
