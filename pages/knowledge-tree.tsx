@@ -51,7 +51,10 @@ export default function KnowledgeTree() {
               {knowledgeTree.split('\n').map((line, index) => {
                 // Check if line is a heading
                 if (line.startsWith('#')) {
-                  const level = line.match(/^#+/)[0].length;
+                  const match = line.match(/^#+/);
+                  if (!match) return <p key={index}>{line}</p>;
+                  
+                  const level = match[0].length;
                   const text = line.replace(/^#+\s*/, '');
                   
                   if (level === 1) {
