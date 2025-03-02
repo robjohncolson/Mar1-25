@@ -86,7 +86,7 @@ export default function MCQNavigation() {
         {/* Tooltip for displaying location */}
         {hoveredMcq && (
           <div className="mac-window p-2 mb-4 text-center">
-            <p>MCQ #{hoveredMcq} leads to: {mcqPrimaryLocations[hoveredMcq].displayText}</p>
+            <p>MCQ #{hoveredMcq} relates to: {mcqPrimaryLocations[hoveredMcq].displayText}</p>
           </div>
         )}
         
@@ -97,12 +97,12 @@ export default function MCQNavigation() {
           </div>
           
           <p className="mb-6">
-            Select a Multiple Choice Question (MCQ) from the 2017 AP Statistics Exam to go directly to the relevant content:
+            Select a Multiple Choice Question (MCQ) from the 2017 AP Statistics Exam:
           </p>
           
           <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 gap-3">
             {Array.from({ length: 40 }, (_, i) => i + 1).map((num) => (
-              <Link key={num} href={mcqPrimaryLocations[num].path}>
+              <Link key={num} href={`/mcq-detail/${num}`}>
                 <a 
                   className="mac-button py-3 px-0 flex items-center justify-center font-bold text-black"
                   style={{ backgroundColor: pastelColors[num - 1] }}

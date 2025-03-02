@@ -18,6 +18,7 @@ export default function UnitPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [fromMcq, setFromMcq] = useState(false);
+  const [mcqNumber, setMcqNumber] = useState<string | null>(null);
 
   const fetchQuizzes = useCallback(async (fullPath: string) => {
     try {
@@ -47,9 +48,17 @@ export default function UnitPage() {
       fetchQuizzes(fullPath);
     }
 
-    // Check if we came from MCQ navigation
-    if (document.referrer.includes('/mcq-navigation')) {
+    // Check if we came from MCQ navigation or MCQ detail
+    const referrer = document.referrer;
+    if (referrer.includes('/mcq-navigation')) {
       setFromMcq(true);
+    } else if (referrer.includes('/mcq-detail/')) {
+      setFromMcq(true);
+      // Extract MCQ number from referrer
+      const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
+      if (mcqMatch && mcqMatch[1]) {
+        setMcqNumber(mcqMatch[1]);
+      }
     }
   }, [path, fetchQuizzes]);
 
@@ -62,11 +71,19 @@ export default function UnitPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 flex justify-between">
           {fromMcq ? (
-            <Link href="/mcq-navigation">
-              <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> <FaListOl className="mr-2" /> Back to MCQ Navigation
-              </a>
-            </Link>
+            mcqNumber ? (
+              <Link href={`/mcq-detail/${mcqNumber}`}>
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> Back to MCQ #{mcqNumber}
+                </a>
+              </Link>
+            ) : (
+              <Link href="/mcq-navigation">
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> <FaListOl className="mr-2" /> Back to MCQ Navigation
+                </a>
+              </Link>
+            )
           ) : (
             <Link href="/content-home">
               <a className="mac-button inline-flex items-center">
