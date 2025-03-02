@@ -74,9 +74,11 @@ export default function MCQDetail() {
       // Store the MCQ number in sessionStorage for back navigation
       sessionStorage.setItem('lastMcqNumber', mcqNumber || '');
       
-      // Fix the section format: replace comma-separated values with proper curly brace format
+      // Fix the section format: ensure it has proper curly brace format
       let formattedSection = section;
-      if (section.includes(',')) {
+      
+      // Only add curly braces if they don't already exist and there's a comma
+      if (section.includes(',') && !section.includes('{')) {
         // Extract the prefix and the comma-separated values
         const [prefix, values] = section.split('-');
         // Format as prefix-{values}
@@ -159,6 +161,10 @@ export default function MCQDetail() {
                     </button>
                   ))}
                 </div>
+                <p className="mt-4 text-sm text-gray-600 text-center">
+                  Note: Some sections may still be under development. If a section appears empty, 
+                  please try another section or return to the unit page.
+                </p>
               </div>
             </div>
           </div>

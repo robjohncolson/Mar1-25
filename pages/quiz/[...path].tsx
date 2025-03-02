@@ -34,8 +34,13 @@ export default function QuizPage() {
         // If the original path fails, try to convert between formats and retry
         let altPath = fullPath;
         
+        // Check for and fix double curly braces first
+        if (fullPath.includes('{{')) {
+          altPath = fullPath.replace(/\{\{(\d+(?:,\d+)+)\}\}/g, '{$1}');
+          console.log('Fixed double curly braces:', altPath);
+        }
         // If path contains commas without braces, convert to braced format
-        if (fullPath.includes(',') && !fullPath.includes('{')) {
+        else if (fullPath.includes(',') && !fullPath.includes('{')) {
           // Extract the section part (e.g., "5-7,8")
           const sectionMatch = fullPath.match(/(\d+-\d+(?:,\d+)+)/);
           if (sectionMatch && sectionMatch[1]) {
@@ -43,16 +48,24 @@ export default function QuizPage() {
             const [prefix, values] = section.split('-');
             const bracedSection = `${prefix}-{${values}}`;
             altPath = fullPath.replace(section, bracedSection);
+            console.log('Added curly braces:', altPath);
           }
         } 
         // If path contains braces, try without braces
         else if (fullPath.includes('{')) {
           altPath = fullPath.replace(/\{(\d+(?:,\d+)+)\}/g, '$1');
+          console.log('Removed curly braces:', altPath);
         }
         
         // Try with the alternative path if it's different
         if (altPath !== fullPath) {
-          contents = await getDirectoryContents(altPath);
+          try {
+            contents = await getDirectoryContents(altPath);
+            console.log('Successfully loaded with alternative path:', altPath);
+          } catch (altError) {
+            console.error('Alternative path also failed:', altError);
+            throw new Error(`Content not found. Tried paths: ${fullPath} and ${altPath}`);
+          }
         } else {
           // If no alternative path was generated, rethrow the original error
           throw error;
@@ -99,9 +112,9 @@ export default function QuizPage() {
       
       setImages(imageFiles);
       setLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching quiz contents:', err);
-      setError('Failed to load quiz contents. Please try again later.');
+      setError(`Failed to load quiz contents: ${err.message || 'Unknown error'}`);
       setLoading(false);
     }
   }, []);
@@ -179,7 +192,23 @@ export default function QuizPage() {
           <LoadingIndicator message="Loading quiz contents..." />
         ) : error ? (
           <div className="mac-window p-4 border-mac-border text-mac-black">
-            {error}
+            <div className="mac-header p-2 mb-4">
+              <h2 className="text-xl font-bold text-mac-white">Error Loading Content</h2>
+            </div>
+            <p className="mb-4">{error}</p>
+            <p className="mb-4">This could be due to:</p>
+            <ul className="list-disc pl-6 mb-4">
+              <li>The content for this section is not yet available</li>
+              <li>There was a problem with the URL format</li>
+              <li>The server is temporarily unavailable</li>
+            </ul>
+            <div className="mt-4">
+              <Link href={`/unit/${unitPath}`}>
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> Return to Unit Page
+                </a>
+              </Link>
+            </div>
           </div>
         ) : (
           <>
