@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
-import { getKnowledgeTree } from '@/utils/localContent';
+import { getKnowledgeTree } from '@/utils/contentApi';
 import { FaSpinner, FaTree } from 'react-icons/fa';
 import Link from 'next/link';
 

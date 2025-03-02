@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
-import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/localContent';
+import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
 import { FaSpinner, FaArrowLeft, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 

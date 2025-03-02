@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
-import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/localContent';
+import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/contentApi';
 import { FaSpinner, FaFileAlt, FaTree, FaBookOpen, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 

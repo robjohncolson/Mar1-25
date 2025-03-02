@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import QuizCard from '@/components/QuizCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
-import { getQuizzesForUnit, Quiz } from '@/utils/localContent';
+import { getQuizzesForUnit, Quiz } from '@/utils/contentApi';
 import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 

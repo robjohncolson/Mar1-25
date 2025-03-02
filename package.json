@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-content": "node scripts/create-content-structure.js",
+    "deploy": "node scripts/deploy.js"
   },
   "dependencies": {
     "autoprefixer": "^10.4.15",
