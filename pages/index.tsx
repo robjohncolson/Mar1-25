@@ -2,8 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
-import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/github';
-import { FaSpinner, FaFileAlt, FaTree, FaBookOpen } from 'react-icons/fa';
+import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/localContent';
+import { FaSpinner, FaFileAlt, FaTree, FaBookOpen, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Home() {

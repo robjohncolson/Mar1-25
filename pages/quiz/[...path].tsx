@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
-import { getRepoContents, getFileContent, PDF, Prompt, Image } from '@/utils/github';
+import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/localContent';
 import { FaSpinner, FaArrowLeft, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 
@@ -23,7 +23,7 @@ export default function QuizPage() {
 
   const fetchQuizContents = useCallback(async (fullPath: string) => {
     try {
-      const contents = await getRepoContents(fullPath);
+      const contents = await getDirectoryContents(fullPath);
       
       // Filter PDFs
       const pdfFiles = contents

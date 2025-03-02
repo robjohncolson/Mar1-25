@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
-import { getFileContent } from '@/utils/github';
+import { getFileContent } from '@/utils/localContent';
 import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 
