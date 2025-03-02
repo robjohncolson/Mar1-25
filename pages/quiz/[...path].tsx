@@ -26,7 +26,38 @@ export default function QuizPage() {
 
   const fetchQuizContents = useCallback(async (fullPath: string) => {
     try {
-      const contents = await getDirectoryContents(fullPath);
+      // Try to fetch with the original path first
+      let contents;
+      try {
+        contents = await getDirectoryContents(fullPath);
+      } catch (error) {
+        // If the original path fails, try to convert between formats and retry
+        let altPath = fullPath;
+        
+        // If path contains commas without braces, convert to braced format
+        if (fullPath.includes(',') && !fullPath.includes('{')) {
+          // Extract the section part (e.g., "5-7,8")
+          const sectionMatch = fullPath.match(/(\d+-\d+(?:,\d+)+)/);
+          if (sectionMatch && sectionMatch[1]) {
+            const section = sectionMatch[1];
+            const [prefix, values] = section.split('-');
+            const bracedSection = `${prefix}-{${values}}`;
+            altPath = fullPath.replace(section, bracedSection);
+          }
+        } 
+        // If path contains braces, try without braces
+        else if (fullPath.includes('{')) {
+          altPath = fullPath.replace(/\{(\d+(?:,\d+)+)\}/g, '$1');
+        }
+        
+        // Try with the alternative path if it's different
+        if (altPath !== fullPath) {
+          contents = await getDirectoryContents(altPath);
+        } else {
+          // If no alternative path was generated, rethrow the original error
+          throw error;
+        }
+      }
       
       // Filter PDFs
       const pdfFiles = contents
@@ -81,9 +112,16 @@ export default function QuizPage() {
       setQuizPath(fullPath);
       
       // Extract quiz name from path (e.g., "unit1/1-6" -> "Quiz 1-6")
-      const quizMatch = fullPath.match(/(\d+-\d+(?:,\d+)?)/i);
+      // Updated regex to handle both formats: "1-6" and "1-{7,8}"
+      const quizMatch = fullPath.match(/(\d+-(?:\d+|\{\d+(?:,\d+)+\}))/i);
       if (quizMatch && quizMatch[1]) {
-        setQuizName(`Quiz ${quizMatch[1]}`);
+        // Format the display name to be user-friendly
+        let displayName = quizMatch[1];
+        // If it has curly braces, format it nicely
+        if (displayName.includes('{')) {
+          displayName = displayName.replace(/\{(\d+(?:,\d+)+)\}/g, '$1');
+        }
+        setQuizName(`Quiz ${displayName}`);
       } else {
         setQuizName(fullPath);
       }

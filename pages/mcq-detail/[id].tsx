@@ -9,43 +9,43 @@ const mcqLocations: Record<string, { unit: string; sections: string[] }> = {
   "1": { unit: "unit2", sections: ["2-1"] },
   "2": { unit: "unit1", sections: ["1-6"] },
   "3": { unit: "unit2", sections: ["2-1"] },
-  "4": { unit: "unit7", sections: ["7-1,2"] },
-  "5": { unit: "unit6", sections: ["6-3,4"] },
-  "6": { unit: "unit1", sections: ["1-7,8"] },
-  "7": { unit: "unit4", sections: ["4-4,5"] },
-  "8": { unit: "unit4", sections: ["4-7,8"] },
-  "9": { unit: "unit1", sections: ["1-7,8"] },
-  "10": { unit: "unit3", sections: ["3-1,2,3"] },
-  "11": { unit: "unit7", sections: ["7-1,2"] },
-  "12": { unit: "unit3", sections: ["3-1,2,3"] },
-  "13": { unit: "unit1", sections: ["1-7,8"] },
+  "4": { unit: "unit7", sections: ["7-{1,2}"] },
+  "5": { unit: "unit6", sections: ["6-{3,4}"] },
+  "6": { unit: "unit1", sections: ["1-{7,8}"] },
+  "7": { unit: "unit4", sections: ["4-{4,5}"] },
+  "8": { unit: "unit4", sections: ["4-{7,8}"] },
+  "9": { unit: "unit1", sections: ["1-{7,8}"] },
+  "10": { unit: "unit3", sections: ["3-{1,2,3}"] },
+  "11": { unit: "unit7", sections: ["7-{1,2}"] },
+  "12": { unit: "unit3", sections: ["3-{1,2,3}"] },
+  "13": { unit: "unit1", sections: ["1-{7,8}"] },
   "14": { unit: "unit1", sections: ["1-10"] },
   "15": { unit: "unit1", sections: ["1-6"] },
   "16": { unit: "unit2", sections: ["2-2"] },
-  "17": { unit: "unit7", sections: ["7-3,4"] },
+  "17": { unit: "unit7", sections: ["7-{3,4}"] },
   "18": { unit: "unit2", sections: ["2-4"] },
   "19": { unit: "unit1", sections: ["1-10"] },
-  "20": { unit: "unit6", sections: ["6-7,8"] },
-  "21": { unit: "unit5", sections: ["5-3,4", "5-7,8"] },
-  "22": { unit: "unit6", sections: ["6-5,6"] },
-  "23": { unit: "unit6", sections: ["6-1,2"] },
-  "24": { unit: "unit3", sections: ["3-6,7"] },
-  "25": { unit: "unit4", sections: ["4-7,8"] },
-  "26": { unit: "unit8", sections: ["8-3,4"] },
-  "27": { unit: "unit9", sections: ["9-5,6"] },
-  "28": { unit: "unit6", sections: ["6-1,2"] },
-  "29": { unit: "unit1", sections: ["1-6", "1-7,8", "1-9"] },
-  "30": { unit: "unit5", sections: ["5-7,8"] },
+  "20": { unit: "unit6", sections: ["6-{7,8}"] },
+  "21": { unit: "unit5", sections: ["5-{3,4}", "5-{7,8}"] },
+  "22": { unit: "unit6", sections: ["6-{5,6}"] },
+  "23": { unit: "unit6", sections: ["6-{1,2}"] },
+  "24": { unit: "unit3", sections: ["3-{6,7}"] },
+  "25": { unit: "unit4", sections: ["4-{7,8}"] },
+  "26": { unit: "unit8", sections: ["8-{3,4}"] },
+  "27": { unit: "unit9", sections: ["9-{5,6}"] },
+  "28": { unit: "unit6", sections: ["6-{1,2}"] },
+  "29": { unit: "unit1", sections: ["1-6", "1-{7,8}", "1-9"] },
+  "30": { unit: "unit5", sections: ["5-{7,8}"] },
   "31": { unit: "unit2", sections: ["2-5"] },
   "32": { unit: "unit4", sections: ["4-12"] },
-  "33": { unit: "unit9", sections: ["9-1,2"] },
-  "34": { unit: "unit4", sections: ["4-9,10"] },
-  "35": { unit: "unit3", sections: ["3-1,2,3"] },
-  "36": { unit: "unit6", sections: ["6-7,8"] },
-  "37": { unit: "unit3", sections: ["3-1,2,3"] },
-  "38": { unit: "unit7", sections: ["7-5,6"] },
-  "39": { unit: "unit6", sections: ["6-1,2"] },
-  "40": { unit: "unit6", sections: ["6-5,6", "6-11"] },
+  "33": { unit: "unit9", sections: ["9-{1,2}"] },
+  "34": { unit: "unit4", sections: ["4-{9,10}"] },
+  "35": { unit: "unit3", sections: ["3-{1,2,3}"] },
+  "36": { unit: "unit6", sections: ["6-{7,8}"] },
+  "37": { unit: "unit3", sections: ["3-{1,2,3}"] },
+  "38": { unit: "unit7", sections: ["7-{5,6}"] },
+  "39": { unit: "unit6", sections: ["6-{1,2}"] },
+  "40": { unit: "unit6", sections: ["6-{5,6}", "6-11"] },
 };
 
 export default function MCQDetail() {
@@ -73,8 +73,18 @@ export default function MCQDetail() {
     if (mcqData) {
       // Store the MCQ number in sessionStorage for back navigation
       sessionStorage.setItem('lastMcqNumber', mcqNumber || '');
-      // Navigate directly to the quiz page
-      router.push(`/quiz/${mcqData.unit}/${section}`);
+      
+      // Fix the section format: replace comma-separated values with proper curly brace format
+      let formattedSection = section;
+      if (section.includes(',')) {
+        // Extract the prefix and the comma-separated values
+        const [prefix, values] = section.split('-');
+        // Format as prefix-{values}
+        formattedSection = `${prefix}-{${values}}`;
+      }
+      
+      // Navigate directly to the quiz page with properly formatted section
+      router.push(`/quiz/${mcqData.unit}/${formattedSection}`);
     }
   };
 
