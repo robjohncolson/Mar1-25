@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 export default function QuizPage() {
   const router = useRouter();
-  const { path, from, id } = router.query;
+  const { path } = router.query;
   
   const [quizPath, setQuizPath] = useState('');
   const [quizName, setQuizName] = useState('');
@@ -97,25 +97,26 @@ export default function QuizPage() {
       fetchQuizContents(fullPath);
     }
 
-    // Check if we came from MCQ detail page via query params
-    if (from === 'mcq' && id) {
-      setFromMcq(true);
-      setMcqNumber(typeof id === 'string' ? id : id[0]);
-    }
-    // Fallback to referrer check if query params aren't present
-    else {
-      // Check if we came from MCQ detail
-      const referrer = document.referrer;
-      if (referrer.includes('/mcq-detail/')) {
+    // Check sessionStorage for MCQ number
+    if (typeof window !== 'undefined') {
+      const lastMcqNumber = sessionStorage.getItem('lastMcqNumber');
+      if (lastMcqNumber) {
         setFromMcq(true);
-        // Extract MCQ number from referrer
-        const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
-        if (mcqMatch && mcqMatch[1]) {
-          setMcqNumber(mcqMatch[1]);
-        }
+        setMcqNumber(lastMcqNumber);
       }
     }
-  }, [path, fetchQuizContents, from, id]);
+  }, [path, fetchQuizContents]);
+
+  // Function to handle back navigation
+  const handleBackNavigation = () => {
+    if (fromMcq && mcqNumber) {
+      // Clear the sessionStorage when navigating back
+      sessionStorage.removeItem('lastMcqNumber');
+      router.push(`/mcq-detail/${mcqNumber}`);
+    } else {
+      router.push(`/unit/${unitPath}`);
+    }
+  };
 
   if (!path) {
     return null;
@@ -125,19 +126,13 @@ export default function QuizPage() {
     <Layout title={`${quizName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          {fromMcq && mcqNumber ? (
-            <Link href={`/mcq-detail/${mcqNumber}`}>
-              <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> Back to MCQ #{mcqNumber}
-              </a>
-            </Link>
-          ) : (
-            <Link href={`/unit/${unitPath}`}>
-              <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> Back to Unit
-              </a>
-            </Link>
-          )}
+          <button 
+            onClick={handleBackNavigation}
+            className="mac-button inline-flex items-center"
+          >
+            <FaArrowLeft className="mr-2" /> 
+            {fromMcq && mcqNumber ? `Back to MCQ #${mcqNumber}` : 'Back to Unit'}
+          </button>
         </div>
         
         <h1 className="text-3xl font-bold mb-6">{quizName}</h1>

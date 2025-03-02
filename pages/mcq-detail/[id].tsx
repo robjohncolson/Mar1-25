@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import { FaArrowLeft, FaBookOpen, FaLayerGroup } from 'react-icons/fa';
+import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt } from 'react-icons/fa';
 
 // MCQ locations mapping based on the provided data
 const mcqLocations: Record<string, { unit: string; sections: string[] }> = {
@@ -53,8 +53,6 @@ export default function MCQDetail() {
   const { id } = router.query;
   const [mcqNumber, setMcqNumber] = useState<string | null>(null);
   const [mcqData, setMcqData] = useState<{ unit: string; sections: string[] } | null>(null);
-  // Generate a timestamp for cache busting
-  const [timestamp] = useState(() => Date.now());
 
   useEffect(() => {
     if (id && typeof id === 'string') {
@@ -68,6 +66,16 @@ export default function MCQDetail() {
     const hueStep = 360 / 40;
     const hue = (num - 1) * hueStep;
     return `hsl(${hue}, 70%, 80%)`;
+  };
+
+  // Function to handle direct navigation to quiz content
+  const navigateToQuiz = (section: string) => {
+    if (mcqData) {
+      // Store the MCQ number in sessionStorage for back navigation
+      sessionStorage.setItem('lastMcqNumber', mcqNumber || '');
+      // Navigate directly to the quiz page
+      router.push(`/quiz/${mcqData.unit}/${section}`);
+    }
   };
 
   return (
@@ -114,7 +122,7 @@ export default function MCQDetail() {
                 <p className="mb-6 text-center">
                   View the entire unit related to this question.
                 </p>
-                <Link href={`/unit/${mcqData.unit}?from=mcq&id=${mcqNumber}&t=${timestamp}`}>
+                <Link href={`/unit/${mcqData.unit}`}>
                   <a className="mac-button text-lg py-2 px-6 w-full text-center">
                     Go to Unit {mcqData.unit.replace('unit', '')}
                   </a>
@@ -132,11 +140,13 @@ export default function MCQDetail() {
                 </p>
                 <div className="w-full space-y-2">
                   {mcqData.sections.map((section) => (
-                    <Link key={section} href={`/quiz/${mcqData.unit}/${section}?from=mcq&id=${mcqNumber}&t=${timestamp}`}>
-                      <a className="mac-button py-2 px-6 w-full text-center block">
-                        Go to Section {section}
-                      </a>
-                    </Link>
+                    <button 
+                      key={section} 
+                      onClick={() => navigateToQuiz(section)}
+                      className="mac-button py-2 px-6 w-full text-center block"
+                    >
+                      Go to Section {section} <FaExternalLinkAlt className="ml-1 inline-block" />
+                    </button>
                   ))}
                 </div>
               </div>
