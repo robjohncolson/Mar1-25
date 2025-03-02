@@ -19,6 +19,7 @@ export interface Quiz {
   pdfs: PDF[];
   prompts: Prompt[];
   images: Image[];
+  resources?: ExternalResources;
 }
 
 export interface PDF {
@@ -37,6 +38,33 @@ export interface Prompt {
   name: string;
   path: string;
   content: string;
+}
+
+export interface VideoResource {
+  title: string;
+  type: 'youtube' | 'google_drive' | 'other';
+  url: string;
+  description?: string;
+}
+
+export interface PracticeResource {
+  title: string;
+  type: 'blooket' | 'other';
+  url: string;
+  description?: string;
+}
+
+export interface OtherResource {
+  title: string;
+  type: 'schoology' | 'notebooklm' | 'other';
+  url: string;
+  description?: string;
+}
+
+export interface ExternalResources {
+  videos?: VideoResource[];
+  practice?: PracticeResource[];
+  other?: OtherResource[];
 }
 
 // Simple in-memory cache
@@ -248,6 +276,18 @@ export async function getQuizzesForUnit(unitPath: string): Promise<Quiz[]> {
     });
   }
   
+  // Load external resources for each quiz
+  for (const quiz of quizzes) {
+    try {
+      const resources = await getExternalResources(quiz.path);
+      if (resources) {
+        quiz.resources = resources;
+      }
+    } catch (error) {
+      console.error(`Error loading resources for ${quiz.path}:`, error);
+    }
+  }
+  
   return quizzes;
 }
 
@@ -300,5 +340,17 @@ export async function getKnowledgeTree(): Promise<string> {
   } catch (error) {
     console.error('Error fetching knowledge tree:', error);
     return '';
+  }
+}
+
+// Function to get external resources for a quiz
+export async function getExternalResources(quizPath: string): Promise<ExternalResources | null> {
+  try {
+    const resourcesPath = `${quizPath}/resources.json`;
+    const content = await getFileContent(resourcesPath);
+    return JSON.parse(content) as ExternalResources;
+  } catch (error) {
+    // If resources.json doesn't exist, return null
+    return null;
   }
 } 

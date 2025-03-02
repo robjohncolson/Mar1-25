@@ -1,0 +1,30 @@
+{
+  "videos": [
+    {
+      "title": "Section 2-1: Data Collection Methods",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1epQNhpTqA0qMv8ceTpH5IagjDDUlOPC0/view",
+      "description": "Overview of data collection methods and sampling techniques"
+    },
+    {
+      "title": "Section 2-2: Sampling Methods",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/170yFl1LoVYwYZ8a6coNhfQkfkFiHD1gg/view",
+      "description": "Detailed explanation of different sampling methods and their applications"
+    },
+    {
+      "title": "Section 2-3: Experimental Design",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1IZIAXWtHsQfr1o7GZIJ2nnYXaQZt6Xyh/view",
+      "description": "Introduction to experimental design principles and techniques"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 2 (Sections 1-3) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67343678492111e161a79b4d",
+      "description": "Interactive flashcards covering data collection, sampling methods, and experimental design"
+    }
+  ]
+} 

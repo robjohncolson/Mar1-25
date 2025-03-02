@@ -5,8 +5,9 @@ import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import LoadingIndicator from '@/components/LoadingIndicator';
-import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
-import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt, FaListOl } from 'react-icons/fa';
+import ExternalResources from '@/components/ExternalResources';
+import { getDirectoryContents, getFileContent, PDF, Prompt, Image, ExternalResources as ExternalResourcesType } from '@/utils/contentApi';
+import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt, FaListOl, FaVideo, FaGamepad } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -19,6 +20,7 @@ export default function QuizPage() {
   const [pdfs, setPdfs] = useState<PDF[]>([]);
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [images, setImages] = useState<Image[]>([]);
+  const [resources, setResources] = useState<ExternalResourcesType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [fromMcq, setFromMcq] = useState(false);
@@ -111,6 +113,24 @@ export default function QuizPage() {
         }));
       
       setImages(imageFiles);
+      
+      // Check for resources.json
+      const resourcesFile = contents.find(
+        (item) => item.type === 'file' && item.name === 'resources.json'
+      );
+      
+      if (resourcesFile) {
+        try {
+          const resourcesContent = await getFileContent(resourcesFile.path);
+          const resourcesData = JSON.parse(resourcesContent);
+          setResources(resourcesData);
+        } catch (err) {
+          console.error('Error parsing resources.json:', err);
+        }
+      } else {
+        setResources(null);
+      }
+      
       setLoading(false);
     } catch (err: any) {
       console.error('Error fetching quiz contents:', err);
@@ -272,6 +292,23 @@ export default function QuizPage() {
                     <PromptCard key={prompt.path} prompt={prompt} />
                   ))}
                 </div>
+              </div>
+            )}
+            
+            {resources && (
+              (resources.videos && resources.videos.length > 0) || 
+              (resources.practice && resources.practice.length > 0) || 
+              (resources.other && resources.other.length > 0)
+            ) && (
+              <div className="mac-window p-4 mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                  <FaVideo className="mr-2 text-mac-white" /> <span className="text-mac-white">External Resources</span>
+                </h2>
+                <ExternalResources 
+                  videos={resources.videos} 
+                  practice={resources.practice}
+                  other={resources.other}
+                />
               </div>
             )}
             

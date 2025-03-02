@@ -1,0 +1,30 @@
+{
+  "videos": [
+    {
+      "title": "Binomial Probability Distribution",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1example-link-for-binomial-distribution",
+      "description": "Learn about binomial probability distributions and their applications"
+    },
+    {
+      "title": "Geometric Probability Distribution",
+      "type": "youtube",
+      "url": "https://youtube.com/watch?v=example-geometric-distribution",
+      "description": "Detailed explanation of geometric probability distributions with real-world examples"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Binomial Distribution Quiz",
+      "type": "blooket",
+      "url": "https://play.blooket.com/play?id=example-binomial-quiz",
+      "description": "Test your understanding of binomial probability distributions"
+    },
+    {
+      "title": "Probability Distributions Challenge",
+      "type": "blooket",
+      "url": "https://play.blooket.com/play?id=example-probability-challenge",
+      "description": "Comprehensive review of all probability distribution types"
+    }
+  ]
+} 

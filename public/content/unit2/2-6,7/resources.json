@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Section 2-6: Part 1 - Experimental Design Principles",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1O_VPIl1W7TNAOi2wWNs0Uphbw11Mlagj/view",
+      "description": "Introduction to key principles of experimental design"
+    },
+    {
+      "title": "Section 2-6: Part 2 - Control Groups and Randomization",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1_NOitEc1RuIwOgfx9lWcjOkq5yDdXToa/view",
+      "description": "Understanding control groups and randomization in experiments"
+    },
+    {
+      "title": "Section 2-7: Part 1 - Blocking and Replication",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1bk2KcUGXtM_uqBiv4IHwiXImazzX8S0k/view",
+      "description": "Detailed explanation of blocking and replication techniques"
+    },
+    {
+      "title": "Section 2-7: Part 2 - Advanced Experimental Design",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1UjY1FF2ztFtcT5tk6brklCxRanMhFmOf/view",
+      "description": "Advanced concepts in experimental design and analysis"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 2 (Sections 6-7) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67355804d6a759c9bfae9c50",
+      "description": "Interactive flashcards covering experimental design principles"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 2 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=870273265",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

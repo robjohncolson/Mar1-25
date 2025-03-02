@@ -2,14 +2,13 @@
 
 A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a local directory structure, making it easy to update and maintain.
 
-## Latest Release - v1.0.0 (March 2, 2025)
+## Latest Release - v2.0.0 (March 10, 2025)
 
-This initial release includes:
-- Complete navigation system for AP Statistics content
-- MCQ navigation for all 40 questions from the 2017 AP Exam
-- QR codes for easy sharing of all pages
-- Mobile-friendly responsive design
-- Improved error handling for missing content
+This release adds external multimedia resources:
+- Google Drive video links for educational content
+- YouTube video integration for supplementary learning
+- Blooket flashcard game links for interactive practice
+- Enhanced content organization and display
 
 See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 
@@ -21,6 +20,7 @@ See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 - AI tutor prompts
 - Knowledge tree visualization
 - QR code generation for sharing
+- External multimedia resources (videos and practice games)
 
 ## Deployment Instructions
 
@@ -94,8 +94,47 @@ The application uses Next.js API routes to serve content from the `public/conten
 - `pages/`: Next.js pages and API routes
 - `components/`: React components
 - `utils/`: Utility functions
-- `public/content/`: AP Statistics resources (PDFs, prompts, images)
+- `public/content/`: AP Statistics resources (PDFs, prompts, images, resources.json)
 - `public/`: Other static assets
+
+## External Resources
+
+The application supports external resources for each quiz section. To add external resources:
+
+1. Create a `resources.json` file in the quiz section directory:
+   ```
+   public/content/unit3/3-1,2,3/resources.json
+   ```
+
+2. Use the following format for the resources.json file:
+   ```json
+   {
+     "videos": [
+       {
+         "title": "Video Title",
+         "type": "youtube",
+         "url": "https://youtube.com/watch?v=example",
+         "description": "Description of the video"
+       },
+       {
+         "title": "Another Video",
+         "type": "google_drive",
+         "url": "https://drive.google.com/file/d/example",
+         "description": "Description of the video"
+       }
+     ],
+     "practice": [
+       {
+         "title": "Practice Game",
+         "type": "blooket",
+         "url": "https://play.blooket.com/play?id=example",
+         "description": "Description of the practice activity"
+       }
+     ]
+   }
+   ```
+
+3. The resources will automatically appear in the quiz page.
 
 ## Customization
 

@@ -1,0 +1,30 @@
+{
+  "videos": [
+    {
+      "title": "Understanding Probability Distributions",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1example-link-for-probability-distributions",
+      "description": "Comprehensive overview of probability distributions covered in section 3-1"
+    },
+    {
+      "title": "Normal Distribution Explained",
+      "type": "youtube",
+      "url": "https://youtube.com/watch?v=example-normal-distribution",
+      "description": "Visual explanation of normal distribution concepts with examples"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Probability Distributions Flashcards",
+      "type": "blooket",
+      "url": "https://play.blooket.com/play?id=example-probability-blooket",
+      "description": "Test your knowledge of probability distributions with these interactive flashcards"
+    },
+    {
+      "title": "Normal Distribution Practice",
+      "type": "blooket",
+      "url": "https://play.blooket.com/play?id=example-normal-distribution-practice",
+      "description": "Practice problems on normal distribution concepts"
+    }
+  ]
+} 

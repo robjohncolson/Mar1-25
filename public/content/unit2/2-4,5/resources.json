@@ -1,0 +1,36 @@
+{
+  "videos": [
+    {
+      "title": "Section 2-4: Part 1 - Observational Studies",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1RCEtVGX87UjgbneQqQKc5rNYhAQb4jPS/view",
+      "description": "Introduction to observational studies and their characteristics"
+    },
+    {
+      "title": "Section 2-4: Part 2 - Observational vs. Experimental Studies",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1ZpPac1ofe4Bot2yrLgwLPvSHdMUHvK4J/view",
+      "description": "Comparing observational and experimental studies with examples"
+    },
+    {
+      "title": "Section 2-5: Part 1 - Sampling Bias",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1UnF2HFBgzzgj7M7_SIxhzJxrWiQQ7Itm/view",
+      "description": "Understanding sampling bias and its impact on statistical studies"
+    },
+    {
+      "title": "Section 2-5: Part 2 - Types of Bias",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1bruU9uiAYPWgWIv7cnRvDPPxGLKXMVSU/view",
+      "description": "Detailed explanation of different types of bias in statistical studies"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 2 (Sections 4-5) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/673435f1492111e161a79b42",
+      "description": "Interactive flashcards covering observational studies and sampling bias"
+    }
+  ]
+} 

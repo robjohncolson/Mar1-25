@@ -2,6 +2,38 @@
 
 All notable changes to the AP Statistics Hub will be documented in this file.
 
+## [2.1.0] - 2025-03-15
+
+### Added
+- Support for Schoology links to connect with the official learning management system
+- Support for NotebookLM links for interactive learning experiences
+- "Additional Resources" section for non-video, non-practice resources
+- Real content for Unit 1 and Unit 2 sections with videos and practice materials
+
+### Changed
+- Enhanced ExternalResources component to support more resource types
+- Improved resource type detection and icon display
+- Updated content API to handle optional resource categories
+
+## [2.0.0] - 2025-03-10
+
+### Added
+- External resources support for each quiz section
+- Google Drive video links for educational content
+- YouTube video integration for supplementary learning
+- Blooket flashcard game links for interactive practice
+- New ExternalResources component for displaying multimedia content
+- Sample resources for Unit 3 sections
+
+### Changed
+- Enhanced content API to support external resources
+- Updated quiz page layout to display external resources
+- Improved error handling for resource loading
+
+### Technical
+- Added new interfaces for video and practice resources
+- Implemented JSON-based resource configuration
+
 ## [1.0.0] - 2025-03-02
 
 ### Added
