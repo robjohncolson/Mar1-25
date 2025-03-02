@@ -7,7 +7,7 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import ExternalResources from '@/components/ExternalResources';
 import { getDirectoryContents, getFileContent, PDF, Prompt, Image, ExternalResources as ExternalResourcesType } from '@/utils/contentApi';
-import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt, FaListOl, FaVideo, FaGamepad } from 'react-icons/fa';
+import { FaArrowLeft, FaImage, FaFilePdf, FaRobot, FaExternalLinkAlt, FaListOl, FaVideo, FaGamepad, FaBook } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -196,7 +196,7 @@ export default function QuizPage() {
   return (
     <Layout title={`${quizName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
+        <div className="mb-6 flex flex-wrap gap-2">
           <button 
             onClick={handleBackNavigation}
             className="mac-button inline-flex items-center"
@@ -204,6 +204,14 @@ export default function QuizPage() {
             <FaArrowLeft className="mr-2" /> 
             {fromMcq && mcqNumber ? `Back to MCQ #${mcqNumber}` : 'Back to Unit'}
           </button>
+          
+          {fromMcq && mcqNumber && (
+            <Link href={`/unit/${unitPath}`}>
+              <a className="mac-button inline-flex items-center">
+                <FaBook className="mr-2" /> Up to Unit {unitPath.replace('unit', '')}
+              </a>
+            </Link>
+          )}
         </div>
         
         <h1 className="text-3xl font-bold mb-6">{quizName}</h1>

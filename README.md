@@ -2,13 +2,12 @@
 
 A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a local directory structure, making it easy to update and maintain.
 
-## Latest Release - v2.2.0 (March 20, 2025)
+## Latest Release - v2.2.1 (March 22, 2025)
 
-This release improves content organization:
-- Separate sections for AI content and multimedia resources
-- Color-coded cards for different content types
-- Improved visual hierarchy with clear section headers
-- Reduced confusion between overlapping section numbers
+This release improves navigation:
+- Added "Up to Unit" navigation option on quiz pages when coming from MCQs
+- Enhanced navigation flow between MCQs, quizzes, and unit pages
+- Better access to all unit resources from any context
 
 See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 
@@ -22,6 +21,7 @@ See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 - QR code generation for sharing
 - External multimedia resources (videos and practice games)
 - Organized content by type (AI vs. multimedia)
+- Intuitive navigation between related content
 
 ## Deployment Instructions
 

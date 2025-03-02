@@ -2,6 +2,16 @@
 
 All notable changes to the AP Statistics Hub will be documented in this file.
 
+## [2.2.1] - 2025-03-22
+
+### Added
+- "Up to Unit" navigation option on quiz pages when coming from MCQ pages
+- Improved navigation flow to allow users to easily access all unit resources
+
+### Changed
+- Enhanced quiz page navigation with multiple navigation options
+- Better user experience when navigating between MCQs, quizzes, and unit pages
+
 ## [2.2.0] - 2025-03-20
 
 ### Added
