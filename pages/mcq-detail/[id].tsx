@@ -137,7 +137,7 @@ export default function MCQDetail() {
                     View the entire unit related to this question.
                   </p>
                   <Link href={`/unit/${mcqData.unit}`}>
-                    <a className="mac-button text-lg py-2 px-6 w-full text-center">
+                    <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                       Go to Unit {mcqData.unit.replace('unit', '')}
                     </a>
                   </Link>
@@ -157,9 +157,9 @@ export default function MCQDetail() {
                       <button 
                         key={section} 
                         onClick={() => navigateToQuiz(section)}
-                        className="mac-button py-2 px-6 w-full text-center block"
+                        className="mac-button py-2 px-6 w-full text-center block whitespace-normal h-auto min-h-[48px] flex items-center justify-center"
                       >
-                        Go to Section {section} <FaExternalLinkAlt className="ml-1 inline-block" />
+                        Go to Section {section} <FaExternalLinkAlt className="ml-1 inline-block flex-shrink-0" />
                       </button>
                     ))}
                   </div>

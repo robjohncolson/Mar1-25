@@ -43,7 +43,7 @@ export default function ExamNavigation() {
                 Navigate through the 40 multiple choice questions from the AP Statistics Exam.
               </p>
               <Link href="/mcq-navigation">
-                <a className="mac-button text-lg py-2 px-6 w-full text-center">
+                <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                   Explore MCQs
                 </a>
               </Link>
@@ -60,7 +60,7 @@ export default function ExamNavigation() {
               </p>
               <div className="w-full">
                 <Link href="/frq-navigation">
-                  <a className="mac-button text-lg py-2 px-6 w-full text-center opacity-50 cursor-not-allowed" 
+                  <a className="mac-button text-lg py-2 px-6 w-full text-center opacity-50 cursor-not-allowed whitespace-normal h-auto min-h-[48px] flex items-center justify-center" 
                      onClick={(e) => e.preventDefault()}>
                     Explore FRQs (Coming Soon)
                   </a>

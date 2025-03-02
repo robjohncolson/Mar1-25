@@ -30,7 +30,7 @@ export default function LandingPage() {
                   Browse all units, sections, and resources organized by topic.
                 </p>
                 <Link href="/content-home">
-                  <a className="mac-button text-lg py-2 px-6 w-full text-center">
+                  <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                     View Table of Contents
                   </a>
                 </Link>
@@ -46,7 +46,7 @@ export default function LandingPage() {
                   Navigate content through AP Exam questions (MCQs and FRQs).
                 </p>
                 <Link href="/exam-navigation">
-                  <a className="mac-button text-lg py-2 px-6 w-full text-center">
+                  <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                     Explore by Exam Questions
                   </a>
                 </Link>
