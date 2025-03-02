@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt } from 'react-icons/fa';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 // MCQ locations mapping based on the provided data
 const mcqLocations: Record<string, { unit: string; sections: string[] }> = {
@@ -114,60 +115,66 @@ export default function MCQDetail() {
             <p>Loading MCQ data or MCQ not found...</p>
           </div>
         ) : (
-          <div className="mac-window p-4 mb-8">
-            <div className="mac-header p-2 mb-4">
-              <h2 className="text-xl font-bold text-mac-white">Navigation Options</h2>
-            </div>
-            
-            <p className="mb-6">
-              This multiple choice question is associated with the following unit and sections.
-              Choose how you'd like to explore this content:
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-              <div className="mac-window p-4 flex flex-col items-center">
-                <div className="mac-header p-2 w-full mb-4">
-                  <h3 className="text-lg font-bold text-mac-white flex items-center">
-                    <FaLayerGroup className="mr-2" /> Unit
-                  </h3>
-                </div>
-                <p className="mb-6 text-center">
-                  View the entire unit related to this question.
-                </p>
-                <Link href={`/unit/${mcqData.unit}`}>
-                  <a className="mac-button text-lg py-2 px-6 w-full text-center">
-                    Go to Unit {mcqData.unit.replace('unit', '')}
-                  </a>
-                </Link>
+          <>
+            <div className="mac-window p-4 mb-8">
+              <div className="mac-header p-2 mb-4">
+                <h2 className="text-xl font-bold text-mac-white">Navigation Options</h2>
               </div>
               
-              <div className="mac-window p-4 flex flex-col items-center">
-                <div className="mac-header p-2 w-full mb-4">
-                  <h3 className="text-lg font-bold text-mac-white flex items-center">
-                    <FaBookOpen className="mr-2" /> Sections
-                  </h3>
+              <p className="mb-6">
+                This multiple choice question is associated with the following unit and sections.
+                Choose how you'd like to explore this content:
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div className="mac-window p-4 flex flex-col items-center">
+                  <div className="mac-header p-2 w-full mb-4">
+                    <h3 className="text-lg font-bold text-mac-white flex items-center">
+                      <FaLayerGroup className="mr-2" /> Unit
+                    </h3>
+                  </div>
+                  <p className="mb-6 text-center">
+                    View the entire unit related to this question.
+                  </p>
+                  <Link href={`/unit/${mcqData.unit}`}>
+                    <a className="mac-button text-lg py-2 px-6 w-full text-center">
+                      Go to Unit {mcqData.unit.replace('unit', '')}
+                    </a>
+                  </Link>
                 </div>
-                <p className="mb-6 text-center">
-                  View specific sections related to this question.
-                </p>
-                <div className="w-full space-y-2">
-                  {mcqData.sections.map((section) => (
-                    <button 
-                      key={section} 
-                      onClick={() => navigateToQuiz(section)}
-                      className="mac-button py-2 px-6 w-full text-center block"
-                    >
-                      Go to Section {section} <FaExternalLinkAlt className="ml-1 inline-block" />
-                    </button>
-                  ))}
+                
+                <div className="mac-window p-4 flex flex-col items-center">
+                  <div className="mac-header p-2 w-full mb-4">
+                    <h3 className="text-lg font-bold text-mac-white flex items-center">
+                      <FaBookOpen className="mr-2" /> Sections
+                    </h3>
+                  </div>
+                  <p className="mb-6 text-center">
+                    View specific sections related to this question.
+                  </p>
+                  <div className="w-full space-y-2">
+                    {mcqData.sections.map((section) => (
+                      <button 
+                        key={section} 
+                        onClick={() => navigateToQuiz(section)}
+                        className="mac-button py-2 px-6 w-full text-center block"
+                      >
+                        Go to Section {section} <FaExternalLinkAlt className="ml-1 inline-block" />
+                      </button>
+                    ))}
+                  </div>
+                  <p className="mt-4 text-sm text-gray-600 text-center">
+                    Note: Some sections may still be under development. If a section appears empty, 
+                    please try another section or return to the unit page.
+                  </p>
                 </div>
-                <p className="mt-4 text-sm text-gray-600 text-center">
-                  Note: Some sections may still be under development. If a section appears empty, 
-                  please try another section or return to the unit page.
-                </p>
               </div>
             </div>
-          </div>
+            
+            <div className="mac-window p-4 mt-8">
+              <QRCodeGenerator url={`/mcq-detail/${mcqNumber}`} title={`MCQ #${mcqNumber}`} />
+            </div>
+          </>
         )}
       </div>
     </Layout>

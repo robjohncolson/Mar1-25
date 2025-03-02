@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaGraduationCap, FaBookOpen, FaClipboardCheck } from 'react-icons/fa';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 export default function LandingPage() {
   return (
@@ -52,6 +53,10 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="mac-window p-4 mt-4 w-full">
+          <QRCodeGenerator url="/" title="AP Statistics Hub" />
         </div>
       </div>
     </Layout>

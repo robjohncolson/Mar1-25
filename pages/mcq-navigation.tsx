@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaListOl } from 'react-icons/fa';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 // Generate 40 pastel colors for the MCQ buttons
 const generatePastelColors = (count: number) => {
@@ -158,6 +159,10 @@ export default function MCQNavigation() {
               </div>
             ))}
           </div>
+        </div>
+        
+        <div className="mac-window p-4 mt-8">
+          <QRCodeGenerator url="/mcq-navigation" title="MCQ Navigation" />
         </div>
       </div>
     </Layout>

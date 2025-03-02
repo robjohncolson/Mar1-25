@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaClipboardCheck, FaListOl, FaPencilAlt } from 'react-icons/fa';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 export default function ExamNavigation() {
   return (
@@ -68,6 +69,10 @@ export default function ExamNavigation() {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="mac-window p-4 mt-8">
+          <QRCodeGenerator url="/exam-navigation" title="Exam Navigation" />
         </div>
       </div>
     </Layout>
