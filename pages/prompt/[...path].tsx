@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import { getFileContent } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaRobot } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function PromptPage() {
@@ -10,6 +12,7 @@ export default function PromptPage() {
   const { path } = router.query;
   
   const [promptContent, setPromptContent] = useState<string>('');
+  const [promptPath, setPromptPath] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,8 +22,9 @@ export default function PromptPage() {
       
       try {
         // Convert path array to string with slashes
-        const promptPath = Array.isArray(path) ? path.join('/') : path;
-        const content = await getFileContent(promptPath);
+        const fullPath = Array.isArray(path) ? path.join('/') : path;
+        setPromptPath(fullPath);
+        const content = await getFileContent(fullPath);
         setPromptContent(content);
         setLoading(false);
       } catch (err) {
@@ -41,27 +45,35 @@ export default function PromptPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <Link href="/">
-            <a className="text-blue-600 hover:underline flex items-center">
+            <a className="mac-button inline-flex items-center">
               <FaArrowLeft className="mr-2" /> Back to Home
             </a>
           </Link>
         </div>
         
-        <h1 className="text-3xl font-bold mb-6">{filename}</h1>
+        <div className="mac-window p-4 mb-6">
+          <h1 className="text-2xl font-bold mb-0 flex items-center mac-header p-2">
+            <FaRobot className="mr-2 text-mac-white" /> <span className="text-mac-white">{filename}</span>
+          </h1>
+        </div>
         
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-blue-600 text-4xl" />
-          </div>
+          <LoadingIndicator message="Loading prompt content..." />
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}
           </div>
         ) : (
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <div className="prose prose-lg max-w-none whitespace-pre-wrap">
+          <div className="mac-window p-4">
+            <div className="whitespace-pre-wrap font-mac">
               {promptContent}
             </div>
+          </div>
+        )}
+        
+        {!loading && !error && (
+          <div className="mac-window p-4 mt-8">
+            <QRCodeGenerator url={`/prompt/${promptPath}`} title={filename} />
           </div>
         )}
       </div>

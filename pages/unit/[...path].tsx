@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import QuizCard from '@/components/QuizCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import { getQuizzesForUnit, Quiz } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft, FaBook } from 'react-icons/fa';
+import { FaArrowLeft, FaBook } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function UnitPage() {
@@ -68,9 +69,7 @@ export default function UnitPage() {
         </div>
         
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-mac-black text-4xl" />
-          </div>
+          <LoadingIndicator message="Loading unit contents..." />
         ) : error ? (
           <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}

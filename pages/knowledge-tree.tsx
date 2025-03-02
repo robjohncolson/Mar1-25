@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
+import LoadingIndicator from '@/components/LoadingIndicator';
 import { getKnowledgeTree } from '@/utils/contentApi';
-import { FaSpinner, FaTree } from 'react-icons/fa';
+import { FaTree, FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function KnowledgeTree() {
@@ -28,26 +30,29 @@ export default function KnowledgeTree() {
   return (
     <Layout title="AP Statistics Hub - Knowledge Tree">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center mb-6">
+        <div className="mb-6">
           <Link href="/">
-            <a className="text-blue-600 hover:underline mr-4">← Back to Home</a>
+            <a className="mac-button inline-flex items-center">
+              <FaArrowLeft className="mr-2" /> Back to Home
+            </a>
           </Link>
-          <h1 className="text-3xl font-bold flex items-center">
-            <FaTree className="mr-2" /> AP Statistics Knowledge Tree
+        </div>
+
+        <div className="mac-window p-4 mb-6">
+          <h1 className="text-2xl font-bold mb-0 flex items-center mac-header p-2">
+            <FaTree className="mr-2 text-mac-white" /> <span className="text-mac-white">AP Statistics Knowledge Tree</span>
           </h1>
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-blue-600 text-4xl" />
-          </div>
+          <LoadingIndicator message="Loading knowledge tree..." />
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}
           </div>
         ) : (
-          <div className="bg-white shadow-md rounded-lg p-6">
-            <div className="prose prose-lg max-w-none">
+          <div className="mac-window p-4">
+            <div className="font-mac">
               {knowledgeTree.split('\n').map((line, index) => {
                 // Check if line is a heading
                 if (line.startsWith('#')) {
@@ -58,9 +63,9 @@ export default function KnowledgeTree() {
                   const text = line.replace(/^#+\s*/, '');
                   
                   if (level === 1) {
-                    return <h1 key={index} className="text-2xl font-bold mt-6 mb-4">{text}</h1>;
+                    return <h1 key={index} className="text-2xl font-bold mt-6 mb-4 mac-header p-2 text-mac-white">{text}</h1>;
                   } else if (level === 2) {
-                    return <h2 key={index} className="text-xl font-bold mt-5 mb-3">{text}</h2>;
+                    return <h2 key={index} className="text-xl font-bold mt-5 mb-3 mac-header p-1 text-mac-white">{text}</h2>;
                   } else {
                     return <h3 key={index} className="text-lg font-bold mt-4 mb-2">{text}</h3>;
                   }
@@ -103,6 +108,12 @@ export default function KnowledgeTree() {
                 return <p key={index} className="my-2">{line}</p>;
               })}
             </div>
+          </div>
+        )}
+        
+        {!loading && !error && (
+          <div className="mac-window p-4 mt-8">
+            <QRCodeGenerator url="/knowledge-tree" title="AP Statistics Knowledge Tree" />
           </div>
         )}
       </div>

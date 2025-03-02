@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FaFileAlt, FaImage, FaBook } from 'react-icons/fa';
-import { Quiz } from '@/utils/github';
+import { Quiz } from '@/utils/contentApi';
 
 interface QuizCardProps {
   quiz: Quiz;

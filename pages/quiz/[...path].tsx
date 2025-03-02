@@ -107,7 +107,7 @@ export default function QuizPage() {
     <Layout title={`${quizName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <Link href={`/unit/${unitPath}`}>
+          <Link href={unitPath ? `/unit/${unitPath.split('/')[0]}` : '/'}>
             <a className="mac-button inline-flex items-center">
               <FaArrowLeft className="mr-2" /> Back to Unit
             </a>
