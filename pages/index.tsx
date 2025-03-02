@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
 import { getAllUnits, getAPExamContent, getKnowledgeTree, Unit } from '@/utils/contentApi';
-import { FaSpinner, FaFileAlt, FaTree, FaBookOpen, FaImage } from 'react-icons/fa';
+import { FaSpinner, FaFileAlt, FaTree, FaBookOpen, FaImage, FaGraduationCap } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function Home() {
@@ -43,31 +43,35 @@ export default function Home() {
   return (
     <Layout title="AP Statistics Hub - Home">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">AP Statistics Resources</h1>
+        <div className="mac-window p-4 mb-6">
+          <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
+            <FaGraduationCap className="mr-2 text-mac-white" /> <span className="text-mac-white">AP Statistics Resources</span>
+          </h1>
+        </div>
         
         <HowToUse />
         
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-blue-600 text-4xl" />
+            <FaSpinner className="animate-spin text-mac-black text-4xl" />
           </div>
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}
           </div>
         ) : (
           <>
             {/* AP Exam Section */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold mb-4 flex items-center">
-                <FaFileAlt className="mr-2" /> 2017 AP Exam
+            <div className="mac-window p-4 mb-8">
+              <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                <FaFileAlt className="mr-2 text-mac-white" /> <span className="text-mac-white">2017 AP Exam</span>
               </h2>
               {apExam && (
-                <div className="bg-white shadow-md rounded-lg p-4">
+                <div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {apExam.pdfs.length > 0 && (
-                      <div>
-                        <h3 className="font-semibold mb-2">PDFs</h3>
+                      <div className="mac-window p-3">
+                        <h3 className="font-semibold mb-2 mac-header p-1 text-mac-white">PDFs</h3>
                         <ul className="space-y-2">
                           {apExam.pdfs.map((pdf) => (
                             <li key={pdf.path}>
@@ -75,7 +79,7 @@ export default function Home() {
                                 href={pdf.download_url} 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:underline flex items-center"
+                                className="mac-button inline-flex items-center w-full"
                               >
                                 <FaFileAlt className="mr-2" /> {pdf.name}
                               </a>
@@ -86,13 +90,13 @@ export default function Home() {
                     )}
                     
                     {apExam.prompts.length > 0 && (
-                      <div>
-                        <h3 className="font-semibold mb-2">Prompts</h3>
+                      <div className="mac-window p-3">
+                        <h3 className="font-semibold mb-2 mac-header p-1 text-mac-white">Prompts</h3>
                         <ul className="space-y-2">
                           {apExam.prompts.map((prompt) => (
                             <li key={prompt.path}>
                               <Link href={`/prompt/${encodeURIComponent(prompt.path)}`}>
-                                <a className="text-blue-600 hover:underline flex items-center">
+                                <a className="mac-button inline-flex items-center w-full">
                                   <FaBookOpen className="mr-2" /> {prompt.name}
                                 </a>
                               </Link>
@@ -105,10 +109,10 @@ export default function Home() {
                   
                   {apExam.images.length > 0 && (
                     <div className="mt-4">
-                      <h3 className="font-semibold mb-2">Images</h3>
+                      <h3 className="font-semibold mb-2 mac-header p-1 text-mac-white">Images</h3>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         {apExam.images.map((image) => (
-                          <div key={image.path} className="border rounded p-2">
+                          <div key={image.path} className="mac-window p-2">
                             <a 
                               href={image.download_url} 
                               target="_blank" 
@@ -117,7 +121,7 @@ export default function Home() {
                               <img 
                                 src={image.download_url} 
                                 alt={image.name} 
-                                className="w-full h-auto"
+                                className="w-full h-auto border border-mac-border"
                               />
                               <p className="text-sm text-center mt-1 truncate">{image.name}</p>
                             </a>
@@ -132,13 +136,13 @@ export default function Home() {
             
             {/* Knowledge Tree Section */}
             {knowledgeTree && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center">
-                  <FaTree className="mr-2" /> Knowledge Tree
+              <div className="mac-window p-4 mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                  <FaTree className="mr-2 text-mac-white" /> <span className="text-mac-white">Knowledge Tree</span>
                 </h2>
-                <div className="bg-white shadow-md rounded-lg p-4">
+                <div>
                   <Link href="/knowledge-tree">
-                    <a className="text-blue-600 hover:underline flex items-center">
+                    <a className="mac-button inline-flex items-center">
                       <FaTree className="mr-2" /> View AP Statistics Knowledge Tree
                     </a>
                   </Link>
@@ -147,11 +151,15 @@ export default function Home() {
             )}
             
             {/* Units Section */}
-            <h2 className="text-2xl font-bold mb-4">Units</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {units.map((unit) => (
-                <UnitCard key={unit.path} unit={unit} />
-              ))}
+            <div className="mac-window p-4 mb-8">
+              <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                <FaBookOpen className="mr-2 text-mac-white" /> <span className="text-mac-white">Units</span>
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {units.map((unit) => (
+                  <UnitCard key={unit.path} unit={unit} />
+                ))}
+              </div>
             </div>
           </>
         )}

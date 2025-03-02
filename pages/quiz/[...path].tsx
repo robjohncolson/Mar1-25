@@ -5,7 +5,7 @@ import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import { getDirectoryContents, getFileContent, PDF, Prompt, Image } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft, FaImage } from 'react-icons/fa';
+import { FaSpinner, FaArrowLeft, FaImage, FaFilePdf, FaRobot } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -107,7 +107,7 @@ export default function QuizPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <Link href={`/unit/${unitPath}`}>
-            <a className="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <a className="mac-button inline-flex items-center">
               <FaArrowLeft className="mr-2" /> Back to Unit
             </a>
           </Link>
@@ -117,22 +117,22 @@ export default function QuizPage() {
         
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-blue-600 text-4xl" />
+            <FaSpinner className="animate-spin text-mac-black text-4xl" />
           </div>
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}
           </div>
         ) : (
           <>
             {images.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4 flex items-center">
-                  <FaImage className="mr-2" /> Images
+              <div className="mac-window p-4 mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                  <FaImage className="mr-2 text-mac-white" /> <span className="text-mac-white">Images</span>
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {images.map((image) => (
-                    <div key={image.path} className="border rounded p-2">
+                    <div key={image.path} className="mac-window p-2">
                       <a 
                         href={image.download_url} 
                         target="_blank" 
@@ -141,7 +141,7 @@ export default function QuizPage() {
                         <img 
                           src={image.download_url} 
                           alt={image.name} 
-                          className="w-full h-auto"
+                          className="w-full h-auto border border-mac-border"
                         />
                         <p className="text-sm text-center mt-1 truncate">{image.name}</p>
                       </a>
@@ -152,8 +152,10 @@ export default function QuizPage() {
             )}
             
             {pdfs.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">PDF Resources</h2>
+              <div className="mac-window p-4 mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                  <FaFilePdf className="mr-2 text-mac-white" /> <span className="text-mac-white">PDF Resources</span>
+                </h2>
                 <div className="space-y-3">
                   {pdfs.map((pdf) => (
                     <PDFCard key={pdf.path} pdf={pdf} />
@@ -163,8 +165,10 @@ export default function QuizPage() {
             )}
             
             {prompts.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-2xl font-bold mb-4">AI Tutor Prompts</h2>
+              <div className="mac-window p-4 mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center mac-header p-2">
+                  <FaRobot className="mr-2 text-mac-white" /> <span className="text-mac-white">AI Tutor Prompts</span>
+                </h2>
                 <div className="space-y-6">
                   {prompts.map((prompt) => (
                     <PromptCard key={prompt.path} prompt={prompt} />
@@ -173,7 +177,7 @@ export default function QuizPage() {
               </div>
             )}
             
-            <div className="mt-8">
+            <div className="mac-window p-4 mt-8">
               <QRCodeGenerator url={`/quiz/${quizPath}`} title={quizName} />
             </div>
           </>

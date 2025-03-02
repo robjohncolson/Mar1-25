@@ -7,17 +7,17 @@ interface PDFCardProps {
 
 export default function PDFCard({ pdf }: PDFCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex justify-between items-center">
+    <div className="mac-window p-4 flex justify-between items-center mb-3">
       <div className="flex items-center">
-        <FaFilePdf className="text-red-500 text-2xl mr-3" />
+        <FaFilePdf className="text-mac-black text-2xl mr-3" />
         <span className="font-medium">{pdf.name}</span>
       </div>
       <a 
         href={pdf.download_url} 
         download
-        className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded flex items-center"
+        className="mac-button"
       >
-        <FaDownload className="mr-2" /> Download
+        <FaDownload className="mr-2 inline-block" /> Download
       </a>
     </div>
   );

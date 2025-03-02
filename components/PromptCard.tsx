@@ -16,31 +16,27 @@ export default function PromptCard({ prompt }: PromptCardProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-4">
+    <div className="mac-window p-4 mb-4">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-medium flex items-center">
-          <FaFileAlt className="text-blue-500 mr-2" /> {prompt.name}
+          <FaFileAlt className="text-mac-black mr-2" /> {prompt.name}
         </h3>
         <button
           onClick={copyToClipboard}
-          className={`flex items-center py-2 px-4 rounded ${
-            copied 
-              ? 'bg-green-600 hover:bg-green-700' 
-              : 'bg-blue-600 hover:bg-blue-700'
-          } text-white transition-colors duration-200`}
+          className="mac-button"
         >
           {copied ? (
             <>
-              <FaCheck className="mr-2" /> Copied!
+              <FaCheck className="mr-2 inline-block" /> Copied!
             </>
           ) : (
             <>
-              <FaCopy className="mr-2" /> Copy Prompt
+              <FaCopy className="mr-2 inline-block" /> Copy Prompt
             </>
           )}
         </button>
       </div>
-      <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-md overflow-auto max-h-64">
+      <div className="bg-mac-white border border-mac-border shadow-mac-inset p-4 overflow-auto max-h-64">
         <pre className="whitespace-pre-wrap text-sm">{prompt.content}</pre>
       </div>
       <div className="mt-4">
@@ -48,7 +44,7 @@ export default function PromptCard({ prompt }: PromptCardProps) {
           href="https://grok.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded inline-flex items-center"
+          className="mac-button inline-block"
         >
           Open in Grok
         </a>

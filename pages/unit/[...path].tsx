@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import QuizCard from '@/components/QuizCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import { getQuizzesForUnit, Quiz } from '@/utils/contentApi';
-import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
+import { FaSpinner, FaArrowLeft, FaBook } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function UnitPage() {
@@ -55,20 +55,24 @@ export default function UnitPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <Link href="/">
-            <a className="inline-flex items-center text-blue-600 hover:text-blue-800">
+            <a className="mac-button inline-flex items-center">
               <FaArrowLeft className="mr-2" /> Back to Units
             </a>
           </Link>
         </div>
         
-        <h1 className="text-3xl font-bold mb-6">{unitName}</h1>
+        <div className="mac-window p-4 mb-6">
+          <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
+            <FaBook className="mr-2 text-mac-white" /> <span className="text-mac-white">{unitName}</span>
+          </h1>
+        </div>
         
         {loading ? (
           <div className="flex justify-center items-center py-12">
-            <FaSpinner className="animate-spin text-blue-600 text-4xl" />
+            <FaSpinner className="animate-spin text-mac-black text-4xl" />
           </div>
         ) : error ? (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          <div className="mac-window p-4 border-mac-border text-mac-black">
             {error}
           </div>
         ) : (
@@ -79,7 +83,7 @@ export default function UnitPage() {
               ))}
             </div>
             
-            <div className="mt-8">
+            <div className="mac-window p-4 mt-8">
               <QRCodeGenerator url={`/unit/${unitPath}`} title={unitName} />
             </div>
           </>

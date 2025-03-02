@@ -2,12 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chicago font for Mac OS 6 look */
+@font-face {
+  font-family: 'Chicago';
+  src: url('https://cdn.jsdelivr.net/gh/virtualgeoff/chicago@master/ChicagoFLF.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/virtualgeoff/chicago@master/ChicagoFLF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Chicago', Monaco, 'Courier New', monospace;
+  background-color: #DDDDDD; /* Mac OS 6 light gray background */
+  color: #000000;
 }
 
 a {
@@ -19,12 +30,36 @@ a {
   box-sizing: border-box;
 }
 
+/* Mac OS 6 style components */
+@layer components {
+  .mac-window {
+    @apply bg-mac-white border-2 border-mac-border shadow-mac rounded-none;
+  }
+  
+  .mac-button {
+    @apply bg-mac-white border border-mac-border shadow-mac rounded-none px-4 py-1 font-mac text-center cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none;
+  }
+  
+  .mac-input {
+    @apply bg-mac-white border border-mac-border shadow-mac-inset rounded-none px-2 py-1 font-mac;
+  }
+  
+  .mac-header {
+    @apply bg-mac-black text-mac-white font-mac px-2 py-1 flex items-center justify-between;
+  }
+  
+  .mac-divider {
+    @apply border-t border-mac-border my-2;
+  }
+}
+
+/* Remove dark mode - Mac OS 6 didn't have it */
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
-    color: white;
-    background: #121212;
+    color: #000000;
+    background: #DDDDDD;
   }
 } 

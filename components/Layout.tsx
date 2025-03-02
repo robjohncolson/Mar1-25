@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children, title = 'AP Statistics Hub' }: LayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col font-mac">
       <Head>
         <title>{title}</title>
         <meta name="description" content="AP Statistics Resources Hub" />
@@ -18,16 +18,18 @@ export default function Layout({ children, title = 'AP Statistics Hub' }: Layout
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <header className="bg-blue-700 text-white shadow-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold flex items-center">
-            <FaHome className="mr-2" /> AP Statistics Hub
+      <header className="mac-header">
+        <div className="container mx-auto px-4 py-1 flex justify-between items-center">
+          <Link href="/">
+            <a className="text-xl font-bold flex items-center">
+              <FaHome className="mr-2" /> AP Statistics Hub
+            </a>
           </Link>
           <a 
             href="https://github.com/OWNER_NAME/REPO_NAME" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="flex items-center hover:text-blue-200"
+            className="flex items-center"
           >
             <FaGithub className="mr-1" /> GitHub
           </a>
@@ -35,11 +37,13 @@ export default function Layout({ children, title = 'AP Statistics Hub' }: Layout
       </header>
 
       <main className="flex-grow container mx-auto px-4 py-8">
-        {children}
+        <div className="mac-window p-4">
+          {children}
+        </div>
       </main>
 
-      <footer className="bg-gray-100 dark:bg-gray-800 py-6">
-        <div className="container mx-auto px-4 text-center text-gray-600 dark:text-gray-300">
+      <footer className="bg-mac-light py-2 border-t-2 border-mac-border">
+        <div className="container mx-auto px-4 text-center text-mac-black">
           <p>© {new Date().getFullYear()} AP Statistics Hub</p>
         </div>
       </footer>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode.react';
-import { FaDownload } from 'react-icons/fa';
+import { FaDownload, FaQrcode } from 'react-icons/fa';
 
 interface QRCodeGeneratorProps {
   url: string;
@@ -35,9 +35,11 @@ export default function QRCodeGenerator({ url, title }: QRCodeGeneratorProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md text-center">
-      <h3 className="text-lg font-medium mb-3">QR Code for {title}</h3>
-      <div className="flex justify-center mb-3">
+    <div>
+      <h3 className="text-lg font-bold mb-3 flex items-center mac-header p-2">
+        <FaQrcode className="mr-2 text-mac-white" /> <span className="text-mac-white">QR Code for {title}</span>
+      </h3>
+      <div className="flex justify-center my-4 bg-mac-white p-4 border border-mac-border">
         <QRCode
           id="qr-code"
           value={fullUrl || url}
@@ -45,13 +47,15 @@ export default function QRCodeGenerator({ url, title }: QRCodeGeneratorProps) {
           level="H"
           includeMargin={true}
           renderAs="canvas"
+          bgColor="#FFFFFF"
+          fgColor="#000000"
         />
       </div>
       <button
         onClick={downloadQRCode}
-        className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded flex items-center mx-auto"
+        className="mac-button flex items-center mx-auto"
       >
-        <FaDownload className="mr-2" /> Download QR Code
+        <FaDownload className="mr-2 inline-block" /> Download QR Code
       </button>
     </div>
   );
