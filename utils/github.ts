@@ -16,6 +16,20 @@ export interface GitHubFile {
   content?: string;
 }
 
+interface GitHubFileContent {
+  type: string;
+  encoding: string;
+  size: number;
+  name: string;
+  path: string;
+  content: string;
+  sha: string;
+  url: string;
+  git_url: string | null;
+  html_url: string | null;
+  download_url: string | null;
+}
+
 export interface Unit {
   name: string;
   path: string;
@@ -67,7 +81,8 @@ export async function getFileContent(path: string): Promise<string> {
     });
 
     // GitHub API returns content as base64 encoded
-    const content = Buffer.from(response.data.content, 'base64').toString();
+    const fileContent = response.data as GitHubFileContent;
+    const content = Buffer.from(fileContent.content, 'base64').toString();
     return content;
   } catch (error) {
     console.error('Error fetching file content:', error);
