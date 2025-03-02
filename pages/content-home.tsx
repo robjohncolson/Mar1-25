@@ -49,7 +49,7 @@ export default function ContentHome() {
           <div className="mt-4">
             <Link href="/">
               <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> Back to Navigation Options
+                <FaArrowLeft className="mr-2" /> Back to Main Menu
               </a>
             </Link>
           </div>

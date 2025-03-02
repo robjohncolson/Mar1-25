@@ -5,7 +5,7 @@ import QuizCard from '@/components/QuizCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import LoadingIndicator from '@/components/LoadingIndicator';
 import { getQuizzesForUnit, Quiz } from '@/utils/contentApi';
-import { FaArrowLeft, FaBook } from 'react-icons/fa';
+import { FaArrowLeft, FaBook, FaListOl } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function UnitPage() {
@@ -17,6 +17,7 @@ export default function UnitPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [fromMcq, setFromMcq] = useState(false);
 
   const fetchQuizzes = useCallback(async (fullPath: string) => {
     try {
@@ -45,6 +46,11 @@ export default function UnitPage() {
       
       fetchQuizzes(fullPath);
     }
+
+    // Check if we came from MCQ navigation
+    if (document.referrer.includes('/mcq-navigation')) {
+      setFromMcq(true);
+    }
   }, [path, fetchQuizzes]);
 
   if (!path) {
@@ -54,12 +60,20 @@ export default function UnitPage() {
   return (
     <Layout title={`${unitName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
-          <Link href="/">
-            <a className="mac-button inline-flex items-center">
-              <FaArrowLeft className="mr-2" /> Back to Units
-            </a>
-          </Link>
+        <div className="mb-6 flex justify-between">
+          {fromMcq ? (
+            <Link href="/mcq-navigation">
+              <a className="mac-button inline-flex items-center">
+                <FaArrowLeft className="mr-2" /> <FaListOl className="mr-2" /> Back to MCQ Navigation
+              </a>
+            </Link>
+          ) : (
+            <Link href="/content-home">
+              <a className="mac-button inline-flex items-center">
+                <FaArrowLeft className="mr-2" /> Back to Units
+              </a>
+            </Link>
+          )}
         </div>
         
         <div className="mac-window p-4 mb-6">
