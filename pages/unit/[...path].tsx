@@ -33,7 +33,14 @@ export default function UnitPage() {
     if (path && Array.isArray(path)) {
       const fullPath = path.join('/');
       setUnitPath(fullPath);
-      setUnitName(`Unit ${path[0]}`);
+      
+      // Extract unit number from path (e.g., "unit1" -> "Unit 1")
+      const unitMatch = fullPath.match(/unit(\d+)/i);
+      if (unitMatch && unitMatch[1]) {
+        setUnitName(`Unit ${unitMatch[1]}`);
+      } else {
+        setUnitName(fullPath);
+      }
       
       fetchQuizzes(fullPath);
     }
@@ -47,8 +54,10 @@ export default function UnitPage() {
     <Layout title={`${unitName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800">
-            <FaArrowLeft className="mr-2" /> Back to Units
+          <Link href="/">
+            <a className="inline-flex items-center text-blue-600 hover:text-blue-800">
+              <FaArrowLeft className="mr-2" /> Back to Units
+            </a>
           </Link>
         </div>
         

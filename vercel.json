@@ -13,7 +13,7 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_GITHUB_OWNER": "OWNER_NAME",
-    "NEXT_PUBLIC_GITHUB_REPO": "REPO_NAME"
+    "NEXT_PUBLIC_GITHUB_OWNER": "robjohncolson",
+    "NEXT_PUBLIC_GITHUB_REPO": "feb24-25"
   }
 } 

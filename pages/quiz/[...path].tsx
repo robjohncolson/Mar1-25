@@ -4,8 +4,8 @@ import Layout from '@/components/Layout';
 import PDFCard from '@/components/PDFCard';
 import PromptCard from '@/components/PromptCard';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
-import { getRepoContents, getFileContent, PDF, Prompt } from '@/utils/github';
-import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
+import { getRepoContents, getFileContent, PDF, Prompt, Image } from '@/utils/github';
+import { FaSpinner, FaArrowLeft, FaImage } from 'react-icons/fa';
 import Link from 'next/link';
 
 export default function QuizPage() {
@@ -17,6 +17,7 @@ export default function QuizPage() {
   const [unitPath, setUnitPath] = useState('');
   const [pdfs, setPdfs] = useState<PDF[]>([]);
   const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -35,9 +36,9 @@ export default function QuizPage() {
       
       setPdfs(pdfFiles);
       
-      // Filter prompt text files
+      // Filter prompt files
       const promptFiles = contents.filter(
-        (item) => item.type === 'file' && item.name.toLowerCase().endsWith('.txt')
+        (item) => item.type === 'file' && item.name.toLowerCase().includes('prompt')
       );
       
       const promptsData: Prompt[] = [];
@@ -52,6 +53,17 @@ export default function QuizPage() {
       }
       
       setPrompts(promptsData);
+      
+      // Filter image files
+      const imageFiles = contents
+        .filter((item) => item.type === 'file' && /\.(png|jpg|jpeg|gif)$/i.test(item.name))
+        .map((img) => ({
+          name: img.name,
+          path: img.path,
+          download_url: img.download_url || '',
+        }));
+      
+      setImages(imageFiles);
       setLoading(false);
     } catch (err) {
       console.error('Error fetching quiz contents:', err);
@@ -68,8 +80,19 @@ export default function QuizPage() {
       // Extract unit path and quiz name
       const pathParts = path.slice();
       const quizDirName = pathParts.pop() || '';
-      setQuizName(`Quiz ${quizDirName}`);
-      setUnitPath(pathParts.join('/'));
+      
+      // Format quiz name
+      let formattedQuizName = quizDirName;
+      if (formattedQuizName.includes('{') && formattedQuizName.includes('}')) {
+        // Handle cases like 1-{7,8} to display as "Quiz 1-7,8"
+        formattedQuizName = formattedQuizName.replace('{', '').replace('}', '');
+      }
+      
+      setQuizName(`Quiz ${formattedQuizName}`);
+      
+      // Extract unit path
+      const unitPathParts = pathParts.slice();
+      setUnitPath(unitPathParts.join('/'));
       
       fetchQuizContents(fullPath);
     }
@@ -83,8 +106,10 @@ export default function QuizPage() {
     <Layout title={`${quizName} - AP Statistics Hub`}>
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <Link href={`/unit/${unitPath}`} className="inline-flex items-center text-blue-600 hover:text-blue-800">
-            <FaArrowLeft className="mr-2" /> Back to Unit
+          <Link href={`/unit/${unitPath}`}>
+            <a className="inline-flex items-center text-blue-600 hover:text-blue-800">
+              <FaArrowLeft className="mr-2" /> Back to Unit
+            </a>
           </Link>
         </div>
         
@@ -100,6 +125,32 @@ export default function QuizPage() {
           </div>
         ) : (
           <>
+            {images.length > 0 && (
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold mb-4 flex items-center">
+                  <FaImage className="mr-2" /> Images
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {images.map((image) => (
+                    <div key={image.path} className="border rounded p-2">
+                      <a 
+                        href={image.download_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        <img 
+                          src={image.download_url} 
+                          alt={image.name} 
+                          className="w-full h-auto"
+                        />
+                        <p className="text-sm text-center mt-1 truncate">{image.name}</p>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
             {pdfs.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-2xl font-bold mb-4">PDF Resources</h2>

@@ -1,0 +1,214 @@
+Okay, I've analyzed all the provided quizzes and created a knowledge tree that maps questions to the specific AP Statistics unit and quiz topic. This tree will allow you to quickly pinpoint the relevant concepts for any given question.
+
+AP Statistics Knowledge Tree (Units 1-9, Focused on Inference)
+
+AP Statistics
+├── Unit 1: Exploring One-Variable Data
+│   ├── Graphical Representations of Summary Statistics Quiz
+│       ├── Boxplots (interpreting, identifying features)
+│       └── Histograms (shape, relation to mean/median, bin width)
+│   ├── Representing Categorical Variables with Tables Quiz
+│       ├── Frequency Tables (totals, proportions, percentages)
+│       └── Relative Frequency Tables (proportions)
+│   ├── The Language of Variation - Variables Quiz
+│       ├── Categorical vs. Quantitative Variables
+│       └── Discrete vs. Continuous Variables
+│   ├── Representing a Categorical Variable with Graphs Quiz
+│       ├── Bar Charts (reading, interpreting, comparing)
+│       └── Pie Charts (interpreting percentages)
+│       └──Two-way tables
+│   ├── Representing a Quantitative Variable with Graphs Quiz
+│         ├── Continuous versus Discrete variables
+│   ├── Summary Statistics for a Quantitative Variable Quiz
+│       ├── Mean and Median (outlier effects)
+│       ├── Standard Deviation (interpretation)
+│       ├── IQR and Outliers (1.5*IQR rule)
+│       ├── Percentiles (definition, interpretation)
+│        └──Calculating the median of an even numbered dataset
+│   └── Describing the Distribution of a Quantitative Variable Quiz
+│       ├── Shape, Center, and Spread
+│       └── Histograms and Interval Size
+├── Unit 2: Exploring Two-Variable Data
+│      ├── Representing Two Categorical Variables Quiz
+│      │      ├── Segmented Bar Charts
+│      │      └── Relative Frequency
+│      ├── Statistics for Two Categorical Variables Quiz
+│      │     └── Two-Way Tables (marginal/conditional distributions, association, independence)
+│      └── Representing the Relationship Between Two Quantitative Variables Quiz
+│            ├── Scatterplots (form, direction, strength, outliers)
+│            └── Positive/Negative Association
+├── Unit 3: Collecting Data
+│    ├── Random Sampling and Data Collection Quiz
+│    │     ├── Simple Random Sample (SRS)
+│    │     ├── Stratified Random Sampling (advantages)
+│    │     ├── Cluster Sampling (disadvantages)
+│    │     ├── Systematic Random Sampling
+│    │     ├── Sampling With Replacement
+│    │     ├── Sampling Without Replacement
+│    │     └── Bias
+│     └──Introduction to planning a study
+│         ├── Observational Study vs. Experiment
+│         ├── Confounding
+│          ├── Causation
+│         ├── Experimental Units
+│         ├── Treatments
+│         ├── Population vs. Sample
+│        └── Generalizability
+│     └──Selecting an Experimental Design Quiz
+│          ├── Completely Randomized Design
+│          ├── Randomized Block Design
+│          └──Matched Pairs Design
+├── Unit 4: Probability, Random Variables, & Probability Distributions
+│    ├── Estimating Probabilities Using Simulation Quiz
+│    │     ├── Simulation (modeling, relative frequency)
+│    │     └── Law of Large Numbers
+│    ├── Conditional Probability Quiz
+│    │     ├── Conditional Probability (definition, formula, P(A|B))
+│    │     └── Two-Way Tables (for conditional probability)
+│   ├── Mutually Exclusive Events Quiz
+│   │     ├── Mutually Exclusive (Disjoint) Events (definition, P(A and B) = 0)
+│   │      └──Addition Rule for Mutually Exclusive Events
+│    ├── Mean and Standard Deviation of Random Variables Quiz
+│    │    ├── Random Variable (definition)
+│    │    ├── Probability Distribution (definition)
+│    │    ├── Expected Value (Mean) of a Random Variable (calculation, interpretation)
+│    │    ├── Variance and Standard Deviation of a Random Variable (calculation, interpretation)
+│   │     └── Linear Transformations (effect on mean and standard deviation)
+│   ├── Introduction to Random Variables and Probability Distributions
+│       ├── Shape of distributions.
+│   ├── Introduction to the Binomial Distribution Quiz
+│   │      ├── Binomial Setting (BINS)
+│   │      └── Binomial Probability Formula
+│   └── Combining Random Variables Quiz
+│   │     ├── Sum/Difference of Random Variables (mean and standard deviation)
+│         └──Linear Combinations
+│   ├── The Normal Distribution Quiz
+│   │     ├── Normal Distribution (properties, parameters)
+│   │     ├── z-scores (calculation, interpretation)
+│   │     ├── Empirical Rule (68-95-99.7 Rule)
+│   │     └── Normal Probability Tables/Technology
+│   └── The Geometric Distribution Quiz
+│         ├──Geometric random variable
+│         └──Geometric probability formula
+├── Unit 5: Sampling Distributions
+│   ├── Sampling Distributions for Sample Proportions Quiz
+│   │      ├── Sampling Distribution of p̂ (mean, standard deviation, shape)
+│   │      ├── Conditions for Normality (Large Counts: np ≥ 10, n(1-p) ≥ 10)
+│   │      └── Calculating Probabilities
+│   ├── Sampling Distributions for Differences in Sample Proportions Quiz
+│   │       ├── Sampling Distribution of p̂₁ - p̂₂ (mean, standard deviation, shape)
+│   │       ├── Conditions for Normality
+│   │      └── Calculating Probabilities
+│   ├── Sampling Distributions for Sample Means Quiz
+│    │       ├── Sampling Distribution of x̄ (mean, standard deviation, shape)
+│    │       └── Central Limit Theorem (CLT)
+│    └── Sampling Distributions for Differences in Sample Means Quiz
+│          ├── Sampling Distribution of x̄₁ - x̄₂ (mean, standard deviation, shape)
+│          └── Conditions for Normality (CLT or normal populations)
+├── Unit 6: Inference for Categorical Data: Proportions
+│     ├── Constructing a Confidence Interval for a Population Proportion Quiz
+│   │      ├── Confidence Interval (definition, interpretation)
+│   │      ├── Confidence Level (interpretation)
+│   │      ├── One-Sample z-Interval for p (formula)
+│   │      ├── Margin of Error
+│   │      └── Conditions for Inference (Random, 10%, Large Counts)
+│    ├── Justifying a Claim Based on a Confidence Interval for a Population Proportion Quiz
+│      ├── Interpreting a Confidence Interval
+│      └── Relationship to Hypothesis Tests
+│      └── Alternative Confidence Intervals
+│      └──Free response
+│   ├── Setting Up a Test for a Population Proportion Quiz
+│   │      ├── Hypothesis Test (logic, steps)
+│   │      ├── Null Hypothesis (H₀)
+│   │      ├── Alternative Hypothesis (Hₐ)
+│   │      ├── One-Sample z-Test for p
+│   │      └── Conditions for Inference
+│   ├── Carrying Out a Test for a Population Proportion Quiz
+│        ├── Test Statistic (calculation)
+│        └── p-value (calculation, interpretation)
+│    └── Interpreting P-Values Quiz
+│   │     ├── p-value (definition, interpretation)
+│    └── Concluding a Test for a Population Proportion Quiz
+│    │    ├── Significance Level (α)
+│    │    ├── Decision Rule (p-value vs. α)
+│    │    └── Conclusion in Context
+├──   └── Two sample tests
+│           ├── Setting up a hypothesis test for a difference of proportions.
+│           ├── Carrying out a hypothesis test for the difference of two proportions
+│           └── Constructing a CI for the difference of two proportions.
+├── Unit 7: Inference for Quantitative Data: Means
+│   ├── Constructing a Confidence Interval for a Population Mean Quiz
+│   │      ├── Confidence Interval for μ (t-interval)
+│   │      ├── t-Distribution (properties, degrees of freedom)
+│   │      └── Conditions for Inference (Random, 10%, Normality/Large Sample)
+│   ├── Justifying a Claim About a Population Mean Based on a Confidence Interval Quiz
+│        ├── Interpreting confidence intervals
+│   ├── Setting Up a Test for a Population Mean Quiz
+│   │      ├── One-Sample t-Test for μ
+│   │      ├── Null and Alternative Hypotheses
+│   │      └── Conditions for Inference
+│    ├── Carrying Out a Test for a Population Mean Quiz
+│    │     ├── Test Statistic (calculation)
+│    │      └── p-value (calculation, interpretation)
+│    ├── Two-Sample t-Tests and Intervals for Means
+│      ├── Setting up
+│     └── Carrying out
+├── Unit 8: Inference for Categorical Data: Chi-Square
+│    ├── Setting Up a Chi-Square Test for Goodness of Fit Quiz
+│    │     ├── Chi-Square Goodness-of-Fit Test (purpose, hypotheses)
+│    │     ├── Expected Counts (calculation)
+│    │     └── Conditions (Random, 10%, Large Counts)
+│    ├── Carrying Out a Chi-Square Test for Goodness of Fit Quiz
+│    │     ├── Chi-Square Test Statistic (calculation)
+│    │     ├── Degrees of Freedom
+│    │     └── p-value and Conclusion
+│   ├── Expected Counts in Two-Way Tables Quiz
+│   │      └── Expected Counts (calculation)
+│    └── Carrying Out a Chi-Square Test for Homogeneity or Independence Quiz
+│          ├── Chi-Square Test of Homogeneity (purpose, hypotheses)
+│          ├── Chi-Square Test of Independence (purpose, hypotheses)
+│          ├── Test Statistic, Degrees of Freedom, p-value, Conclusion
+│          └── Conditions
+├── Unit 9: Inference for Quantitative Data: Slopes
+        ├── Confidence Intervals for the Slope of a Regression Model
+        │       └──t-interval
+        ├── Setting Up a Test for the Slope of a Regression Model
+        └── Carrying Out a Test for the Slope of a Regression Model
+             └──test-statistic
+content_copy
+download
+Use code with caution.
+
+How to Use the Tree
+
+Identify the Question Type: Is the question about a single proportion, a difference in proportions, a single mean, a difference in means, a relationship between categorical variables, or a relationship between quantitative variables (regression)? This will guide you to the correct branch of the tree.
+
+Identify the Task: Is the question asking you to:
+
+Calculate something (a test statistic, a confidence interval, expected counts)?
+
+Interpret something (a p-value, a confidence interval, a standard deviation)?
+
+Check conditions for inference?
+
+Set up hypotheses?
+
+Make a decision/conclusion based on a p-value or confidence interval?
+
+Determine the correct procedure.
+
+Follow the Branches: Navigate the tree based on your answers to steps 1 and 2. This will lead you to the relevant unit and quiz that covers the specific concepts needed to answer the question.
+
+Example
+
+Let's say you're given the following question:
+
+"A researcher wants to know if the average height of adult women in Town A is different from the average height of adult women in Town B. She takes independent random samples from each town and measures the heights. What hypothesis test should she use?"
+
+Question Type: This involves two samples and a quantitative variable (height), and we're comparing means. This points us toward Unit 7, and the section on differences of means.
+
+Task: The question asks about the appropriate hypothesis test.
+
+Follow the Branches: Unit 7 -> "Sampling distributions for the difference of means" -> "Setting up" (since it is about the test itself) . This tells us the relevant concepts are covered in the "Setting Up a Test for the Difference of Two Population Means" section.
+
+This knowledge tree provides a structured way to connect any AP Statistics question on inference back to the fundamental concepts it tests. This is incredibly helpful for both studying and reviewing. It helps you see the big picture of how all these different inferential procedures relate to each other.

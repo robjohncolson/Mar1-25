@@ -1,0 +1,373 @@
+Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\feb24-25
+
+.
+├── 2017apexam
+│   ├── ap-statistics-2017-international-practice-exam-frq-scoring-guidelines.pdf
+│   ├── ap-statistics-2017-international-practice-exam-frq.pdf
+│   ├── ap-statistics-2017-international-practice-exam-mcq-answers.pdf
+│   ├── ap-statistics-2017-international-practice-exam-mcq.pdf
+│   ├── ap-statistics-2017-international-practice-exam-scoring-worksheet.pdf
+│   ├── grokFRQ.prompt
+│   └── grokMCQ.prompt
+├── unit1
+│   ├── 1-10
+│   │   ├── 2017 apstats exam mcq14.png
+│   │   ├── 2017 apstats exam MCQ19.pn
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_TheNormalDistributionQuiz_67c0774826fef2.67c0774954f630.05050679.pdf
+│   │   └── TB_TheNormalDistributionQuiz_67c07743a12a71.67c077448ac864.96882132.pdf
+│   ├── 1-2
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_TheLanguageofVariationVariablesQuiz_67bf67fa31f0e1.67bf67fb0687b4.36741317.pdf
+│   │   └── TB_TheLanguageofVariationVariablesQuiz_67bf67f32d68a8.67bf67f3f3e0c4.25887022.pdf
+│   ├── 1-3
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_RepresentingaCategoricalVariablewithTablesQuiz_67bf699fb8e111.67bf69a09976b9.70343296.pdf
+│   │   └── TB_RepresentingaCategoricalVariablewithTablesQuiz_67bf699bc94811.67bf699c950302.25961889.pdf
+│   ├── 1-4
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_RepresentingaCategoricalVariablewithGraphsQuiz_67bf69fc377665.67bf69fd4f7099.49252765.pdf
+│   │   └── TB_RepresentingaCategoricalVariablewithGraphsQuiz_67bf69f5987916.67bf69f6b62d74.85628268.pdf
+│   ├── 1-5
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_RepresentingaQuantitativeVariablewithGraphsQuiz_67c075418f1ec8.67c0754264b7f5.48266343.pdf
+│   │   └── TB_RepresentingaQuantitativeVariablewithGraphsQuiz_67c0753928d178.67c07539f19a46.68328273.pdf
+│   ├── 1-6
+│   │   ├── 2017 apstats exam mcq15.png
+│   │   ├── 2017 apstats exam mcq2.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_DescribingtheDistributionofaQuantitativeVariableQuiz_67c0757bea0298.67c0757ccc5b58.32491955.pdf
+│   │   ├── SG_DescribingtheDistributionofaQuantitativeVariableQuiz_67c1c577e51d96.67c1c578bc5d27.41817805.pdf
+│   │   ├── TB_SummaryStatisticsforaQuantitativeVariableQuiz_67c075830e1ae5.67c07584316e37.86592675.pdf
+│   │   └── TB_SummaryStatisticsforaQuantitativeVariableQuiz_67c1c589319f89.67c1c58a574d91.13106505.pdf
+│   ├── 1-9
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ComparingDistributionsofaQuantitativeVariableQuiz_67c07662d6f7d3.67c07663dff1a7.32210166.pdf
+│   │   └── TB_ComparingDistributionsofaQuantitativeVariableQuiz_67c0765ad20115.67c0765bcf3003.65096147.pdf
+│   ├── 1-{7,8}
+│   │   ├── 2017 ap statistics mcq9.png
+│   │   ├── 2017 apstats exam mcq13.png
+│   │   ├── 2017 apstats exam mcq6.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── Screenshot 2025-02-28 084021.png
+│   │   ├── SG_GraphicalRepresentationsofSummaryStatisticsQuiz_67c076372c14d0.67c07638132cf7.10102410.pdf
+│   │   └── TB_GraphicalRepresentationsofSummaryStatisticsQuiz_67c0763e344890.67c0763f27f3b0.40302640.pdf
+│   ├── 2017 ap statistics mcq9.png
+│   ├── 2017 apstats exam mcq13.png
+│   ├── 2017 apstats exam mcq14.png
+│   ├── 2017 apstats exam mcq15.png
+│   ├── 2017 apstats exam MCQ19.png
+│   ├── 2017 apstats exam mcq6.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit1ProgressCheckFRQ_67bc764b062f43.67bc764c0b1379.82401526.pdf
+│   ├── SG_Unit1ProgressCheckMCQPartA_67bf0b9d4cca99.67bf0b9ee036a1.86848588.pdf
+│   └── SG_Unit1ProgressCheckMCQPartB_67bf0ba8387fa6.67bf0baa02e924.71229969.pdf
+├── unit2
+│   ├── 2-1
+│   │   ├── 2017APExamMCQ1.png
+│   │   ├── 2017APexamMCQ3.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_RepresentingTwoCategoricalVariablesQuiz_67c078df194264.67c078e0125303.03721672.pdf
+│   │   └── TB_RepresentingTwoCategoricalVariablesQuiz_67c078d954c8b1.67c078da6f01c0.75045346.pdf
+│   ├── 2-2
+│   │   ├── 2017 apstats exam MCQ16.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_StatisticsforTwoCategoricalVariablesQuiz_67c079012f49e1.67c079026abe57.44492275.pdf
+│   │   └── TB_StatisticsforTwoCategoricalVariablesQuiz_67c079056853e0.67c079068e7d52.23403515.pdf
+│   ├── 2-3
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_RepresentingtheRelationshipBetweenTwoQuantitativeVariablesQuiz_67c0791f29e881.67c0792011d804.02276714.pdf
+│   │   └── TB_RepresentingtheRelationshipBetweenTwoQuantitativeVariablesQuiz_67c07934eccdf8.67c07935d2b781.30884238.pdf
+│   ├── 2-4
+│   │   ├── 2017 apstats exam MCQ18.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_LinearRegressionModelsQuiz_67c0796c96c6e6.67c0796d798563.75918730.pdf
+│   │   └── TB_LinearRegressionModelsQuiz_67c0796972fb48.67c0796a4abd36.88554365.pdf
+│   ├── 2-5
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ResidualsQuiz_67c0798a117889.67c0798b1b9416.57456474.pdf
+│   │   └── TB_ResidualsQuiz_67c07985291401.67c079861e4822.95954029.pdf
+│   ├── 2-6
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_LeastSquaresRegressionQuiz_67c0799d205c70.67c0799e2ab724.84824641.pdf
+│   │   └── TB_LeastSquaresRegressionQuiz_67c079a5b41f49.67c079a6b12055.24867792.pdf
+│   ├── 2-7
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_AnalyzingDeparturesfromLinearityQuiz_67c079c79d6656.67c079c9693373.91692180.pdf
+│   │   └── TB_AnalyzingDeparturesfromLinearityQuiz_67c079beb70981.67c079c0245407.80093078.pdf
+│   ├── 2017 apstats exam MCQ16.png
+│   ├── 2017 apstats exam MCQ18.png
+│   ├── 2017APExamMCQ1.png
+│   ├── 2017APexamMCQ3.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit2ProgressCheckFRQ_67bc76250c2e88.67bc76266dd470.88466429.pdf
+│   ├── SG_Unit2ProgressCheckMCQPartA_67bc764032a789.67bc7642616ff6.06835644.pdf
+│   └── SG_Unit2ProgressCheckMCQPartB_67bc762fb89977.67bc763255b5c4.91510617.pdf
+├── unit3
+│   ├── 3-{1,2,3}
+│   │   ├── 2017 apstats exam mcq10.png
+│   │   ├── 2017 apstats exam mcq12.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_IntroductiontoPlanningaStudyQuiz_67c0817516c822.67c08175e66068.48018172.pdf
+│   │   ├── SG_RandomSamplingandDataCollectionQuiz_67c081868dec11.67c081876ff4d1.99649114.pdf
+│   │   ├── TB_IntroductiontoPlanningaStudyQuiz_67c0817be10825.67c0817cb6ae27.31532942.pdf
+│   │   └── TB_RandomSamplingandDataCollectionQuiz_67c0819109cb05.67c08191d24a43.58780268.pdf
+│   ├── 3-{4,5}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_IntroductiontoExperimentalDesignQuiz_67c081cdbcff93.67c081cee35805.42998716.pdf
+│   │   ├── SG_PotentialProblemswithSamplingQuiz_67c081c00b6182.67c081c0df7567.90349950.pdf
+│   │   ├── TB_IntroductiontoExperimentalDesignQuiz_67c081d264edd6.67c081d375ca00.66209540.pdf
+│   │   └── TB_PotentialProblemswithSamplingQuiz_67c081c4092e95.67c081c4d08a82.60131496.pdf
+│   ├── 3-{6,7}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_InferenceandExperimentsQuiz_67c08207a50720.67c082088ae4c8.49124060.pdf
+│   │   ├── SG_SelectinganExperimentalDesignQuiz_67c081f8ce6a85.67c081f9ceb366.04780620.pdf
+│   │   ├── TB_InferenceandExperimentsQuiz_67c0820e914a53.67c0820f85e995.82124373.pdf
+│   │   └── TB_SelectinganExperimentalDesignQuiz_67c081ff21b252.67c081fff352a2.10050514.pdf
+│   ├── 2017 apstats exam mcq10.png
+│   ├── 2017 apstats exam mcq12.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit3ProgressCheckFRQ_67bc7611038c57.67bc7611eecb36.63613256.pdf
+│   ├── SG_Unit3ProgressCheckMCQPartA_67bc761dcb6269.67bc761ecadbf8.39294441.pdf
+│   └── SG_Unit3ProgressCheckMCQPartB_67bc7617d5e049.67bc7618e39db6.94278458.pdf
+├── unit4
+│   ├── 4-12
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ParametersforaBinomialDistributionQuiz_67c084bf105a72.67c084c016f907.17186268.pdf
+│   │   ├── SG_TheGeometricDistributionQuiz_67c084ccdbd3c2.67c084ce636dd8.78105386.pdf
+│   │   ├── TB_ParametersforaBinomialDistributionQuiz_67c084c50a4374.67c084c5f30785.28729996.pdf
+│   │   └── TB_TheGeometricDistributionQuiz_67c084d74da036.67c084d86357f9.51372083.pdf
+│   ├── 4-3
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_IntroductiontoProbabilityQuiz_67c082e50e2bb1.67c082e6279360.27662397.pdf
+│   │   └── TB_IntroductiontoProbabilityQuiz_67c082ef3aa803.67c082f0194ed6.41813292.pdf
+│   ├── 4-6
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_IndependentEventsandUnionsofEventsQuiz_67c08379b371d3.67c0837b11f109.84121512.pdf
+│   │   └── TB_IndependentEventsandUnionsofEventsQuiz_67c083807a53b8.67c083817fea95.23978856.pdf
+│   ├── 4-[1,2}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_EstimatingProbabilitiesUsingSimulationQuiz_67c0829f63ee62.67c082a04f3d52.95212582.pdf
+│   │   └── TB_EstimatingProbabilitiesUsingSimulationQuiz_67c082985b9492.67c08299593680.49600493.pdf
+│   ├── 4-{4,5}
+│   │   ├── 2017 apstats mcq7.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConditionalProbabilityQuiz_67c0832b1bb028.67c0832c2be150.65426256.pdf
+│   │   ├── SG_MutuallyExclusiveEventsQuiz_67c0831c055d78.67c0831d0a74d8.79082581.pdf
+│   │   ├── TB_ConditionalProbabilityQuiz_67c08330e1c176.67c08331da6d59.61576190.pdf
+│   │   └── TB_MutuallyExclusiveEventsQuiz_67c08321ebbcb2.67c0832309f480.99928834.pdf
+│   ├── 4-{7,8}
+│   │   ├── 2017 apstats mcq8.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_IntroductiontoRandomVariablesandProbabilityDistributionsQuiz_67c08406d30449.67c08407bfa042.80580022.pdf
+│   │   ├── SG_MeanandStandardDeviationofRandomVariablesQuiz_67c08416748471.67c08417829de8.99514080.pdf
+│   │   ├── TB_IntroductiontoRandomVariablesandProbabilityDistributionsQuiz_67c0840ea64d74.67c0840f8cfe33.74761748.pdf
+│   │   └── TB_MeanandStandardDeviationofRandomVariablesQuiz_67c0841e87b4f9.67c0841f8d36b7.72631866.pdf
+│   ├── 4-{9,10}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CombiningRandomVariablesQuiz_67c0843ead28b6.67c084405e8645.21073355.pdf
+│   │   ├── SG_IntroductiontotheBinomialDistributionQuiz_67c084516df7d0.67c084529832e8.21152712.pdf
+│   │   ├── TB_CombiningRandomVariablesQuiz_67c08445a3c063.67c08446b2e5e7.74148017.pdf
+│   │   └── TB_IntroductiontotheBinomialDistributionQuiz_67c08458588490.67c08459835027.47701853.pdf
+│   ├── 2017 apstats mcq7.png
+│   ├── 2017 apstats mcq8.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit4ProgressCheckFRQ_67bc75ce0b7672.67bc75cf4363e7.17676262.pdf
+│   ├── SG_Unit4ProgressCheckMCQPartA_67bc75f3390261.67bc75f4c39ba6.98298383.pdf
+│   ├── SG_Unit4ProgressCheckMCQPartB_67bc75e8e50ee7.67bc75eb2ba664.24756356.pdf
+│   └── SG_Unit4ProgressCheckMCQPartC_67bc75d752db42.67bc75d9013dd9.90797448.pdf
+├── unit5
+│   ├── 5-{1,2}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_TheNormalDistributionRevisitedQuiz_67c0853ea504d4.67c08540667841.88294194.pdf
+│   │   └── TB_TheNormalDistributionRevisitedQuiz_67c085485866b2.67c08549918937.00370661.pdf
+│   ├── 5-{3,4}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_BiasedandUnbiasedPointEstimatesQuiz_67c0857176e6c3.67c085729bb406.47210909.pdf
+│   │   ├── SG_TheCentralLimitTheoremQuiz_67c08562eb5e22.67c08563e96ff4.25548779.pdf
+│   │   ├── TB_BiasedandUnbiasedPointEstimatesQuiz_67c08578cad9e9.67c08579de6102.88404390.pdf
+│   │   └── TB_TheCentralLimitTheoremQuiz_67c08569c988b5.67c0856ac19280.42617112.pdf
+│   ├── 5-{5,6}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_SamplingDistributionsforDifferencesinSampleProportionsQuiz_67c085a77465a2.67c085a9675b76.97549760.pdf
+│   │   ├── SG_SamplingDistributionsforSampleProportionsQuiz_67c08597028775.67c085985ddb43.26389342.pdf
+│   │   ├── TB_SamplingDistributionsforDifferencesinSampleProportionsQuiz_67c085ae427c65.67c085af8a8a63.59050669.pdf
+│   │   └── TB_SamplingDistributionsforSampleProportionsQuiz_67c0859d3e0a45.67c0859e646de0.48432512.pdf
+│   ├── 5-{7,8}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_SamplingDistributionsforDifferencesinSampleMeansQuiz_67c085d8b787b8.67c085da68ef24.37024393.pdf
+│   │   ├── SG_SamplingDistributionsforSampleMeansQuiz_67c085c2cd0c19.67c085c40b6101.44430581.pdf
+│   │   ├── TB_SamplingDistributionsforDifferencesinSampleMeansQuiz_67c085e0b98d18.67c085e2415665.09337016.pdf
+│   │   └── TB_SamplingDistributionsforSampleMeansQuiz_67c085c8c573f2.67c085c9ba5905.87829989.pdf
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit5ProgressCheckFRQ_67bc7511e23e30.67bc7514281577.48427394.pdf
+│   ├── SG_Unit5ProgressCheckMCQPartA_67bc759caf4b81.67bc759e693280.85500015.pdf
+│   ├── SG_Unit5ProgressCheckMCQPartB_67bc75ad34bf39.67bc75af102131.51980503.pdf
+│   └── SG_Unit5ProgressCheckMCQPartC_67bc7515b79ae9.67bc75179de029.79739994.pdf
+├── unit6
+│   ├── 6-11
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c087733b5e19.67c08775452982.18644211.pdf
+│   │   └── TB_CarryingOutaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c0877a17a172.67c0877ba06c72.20278715.pdf
+│   ├── 6-{1,2}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConstructingaConfidenceIntervalforaPopulationProportionQuiz_67c086152751a3.67c086165df186.61420919.pdf
+│   │   └── TB_ConstructingaConfidenceIntervalforaPopulationProportionQuiz_67c0861b679938.67c0861c9fdd92.77012877.pdf
+│   ├── 6-{3,4}
+│   │   ├── 2017 APexam MCQ5.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_JustifyingaClaimBasedonaConfidenceIntervalforaPopulationProportionQuiz_67c08667860503.67c08669662680.07814212.pdf
+│   │   ├── SG_SettingUpaTestforaPopulationProportionQuiz_67c086757aed41.67c08676d54ba9.13558980.pdf
+│   │   ├── TB_JustifyingaClaimBasedonaConfidenceIntervalforaPopulationProportionQuiz_67c0866df2ef92.67c0866f7670d2.16117504.pdf
+│   │   └── TB_SettingUpaTestforaPopulationProportionQuiz_67c0869bddffb3.67c0869d363ea4.46094246.pdf
+│   ├── 6-{5,6}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConcludingaTestforaPopulationProportionQuiz_67c086ba80da31.67c086bb8a24f9.44093986.pdf
+│   │   ├── SG_InterpretingPValuesQuiz_67c086c7290136.67c086c879cc34.39181588.pdf
+│   │   ├── TB_ConcludingaTestforaPopulationProportionQuiz_67c086c0823860.67c086c1820260.80925280.pdf
+│   │   └── TB_InterpretingPValuesQuiz_67c086ccecc0f8.67c086ce1344e9.01509711.pdf
+│   ├── 6-{7,8}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConfidenceIntervalsfortheDifferenceofTwoProportionsQuiz_67c0870411d9e9.67c08705b3eed6.87932079.pdf
+│   │   ├── SG_PotentialErrorsWhenPerformingTestsQuiz_67c086f66a6990.67c086f7c41410.20925425.pdf
+│   │   ├── TB_ConfidenceIntervalsfortheDifferenceofTwoProportionsQuiz_67c0870a5ab312.67c0870ba9b090.77545287.pdf
+│   │   └── TB_PotentialErrorsWhenPerformingTestsQuiz_67c086fc411e79.67c086fd4fe774.19381885.pdf
+│   ├── 6-{9,10}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_JustifyingaClaimBasedonaConfidenceIntervalforaDifferenceBetweenPopulationProportionsQuiz_67c08733eb02f4.67c087351f84b0.58980180.pdf
+│   │   ├── SG_SettingUpaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c08741ce4ae0.67c087438dad98.52965963.pdf
+│   │   ├── TB_JustifyingaClaimBasedonaConfidenceIntervalforaDifferenceBetweenPopulationProportionsQuiz_67c08739b8adf2.67c0873ad1e949.75329820.pdf
+│   │   └── TB_SettingUpaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c08745d9cba9.67c08747577119.07084126.pdf
+│   ├── 2017 APexam MCQ5.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit6ProgressCheckFRQ_67bc74e62d22c5.67bc74e7b8d4a6.27167338.pdf
+│   ├── SG_Unit6ProgressCheckMCQPartA_67bc74b7358e23.67bc74b8887fc3.50914616.pdf
+│   ├── SG_Unit6ProgressCheckMCQPartB_67bc74c65a3258.67bc74c8277c87.00110163.pdf
+│   ├── SG_Unit6ProgressCheckMCQPartc_67bc74d02a11f0.67bc74d202d399.58059717.pdf
+│   └── SG_Unit6ProgressCheckMCQPartD_67bc74d95d9508.67bc74dc3ef765.20290291.pdf
+├── unit7
+│   ├── 7-{1,2}
+│   │   ├── 2017 apstats exam mcq11.png
+│   │   ├── 2017APexamMCQ4.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConstructingaConfidenceIntervalforaPopulationMeanQuiz_67c0880a6561b3.67c0880bdbab65.51433117.pdf
+│   │   └── TB_ConstructingaConfidenceIntervalforaPopulationMeanQuiz_67c088109f73b8.67c08811dd9d97.47575018.pdf
+│   ├── 7-{3,4}
+│   │   ├── 2017 apstats exam MCQ17.png
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_JustifyingaClaimAboutaPopulationMeanBasedonaConfidenceIntervalQuiz_67c0882d48cde1.67c0882e800426.24235725.pdf
+│   │   ├── SG_SettingUpaTestforaPopulationMeanQuiz_67c0883e6c12c0.67c0883fbbc2b3.92645401.pdf
+│   │   ├── TB_JustifyingaClaimAboutaPopulationMeanBasedonaConfidenceIntervalQuiz_67c0883341baf2.67c088346afc97.70224159.pdf
+│   │   └── TB_SettingUpaTestforaPopulationMeanQuiz_67c08847e3a8f5.67c0884938b193.81901938.pdf
+│   ├── 7-{5,6}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaTestforaPopulationMeanQuiz_67c088743f41f6.67c08875c12e62.25139662.pdf
+│   │   ├── SG_ConfidenceIntervalsfortheDifferenceofTwoMeansQuiz_67c08883892c27.67c0888528f855.74229471.pdf
+│   │   ├── TB_CarryingOutaTestforaPopulationMeanQuiz_67c0887b420068.67c0887c73deb9.38379384.pdf
+│   │   └── TB_ConfidenceIntervalsfortheDifferenceofTwoMeansQuiz_67c08889aa2d60.67c0888ae11d97.94753130.pdf
+│   ├── 7-{9,10}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaTestfortheDifferenceofTwoPopulationMeansQuiz_67c088b1db5fe0.67c088b37ee6d2.25363008.pdf
+│   │   └── TB_CarryingOutaTestfortheDifferenceofTwoPopulationMeansQuiz_67c088b810bb48.67c088b97eb496.44933060.pdf
+│   ├── 2017 apstats exam mcq11.png
+│   ├── 2017 apstats exam MCQ17.png
+│   ├── 2017APexamMCQ4.png
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit7ProgressCheckFRQ_67bc74962dd602.67bc7498323da8.24631921.pdf
+│   ├── SG_Unit7ProgressCheckMCQPartA_67bc7465b44b18.67bc7467736d60.82878580.pdf
+│   ├── SG_Unit7ProgressCheckMCQPartB_67bc747c337759.67bc747eb2d0e9.44721612.pdf
+│   └── SG_Unit7ProgressCheckMCQPartC_67bc748a75f7f4.67bc748d0e7f82.86979547.pdf
+├── unit8
+│   ├── 8-{1,2}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_SettingUpaChiSquareTestforGoodnessofFitQuiz_67c088fa618371.67c088fc793851.23402612.pdf
+│   │   └── TB_SettingUpaChiSquareTestforGoodnessofFitQuiz_67c088f23b5307.67c088f4367575.97384967.pdf
+│   ├── 8-{3,4}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaChiSquareTestforGoodnessofFitQuiz_67c0891d308816.67c0891f6d2c34.62878427.pdf
+│   │   ├── SG_ExpectedCountsinTwoWayTablesQuiz_67c0892e610853.67c0892f6d2d18.89811058.pdf
+│   │   ├── TB_CarryingOutaChiSquareTestforGoodnessofFitQuiz_67c08925362349.67c08926ce7380.37606097.pdf
+│   │   └── TB_ExpectedCountsinTwoWayTablesQuiz_67c08934a7f8f2.67c0893597bb97.34587814.pdf
+│   ├── 8-{5,6,7}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaChiSquareTestforHomogeneityorIndependenceQuiz_67c0896dbefac0.67c0896f805331.72204935.pdf
+│   │   ├── SG_SettingUpaChiSquareTestforHomogeneityorIndependenceQuiz_67c0895fe089e8.67c089611c0fd3.15140837.pdf
+│   │   ├── TB_CarryingOutaChiSquareTestforHomogeneityorIndependenceQuiz_67c08974236f99.67c08975564141.80667438.pdf
+│   │   └── TB_SettingUpaChiSquareTestforHomogeneityorIndependenceQuiz_67c089658e1208.67c08966cb8e40.43086925.pdf
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit8ProgressCheckFRQ_67bc74358f0489.67bc7436ac2d67.44264482.pdf
+│   ├── SG_Unit8ProgressCheckMCQPartA_67bc7422726ce3.67bc742463f354.53157696.pdf
+│   └── SG_Unit8ProgressCheckMCQPartB_67bc742c00bbc4.67bc742e22caa6.99538616.pdf
+├── unit9
+│   ├── 9-{1,2}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_ConfidenceIntervalsfortheSlopeofaRegressionModelQuiz_67bf6ae7c54591.67bf6ae9336a50.84450103.pdf
+│   │   └── TB_ConfidenceIntervalsfortheSlopeofaRegressionModelQuiz_67bf6aecbcdc89.67bf6aee51b061.42492525.pdf
+│   ├── 9-{3,4}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_JustifyingaClaimAbouttheSlopeofaRegressionModelBasedonaConfidenceIntervalQuiz_67bf6b18ac7772.67bf6b1a195da4.01953024.pdf
+│   │   ├── SG_SettingUpaTestfortheSlopeofaRegressionModelQuiz_67c089fb818287.67c089fd32e5a5.77912839.pdf
+│   │   ├── TB_JustifyingaClaimAbouttheSlopeofaRegressionModelBasedonaConfidenceIntervalQuiz_67bf6b1032c015.67bf6b11693449.71680327.pdf
+│   │   └── TB_SettingUpaTestfortheSlopeofaRegressionModelQuiz_67c08a04c33b68.67c08a066b3d43.95314380.pdf
+│   ├── 9-{5,6}
+│   │   ├── grokFRQ.prompt
+│   │   ├── grokMCQ.prompt
+│   │   ├── SG_CarryingOutaTestfortheSlopeofaRegressionModelQuiz_67c08a280f2846.67c08a29b5d307.26421864.pdf
+│   │   └── TB_CarryingOutaTestfortheSlopeofaRegressionModelQuiz_67c08a2e7248e3.67c08a2fd50994.73534930.pdf
+│   ├── grokFRQ.prompt
+│   ├── grokMCQ.prompt
+│   ├── SG_Unit9ProgressCheckFRQ_67bc73eda09f46.67bc73eecba8c5.32342583.pdf
+│   ├── SG_Unit9ProgressCheckMCQPartA_67bc73cc3ec957.67bc73cdb7a2a9.43202686.pdf
+│   └── SG_Unit9ProgressCheckMCQPartB_67bc73e590d497.67bc73e7754f75.49048955.pdf
+├── directory_tree.py
+└── directory_tree_output.txt
+├── README.md
