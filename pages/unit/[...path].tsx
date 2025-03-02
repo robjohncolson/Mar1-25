@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 export default function UnitPage() {
   const router = useRouter();
-  const { path } = router.query;
+  const { path, from, id } = router.query;
   
   const [unitPath, setUnitPath] = useState('');
   const [unitName, setUnitName] = useState('');
@@ -48,19 +48,26 @@ export default function UnitPage() {
       fetchQuizzes(fullPath);
     }
 
-    // Check if we came from MCQ navigation or MCQ detail
-    const referrer = document.referrer;
-    if (referrer.includes('/mcq-navigation')) {
+    // Check if we came from MCQ detail page via query params
+    if (from === 'mcq' && id) {
       setFromMcq(true);
-    } else if (referrer.includes('/mcq-detail/')) {
-      setFromMcq(true);
-      // Extract MCQ number from referrer
-      const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
-      if (mcqMatch && mcqMatch[1]) {
-        setMcqNumber(mcqMatch[1]);
+      setMcqNumber(typeof id === 'string' ? id : id[0]);
+    } 
+    // Fallback to referrer check if query params aren't present
+    else {
+      const referrer = document.referrer;
+      if (referrer.includes('/mcq-navigation')) {
+        setFromMcq(true);
+      } else if (referrer.includes('/mcq-detail/')) {
+        setFromMcq(true);
+        // Extract MCQ number from referrer
+        const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
+        if (mcqMatch && mcqMatch[1]) {
+          setMcqNumber(mcqMatch[1]);
+        }
       }
     }
-  }, [path, fetchQuizzes]);
+  }, [path, fetchQuizzes, from, id]);
 
   if (!path) {
     return null;
@@ -109,7 +116,11 @@ export default function UnitPage() {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {quizzes.map((quiz) => (
-                <QuizCard key={quiz.path} quiz={quiz} unitPath={unitPath} />
+                <QuizCard 
+                  key={quiz.path} 
+                  quiz={quiz} 
+                  unitPath={unitPath} 
+                />
               ))}
             </div>
             

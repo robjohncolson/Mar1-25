@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FaFileAlt, FaImage, FaBook } from 'react-icons/fa';
 import { Quiz } from '@/utils/contentApi';
+import { useRouter } from 'next/router';
 
 interface QuizCardProps {
   quiz: Quiz;
@@ -8,8 +9,14 @@ interface QuizCardProps {
 }
 
 export default function QuizCard({ quiz, unitPath }: QuizCardProps) {
+  const router = useRouter();
+  const { from, id } = router.query;
+  
+  // Construct the query string to preserve navigation context
+  const queryString = from === 'mcq' && id ? `?from=mcq&id=${id}&t=${Date.now()}` : '';
+  
   return (
-    <Link href={`/quiz/${quiz.path}`}>
+    <Link href={`/quiz/${quiz.path}${queryString}`}>
       <a className="block mb-4">
         <div className="mac-window p-4 hover:bg-mac-light transition-colors duration-300 cursor-pointer">
           <div className="flex items-center">

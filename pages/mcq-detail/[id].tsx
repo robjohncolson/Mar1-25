@@ -53,6 +53,8 @@ export default function MCQDetail() {
   const { id } = router.query;
   const [mcqNumber, setMcqNumber] = useState<string | null>(null);
   const [mcqData, setMcqData] = useState<{ unit: string; sections: string[] } | null>(null);
+  // Generate a timestamp for cache busting
+  const [timestamp] = useState(() => Date.now());
 
   useEffect(() => {
     if (id && typeof id === 'string') {
@@ -112,7 +114,7 @@ export default function MCQDetail() {
                 <p className="mb-6 text-center">
                   View the entire unit related to this question.
                 </p>
-                <Link href={`/unit/${mcqData.unit}`}>
+                <Link href={`/unit/${mcqData.unit}?from=mcq&id=${mcqNumber}&t=${timestamp}`}>
                   <a className="mac-button text-lg py-2 px-6 w-full text-center">
                     Go to Unit {mcqData.unit.replace('unit', '')}
                   </a>
@@ -130,7 +132,7 @@ export default function MCQDetail() {
                 </p>
                 <div className="w-full space-y-2">
                   {mcqData.sections.map((section) => (
-                    <Link key={section} href={`/quiz/${mcqData.unit}/${section}`}>
+                    <Link key={section} href={`/quiz/${mcqData.unit}/${section}?from=mcq&id=${mcqNumber}&t=${timestamp}`}>
                       <a className="mac-button py-2 px-6 w-full text-center block">
                         Go to Section {section}
                       </a>

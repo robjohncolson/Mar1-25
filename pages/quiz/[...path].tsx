@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 export default function QuizPage() {
   const router = useRouter();
-  const { path } = router.query;
+  const { path, from, id } = router.query;
   
   const [quizPath, setQuizPath] = useState('');
   const [quizName, setQuizName] = useState('');
@@ -97,17 +97,25 @@ export default function QuizPage() {
       fetchQuizContents(fullPath);
     }
 
-    // Check if we came from MCQ detail
-    const referrer = document.referrer;
-    if (referrer.includes('/mcq-detail/')) {
+    // Check if we came from MCQ detail page via query params
+    if (from === 'mcq' && id) {
       setFromMcq(true);
-      // Extract MCQ number from referrer
-      const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
-      if (mcqMatch && mcqMatch[1]) {
-        setMcqNumber(mcqMatch[1]);
+      setMcqNumber(typeof id === 'string' ? id : id[0]);
+    }
+    // Fallback to referrer check if query params aren't present
+    else {
+      // Check if we came from MCQ detail
+      const referrer = document.referrer;
+      if (referrer.includes('/mcq-detail/')) {
+        setFromMcq(true);
+        // Extract MCQ number from referrer
+        const mcqMatch = referrer.match(/\/mcq-detail\/(\d+)/);
+        if (mcqMatch && mcqMatch[1]) {
+          setMcqNumber(mcqMatch[1]);
+        }
       }
     }
-  }, [path, fetchQuizContents]);
+  }, [path, fetchQuizContents, from, id]);
 
   if (!path) {
     return null;
