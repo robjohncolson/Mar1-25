@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import PDFCard from '@/components/PDFCard';
@@ -20,6 +20,46 @@ export default function QuizPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const fetchQuizContents = useCallback(async (fullPath: string) => {
+    try {
+      const contents = await getRepoContents(fullPath);
+      
+      // Filter PDFs
+      const pdfFiles = contents
+        .filter((item) => item.type === 'file' && item.name.toLowerCase().endsWith('.pdf'))
+        .map((pdf) => ({
+          name: pdf.name,
+          path: pdf.path,
+          download_url: pdf.download_url || '',
+        }));
+      
+      setPdfs(pdfFiles);
+      
+      // Filter prompt text files
+      const promptFiles = contents.filter(
+        (item) => item.type === 'file' && item.name.toLowerCase().endsWith('.txt')
+      );
+      
+      const promptsData: Prompt[] = [];
+      
+      for (const promptFile of promptFiles) {
+        const content = await getFileContent(promptFile.path);
+        promptsData.push({
+          name: promptFile.name,
+          path: promptFile.path,
+          content,
+        });
+      }
+      
+      setPrompts(promptsData);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching quiz contents:', err);
+      setError('Failed to load quiz contents. Please try again later.');
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (path && Array.isArray(path)) {
       const fullPath = path.join('/');
@@ -31,49 +71,9 @@ export default function QuizPage() {
       setQuizName(`Quiz ${quizDirName}`);
       setUnitPath(pathParts.join('/'));
       
-      async function fetchQuizContents() {
-        try {
-          const contents = await getRepoContents(fullPath);
-          
-          // Filter PDFs
-          const pdfFiles = contents
-            .filter((item) => item.type === 'file' && item.name.toLowerCase().endsWith('.pdf'))
-            .map((pdf) => ({
-              name: pdf.name,
-              path: pdf.path,
-              download_url: pdf.download_url || '',
-            }));
-          
-          setPdfs(pdfFiles);
-          
-          // Filter prompt text files
-          const promptFiles = contents.filter(
-            (item) => item.type === 'file' && item.name.toLowerCase().endsWith('.txt')
-          );
-          
-          const promptsData: Prompt[] = [];
-          
-          for (const promptFile of promptFiles) {
-            const content = await getFileContent(promptFile.path);
-            promptsData.push({
-              name: promptFile.name,
-              path: promptFile.path,
-              content,
-            });
-          }
-          
-          setPrompts(promptsData);
-          setLoading(false);
-        } catch (err) {
-          console.error('Error fetching quiz contents:', err);
-          setError('Failed to load quiz contents. Please try again later.');
-          setLoading(false);
-        }
-      }
-
-      fetchQuizContents();
+      fetchQuizContents(fullPath);
     }
-  }, [path]);
+  }, [path, fetchQuizContents]);
 
   if (!path) {
     return null;

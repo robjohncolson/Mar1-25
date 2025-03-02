@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import QuizCard from '@/components/QuizCard';
@@ -17,27 +17,27 @@ export default function UnitPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const fetchQuizzes = useCallback(async (fullPath: string) => {
+    try {
+      const quizzesData = await getQuizzesForUnit(fullPath);
+      setQuizzes(quizzesData);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching quizzes:', err);
+      setError('Failed to load quizzes. Please try again later.');
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (path && Array.isArray(path)) {
       const fullPath = path.join('/');
       setUnitPath(fullPath);
       setUnitName(`Unit ${path[0]}`);
       
-      async function fetchQuizzes() {
-        try {
-          const quizzesData = await getQuizzesForUnit(fullPath);
-          setQuizzes(quizzesData);
-          setLoading(false);
-        } catch (err) {
-          console.error('Error fetching quizzes:', err);
-          setError('Failed to load quizzes. Please try again later.');
-          setLoading(false);
-        }
-      }
-
-      fetchQuizzes();
+      fetchQuizzes(fullPath);
     }
-  }, [path]);
+  }, [path, fetchQuizzes]);
 
   if (!path) {
     return null;

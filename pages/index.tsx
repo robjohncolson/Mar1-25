@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import UnitCard from '@/components/UnitCard';
 import HowToUse from '@/components/HowToUse';
@@ -10,21 +10,21 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function fetchUnits() {
-      try {
-        const unitsData = await getAllUnits();
-        setUnits(unitsData);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching units:', err);
-        setError('Failed to load units. Please try again later.');
-        setLoading(false);
-      }
+  const fetchUnits = useCallback(async () => {
+    try {
+      const unitsData = await getAllUnits();
+      setUnits(unitsData);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching units:', err);
+      setError('Failed to load units. Please try again later.');
+      setLoading(false);
     }
-
-    fetchUnits();
   }, []);
+
+  useEffect(() => {
+    fetchUnits();
+  }, [fetchUnits]);
 
   return (
     <Layout title="AP Statistics Hub - Home">
