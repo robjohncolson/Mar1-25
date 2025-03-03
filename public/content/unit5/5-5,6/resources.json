@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 5 Sections 5-6: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1y1iW173PGADlfmDuZuvUYwg-czY2FKCo/view",
+      "description": "Video lecture on confidence intervals for means (Part 1)"
+    },
+    {
+      "title": "Unit 5 Sections 5-6: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1EosOt0OTG3faHrdnkhQy-SrFdAxRndjF/view",
+      "description": "Video lecture on confidence intervals for means (Part 2)"
+    },
+    {
+      "title": "Unit 5 Sections 5-6: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1XufYZpotzaSRppEfFckSzr6mVavfTWoX/view",
+      "description": "Video lecture on confidence intervals for means (Part 3)"
+    },
+    {
+      "title": "Unit 5 Sections 5-6: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1_C6vTO44i3ypH5wU2XYU53BOa4whSZxW/view",
+      "description": "Video lecture on confidence intervals for means (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 5 (Sections 5-6) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67622914b437d2a3c1672469",
+      "description": "Interactive flashcards covering confidence intervals for means"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 5 Sections 5-6 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=876567714",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

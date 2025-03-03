@@ -1,0 +1,38 @@
+{
+  "videos": [
+    {
+      "title": "Unit 4 Sections 7-8: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1UgJNPPVuG8ZGUobUD-KfM_EQz9AKfgAX/view",
+      "description": "Video lecture on the Central Limit Theorem (Part 1)"
+    },
+    {
+      "title": "Unit 4 Sections 7-8: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1cpK16Dp_3xVifQQahdMiahq44Jha-FKc/view",
+      "description": "Video lecture on the Central Limit Theorem (Part 2)"
+    },
+    {
+      "title": "Unit 4 Sections 7-8: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1KgvrdwR0U9ScngjSq4AS7WJ2ecuQzswu/view",
+      "description": "Video lecture on the Central Limit Theorem (Part 3)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 4 (Sections 7-8) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/674731c2ea46da79e98ee442",
+      "description": "Interactive flashcards covering the Central Limit Theorem"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 4 Sections 7-8 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=872841276",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

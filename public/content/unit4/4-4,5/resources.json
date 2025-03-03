@@ -1,0 +1,32 @@
+{
+  "videos": [
+    {
+      "title": "Unit 4 Sections 4-5: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1TRJBAVaIbAWWLREvsDgRCxf0sNcFkpxf/view",
+      "description": "Video lecture on sampling distributions for proportions (Part 1)"
+    },
+    {
+      "title": "Unit 4 Sections 4-5: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1fpXLiPwBKO3kqppTWm4FpqjCcHX3Qf84/view",
+      "description": "Video lecture on sampling distributions for proportions (Part 2)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 4 (Sections 4-5) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/6745e9d66594feb7efbc7f7c",
+      "description": "Interactive flashcards covering sampling distributions for proportions"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 4 Sections 4-5 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=872503804",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

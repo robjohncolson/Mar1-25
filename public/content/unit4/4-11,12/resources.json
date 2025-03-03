@@ -1,0 +1,38 @@
+{
+  "videos": [
+    {
+      "title": "Unit 4 Sections 11-12: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Yb5FnTa4R-JbWUaAqNsWJtYtbMaWw2gd/view",
+      "description": "Video lecture on simulation-based sampling distributions (Part 1)"
+    },
+    {
+      "title": "Unit 4 Sections 11-12: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1PVmey_huN37gyeaxXfKMOJRKhdWpPY_N/view",
+      "description": "Video lecture on simulation-based sampling distributions (Part 2)"
+    },
+    {
+      "title": "Unit 4 Sections 11-12: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1ZsUp6flFbcAnpDP6U2Jj_3iBbi3rfkjz/view",
+      "description": "Video lecture on simulation-based sampling distributions (Part 3)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 4 (Sections 11-12) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/6755ed68f816f8ab3eae4075",
+      "description": "Interactive flashcards covering simulation-based sampling distributions"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 4 Sections 11-12 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=872844773",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

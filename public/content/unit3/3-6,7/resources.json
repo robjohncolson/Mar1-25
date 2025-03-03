@@ -1,30 +1,38 @@
 {
   "videos": [
     {
-      "title": "Binomial Probability Distribution",
+      "title": "Unit 3 Sections 6-7: Video 1",
       "type": "google_drive",
-      "url": "https://drive.google.com/file/d/1example-link-for-binomial-distribution",
-      "description": "Learn about binomial probability distributions and their applications"
+      "url": "https://drive.google.com/file/d/14I05d33AzFvCrjTAFSxtAlPiFLEuspZK/view",
+      "description": "Video lecture on binomial and geometric distributions (Part 1)"
     },
     {
-      "title": "Geometric Probability Distribution",
-      "type": "youtube",
-      "url": "https://youtube.com/watch?v=example-geometric-distribution",
-      "description": "Detailed explanation of geometric probability distributions with real-world examples"
+      "title": "Unit 3 Sections 6-7: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1DQZQMZVzesDILUqzVetIysD7DB94UYVT/view",
+      "description": "Video lecture on binomial and geometric distributions (Part 2)"
+    },
+    {
+      "title": "Unit 3 Sections 6-7: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/10TnxIb09QzsRvYQm-G3eiWQ5CSrELuJz/view",
+      "description": "Video lecture on binomial and geometric distributions (Part 3)"
     }
   ],
   "practice": [
     {
-      "title": "Binomial Distribution Quiz",
+      "title": "Unit 3 (Sections 6-7) Practice",
       "type": "blooket",
-      "url": "https://play.blooket.com/play?id=example-binomial-quiz",
-      "description": "Test your understanding of binomial probability distributions"
-    },
+      "url": "https://dashboard.blooket.com/set/6743f1cc93f0f9c93979195f",
+      "description": "Interactive flashcards covering binomial and geometric distributions"
+    }
+  ],
+  "other": [
     {
-      "title": "Probability Distributions Challenge",
-      "type": "blooket",
-      "url": "https://play.blooket.com/play?id=example-probability-challenge",
-      "description": "Comprehensive review of all probability distribution types"
+      "title": "Unit 3 Sections 6-7 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=871275808",
+      "description": "Additional course materials and resources available on Schoology"
     }
   ]
 } 

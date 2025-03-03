@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 5 Sections 1-2: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1QtdgRvz6FDzTKK4UgACKVxdqJMyZDGR8/view",
+      "description": "Video lecture on confidence intervals (Part 1)"
+    },
+    {
+      "title": "Unit 5 Sections 1-2: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1JFYjH0zXcPRk4Z18dTnbqWQLhu6IM_y3/view",
+      "description": "Video lecture on confidence intervals (Part 2)"
+    },
+    {
+      "title": "Unit 5 Sections 1-2: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1pRBVyjLPY1aEPGbkTdYzt5aPlQIy9FDW/view",
+      "description": "Video lecture on confidence intervals (Part 3)"
+    },
+    {
+      "title": "Unit 5 Sections 1-2: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1HVGa0OuHML6pHhGdp4UOln6oncX3n53_/view",
+      "description": "Video lecture on confidence intervals (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 5 (Sections 1-2) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/675ee67fd22d339ea678f940",
+      "description": "Interactive flashcards covering confidence intervals"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 5 Sections 1-2 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=876045482",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

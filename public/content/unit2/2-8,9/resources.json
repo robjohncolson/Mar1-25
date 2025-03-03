@@ -1,0 +1,50 @@
+{
+  "videos": [
+    {
+      "title": "Section 2-8: Part 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1_rLSLHvicUEZYr0YJ49e4rn5ezLP6cGX/view",
+      "description": "Video lecture on Section 2-8 concepts (Part 1)"
+    },
+    {
+      "title": "Section 2-8: Part 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1XuzJlAW6HfR6E4L2DSSYxf66yqbG15dg/view",
+      "description": "Video lecture on Section 2-8 concepts (Part 2)"
+    },
+    {
+      "title": "Section 2-8: Part 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Ghvv9jo8PH9KmX25-23oSRLVlLlUZX7N/view",
+      "description": "Video lecture on Section 2-8 concepts (Part 3)"
+    },
+    {
+      "title": "Section 2-9: Part 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/19OKlAS6U2MyiT0E3LMsR8Hxu9LHWt78Q/view",
+      "description": "Video lecture on Section 2-9 concepts (Part 1)"
+    },
+    {
+      "title": "Section 2-9: Part 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Y0qapTVLcbLj02JjkzA11uEEWFYPe7Cr/view",
+      "description": "Video lecture on Section 2-9 concepts (Part 2)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 2 (Sections 8-9) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/6736b038d1f02d6a8c177c73",
+      "description": "Interactive flashcards covering Unit 2 Sections 8-9 concepts"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 2 Sections 8-9 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=870575398",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

@@ -1,0 +1,38 @@
+{
+  "videos": [
+    {
+      "title": "Unit 5 Sections 3-4: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1N5xTQ9hpOwIDTxbF0AxIzPxxaCbmOWaA/view",
+      "description": "Video lecture on confidence intervals for proportions (Part 1)"
+    },
+    {
+      "title": "Unit 5 Sections 3-4: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Lrf2azQI_qx0zLOyp0Yn-TS11zK4fb5u/view",
+      "description": "Video lecture on confidence intervals for proportions (Part 2)"
+    },
+    {
+      "title": "Unit 5 Sections 3-4: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1n0CE4BjYdx_bRDz-iEH2FyK7sfgcG3Mj/view",
+      "description": "Video lecture on confidence intervals for proportions (Part 3)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 5 (Sections 3-4) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/676176831647708cf4f7eff0",
+      "description": "Interactive flashcards covering confidence intervals for proportions"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 5 Sections 3-4 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=876193181",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 
