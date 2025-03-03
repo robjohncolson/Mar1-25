@@ -1,15 +1,14 @@
 # AP Statistics Hub
 
-A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a local directory structure, making it easy to update and maintain.
+A mobile-friendly web application that serves as a front end for AP Statistics resources. The app dynamically loads content from a directory structure, making it easy to adapt for different subjects.
 
-## Latest Release - v2.2.1 (March 22, 2025)
+## Latest Release - v2.0.0: "MediaMaster"
 
-This release improves navigation:
-- Added "Up to Unit" navigation option on quiz pages when coming from MCQs
-- Enhanced navigation flow between MCQs, quizzes, and unit pages
-- Better access to all unit resources from any context
-
-See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
+This release adds comprehensive multimedia resources:
+- Google Drive video links for educational content
+- Blooket flashcard games for interactive practice
+- Schoology materials integration
+- Enhanced content organization and navigation
 
 ## Features
 
@@ -23,144 +22,155 @@ See the [CHANGELOG.md](CHANGELOG.md) for detailed release notes.
 - Organized content by type (AI vs. multimedia)
 - Intuitive navigation between related content
 
-## Deployment Instructions
+## Development with Cursor and Vercel
 
-### Local Development
+### Prerequisites
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/ap-statistics-hub.git
-   cd ap-statistics-hub
-   ```
+- [Cursor](https://cursor.sh/) IDE installed
+- [Vercel](https://vercel.com/) account
+- [GitHub](https://github.com/) account
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### Getting Started in Cursor
 
-3. Ensure your AP Statistics resources are in the `public/content` directory with this structure:
-   ```
-   public/content/
-   ├── unit1/
-   │   ├── 1-2/
-   │   │   ├── quiz.pdf
-   │   │   └── prompt.txt
-   │   └── 1-3/
-   │       ├── quiz.pdf
-   │       └── prompt.txt
-   ├── unit2/
-   │   └── ...
-   ├── 2017apexam/
-   │   ├── exam.pdf
-   │   └── prompt.txt
-   └── knowledge-tree.txt
-   ```
+1. **Clone the repository in Cursor**:
+   - Open Cursor
+   - Click "Clone Repository" or use the command palette (Cmd/Ctrl+Shift+P)
+   - Enter the repository URL
 
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
+2. **Preview and edit the code**:
+   - Browse and edit files directly in Cursor
+   - Use Cursor's AI features to help understand and modify the code
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+3. **Commit your changes**:
+   - Use Cursor's Git integration to stage and commit changes
+   - Push to your GitHub repository
 
 ### Deploying to Vercel
 
-1. Push your code to GitHub, including the `public/content` directory:
-   ```bash
-   git add .
-   git commit -m "Ready for deployment"
-   git push
-   ```
+Vercel handles all the build processes automatically, so you don't need to run any local build commands:
 
-2. Connect your GitHub repository to Vercel:
+1. **Connect your GitHub repository to Vercel**:
    - Go to [Vercel](https://vercel.com) and sign in
-   - Click "New Project"
-   - Import your GitHub repository
-   - Configure the project settings (use default Next.js settings)
-   - Click "Deploy"
+   - Click "Add New..." → "Project"
+   - Select your GitHub repository
+   - Vercel will automatically detect it as a Next.js project
+   - Use the default settings and click "Deploy"
 
-3. Your application will be deployed and available at the Vercel URL.
+2. **Continuous Deployment**:
+   - Once connected, Vercel will automatically deploy when you push changes to GitHub
+   - Each commit to your main branch will trigger a new deployment
+   - You can also set up preview deployments for pull requests
 
-## How It Works
+3. **Your application will be available at the Vercel URL**
 
-The application uses Next.js API routes to serve content from the `public/content` directory. This approach:
+## Adapting for Different Subjects
 
-1. Eliminates GitHub API rate limits
-2. Provides faster page loads
-3. Allows offline functionality during development
-4. Reduces dependency on external services
+To adapt this application for a different subject (e.g., AP Calculus, AP History):
 
-## Directory Structure
+### 1. Content Structure
+
+The application uses a specific directory structure in `public/content/`:
+
+```
+public/content/
+├── unit1/
+│   ├── 1-1/
+│   │   ├── quiz.pdf
+│   │   ├── prompt.txt
+│   │   └── resources.json
+│   ├── 1-2/
+│   │   ├── quiz.pdf
+│   │   └── prompt.txt
+├── unit2/
+│   └── ...
+```
+
+### 2. Modify Unit Names and Content
+
+1. **Update unit names and sections**:
+   - Edit the directory names to match your subject's units
+   - For AP Calculus, you might use `unit1` for "Limits and Continuity"
+   - For AP History, you might use `unit1` for "Period 1: 1491-1607"
+
+2. **Replace content files**:
+   - Replace PDFs with your subject-specific materials
+   - Update prompt.txt files with subject-appropriate AI prompts
+   - Create resources.json files for your multimedia content
+
+### 3. Resources.json Format
+
+Each section can have a `resources.json` file with this structure:
+
+```json
+{
+  "videos": [
+    {
+      "title": "Video Title",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/example",
+      "description": "Description of the video"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Practice Activity",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/example",
+      "description": "Description of the practice activity"
+    }
+  ],
+  "other": [
+    {
+      "title": "Additional Resource",
+      "type": "schoology",
+      "url": "https://schoology.com/example",
+      "description": "Description of the resource"
+    }
+  ]
+}
+```
+
+### 4. Update MCQ Content (Optional)
+
+If your subject has MCQs:
+
+1. Update the `mcqLocations` object in `pages/mcq-detail/[id].tsx`
+2. Update the `mcqPrimaryLocations` object in `pages/mcq-navigation.tsx`
+
+### 5. Customize Branding
+
+1. Update the title in `Layout.tsx`
+2. Modify the color scheme in `tailwind.config.js` if desired
+3. Update the README.md with your subject information
+
+## Project Structure
 
 - `pages/`: Next.js pages and API routes
 - `components/`: React components
 - `utils/`: Utility functions
-- `public/content/`: AP Statistics resources (PDFs, prompts, images, resources.json)
+- `public/content/`: Subject resources (PDFs, prompts, images, resources.json)
 - `public/`: Other static assets
+- `scripts/`: Deployment and release scripts
 
-## External Resources
+## Working Without Administrator Privileges
 
-The application supports external resources for each quiz section. To add external resources:
+If you need to work on a Windows laptop without administrator privileges:
 
-1. Create a `resources.json` file in the quiz section directory:
-   ```
-   public/content/unit3/3-1,2,3/resources.json
-   ```
+1. **Use Vercel's GitHub Integration**:
+   - Make all your changes directly on GitHub or through Cursor
+   - Let Vercel handle the build and deployment process
+   - No local installation required
 
-2. Use the following format for the resources.json file:
-   ```json
-   {
-     "videos": [
-       {
-         "title": "Video Title",
-         "type": "youtube",
-         "url": "https://youtube.com/watch?v=example",
-         "description": "Description of the video"
-       },
-       {
-         "title": "Another Video",
-         "type": "google_drive",
-         "url": "https://drive.google.com/file/d/example",
-         "description": "Description of the video"
-       }
-     ],
-     "practice": [
-       {
-         "title": "Practice Game",
-         "type": "blooket",
-         "url": "https://play.blooket.com/play?id=example",
-         "description": "Description of the practice activity"
-       }
-     ]
-   }
-   ```
+2. **Use Gitpod or GitHub Codespaces**:
+   - These browser-based development environments require no local installation
+   - They provide full development capabilities in the browser
+   - Can be launched directly from your GitHub repository
 
-3. The resources will automatically appear in the quiz page.
-
-## Customization
-
-To customize the application:
-
-1. Update the content in the `public/content` directory
-2. Modify the UI components in the `components` directory
-3. Adjust the styling using Tailwind CSS classes
-
-## Releases and Deployment
-
-For information about the release process, see [RELEASE.md](RELEASE.md).
-
-To create a new release:
-
-```bash
-npm run release
-```
-
-To deploy to Vercel:
-
-```bash
-npm run deploy
-```
+3. **Use Replit**:
+   - [Replit](https://replit.com/) provides a browser-based development environment
+   - Import your GitHub repository and make changes
+   - No local installation required
 
 ## License
 
-MIT 
+MIT
