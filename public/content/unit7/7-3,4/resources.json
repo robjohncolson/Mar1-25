@@ -1,0 +1,50 @@
+{
+  "videos": [
+    {
+      "title": "Unit 7 Sections 3-4: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/12f3_LWkXq3ezMJwDaFfGlxobizRKvj1I/view",
+      "description": "Video lecture on transformations and inference (Part 1)"
+    },
+    {
+      "title": "Unit 7 Sections 3-4: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1ie_ChlondI_Y1tiTlEum5OZAGovX5R2u/view",
+      "description": "Video lecture on transformations and inference (Part 2)"
+    },
+    {
+      "title": "Unit 7 Sections 3-4: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1VP_COxmeIU2S0jC24EgYgAnRqnsJz9B6/view",
+      "description": "Video lecture on transformations and inference (Part 3)"
+    },
+    {
+      "title": "Unit 7 Sections 3-4: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1ugAdsbFI9jyFAClJPphWtmva2DWNron2/view",
+      "description": "Video lecture on transformations and inference (Part 4)"
+    },
+    {
+      "title": "Unit 7 Sections 3-4: Video 5",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1093Dkx-RAxtiFVsWnnZ22rS1E6Tkhau6/view",
+      "description": "Video lecture on transformations and inference (Part 5)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 7 (Sections 3-4) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/679064a35cae6717b3b9e597",
+      "description": "Interactive flashcards covering transformations and inference"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 7 Sections 3-4 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=884719645",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

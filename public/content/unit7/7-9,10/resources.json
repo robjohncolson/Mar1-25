@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 7 Sections 9-10: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1329C4d76DZoxl1yQQql_T9SAeoHedObV/view",
+      "description": "Video lecture on model selection (Part 1)"
+    },
+    {
+      "title": "Unit 7 Sections 9-10: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1bJ-id40s9xbnD2UZp9bzfBAKxUwtOT2q/view",
+      "description": "Video lecture on model selection (Part 2)"
+    },
+    {
+      "title": "Unit 7 Sections 9-10: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/19SaxraKugKUY6Q1xjbanPY81njG45xBH/view",
+      "description": "Video lecture on model selection (Part 4)"
+    },
+    {
+      "title": "Unit 7 Sections 9-10: Video 5",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1LiE45fJPP_XMvutGZzVtr3QfNicJedMi/view",
+      "description": "Video lecture on model selection (Part 5)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 7 (Sections 9-10) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/6796d589872dabaf5d1d4f67",
+      "description": "Interactive flashcards covering model selection"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 7 Sections 9-10 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=885435586",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

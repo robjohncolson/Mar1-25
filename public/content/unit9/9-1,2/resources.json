@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 9 Sections 1-2: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1aMPs1uK5H7dvYoVaGh2TQLkdJGBAjoPd/view",
+      "description": "Video lecture on collecting data (Part 1)"
+    },
+    {
+      "title": "Unit 9 Sections 1-2: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/18e3wAS58P1SW1ok8tv3mtFPhmM3pCRwN/view",
+      "description": "Video lecture on collecting data (Part 2)"
+    },
+    {
+      "title": "Unit 9 Sections 1-2: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1LLyG6B71f0kAoo6QHxQPb1JGQ4hVwkKq/view",
+      "description": "Video lecture on collecting data (Part 3)"
+    },
+    {
+      "title": "Unit 9 Sections 1-2: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1UkOJyY-qEovCHQANK5jtZhzNNpa4iHbK/view",
+      "description": "Video lecture on collecting data (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 9 (Sections 1-2) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67abd1a52e696eaa6953cefb",
+      "description": "Interactive flashcards covering collecting data"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 9 Sections 1-2 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=889183728",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

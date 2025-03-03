@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 9 Sections 3-4: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1yWqjcF-IyHImRwTBV3cEIt13u0infZzI/view",
+      "description": "Video lecture on analyzing data (Part 1)"
+    },
+    {
+      "title": "Unit 9 Sections 3-4: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1GqvcUy_AJRnTgDORWQkAVHSWjKpRxTaT/view",
+      "description": "Video lecture on analyzing data (Part 2)"
+    },
+    {
+      "title": "Unit 9 Sections 3-4: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1LKHmLObjf3Nnszvk833XeLgH5JJ9F0_g/view",
+      "description": "Video lecture on analyzing data (Part 3)"
+    },
+    {
+      "title": "Unit 9 Sections 3-4: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1EBPBsC-oJXGaxn7jp1Q92IWetvaPNl1M/view",
+      "description": "Video lecture on analyzing data (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 9 (Sections 3-4) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67ad483c2f4c058d231fa81c",
+      "description": "Interactive flashcards covering analyzing data"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 9 Sections 3-4 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=890176091",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

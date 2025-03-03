@@ -1,0 +1,38 @@
+{
+  "videos": [
+    {
+      "title": "Unit 6 Sections 7-8: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/12sJrnadHPSRJ6RUauB-VWpUnhMEunCvH/view",
+      "description": "Video lecture on hypothesis tests for differences (Part 1)"
+    },
+    {
+      "title": "Unit 6 Sections 7-8: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1mRfi7bTMSHtadxhLc2pAEmAMjmLpgvZn/view",
+      "description": "Video lecture on hypothesis tests for differences (Part 2)"
+    },
+    {
+      "title": "Unit 6 Sections 7-8: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1cH5jaDvcEOCQ6RGeLZxaqGVOFFt1nT5F/view",
+      "description": "Video lecture on hypothesis tests for differences (Part 3)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 6 (Sections 7-8) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/677f32915945bda1b7a938b1",
+      "description": "Interactive flashcards covering hypothesis tests for differences"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 6 Sections 7-8 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=880790636",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

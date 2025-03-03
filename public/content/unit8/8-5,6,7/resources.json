@@ -1,0 +1,56 @@
+{
+  "videos": [
+    {
+      "title": "Unit 8 Sections 5-7: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1YHP2ipcZ5Vj35OVgZBYwExUjfU-yB2q1/view",
+      "description": "Video lecture on advanced experimental design (Part 1)"
+    },
+    {
+      "title": "Unit 8 Sections 5-7: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1mDfMU3wJoLUEQY44eNr1d-XnwXl6aRlt/view",
+      "description": "Video lecture on advanced experimental design (Part 2)"
+    },
+    {
+      "title": "Unit 8 Sections 5-7: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1DS_LxyMAABbjaN3VrMjBcDXy0PwbDaP3/view",
+      "description": "Video lecture on advanced experimental design (Part 3)"
+    },
+    {
+      "title": "Unit 8 Sections 5-7: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1hm-K8vBzjXcx7hTdU2E8-0bIDhdUgiq_/view",
+      "description": "Video lecture on advanced experimental design (Part 4)"
+    },
+    {
+      "title": "Unit 8 Sections 5-7: Video 5",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1v9ENpspNX7MSsuE50ZXoQyizuGOJ35sp/view",
+      "description": "Video lecture on advanced experimental design (Part 5)"
+    },
+    {
+      "title": "Unit 8 Sections 5-7: Video 6",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/175SWda7WXUWkt1EbLLDOwKWD-4Gn8llx/view",
+      "description": "Video lecture on advanced experimental design (Part 6)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 8 (Sections 5-7) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67a1808426f32d934507d9e8",
+      "description": "Interactive flashcards covering advanced experimental design"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 8 Sections 5-7 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=888397751",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

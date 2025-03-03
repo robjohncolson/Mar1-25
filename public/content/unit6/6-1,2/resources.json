@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 6 Sections 1-2: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1fKcwvZJ-k_1_W4oNdavj1PhE5HdxpwiA/view",
+      "description": "Video lecture on hypothesis testing concepts (Part 1)"
+    },
+    {
+      "title": "Unit 6 Sections 1-2: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Z1IVxhFEx4Bul3FfJHBqBSn8LyTDMfOB/view",
+      "description": "Video lecture on hypothesis testing concepts (Part 2)"
+    },
+    {
+      "title": "Unit 6 Sections 1-2: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1fq3GJRjLgVz9HOo5_1SkHtCOd306KBrw/view",
+      "description": "Video lecture on hypothesis testing concepts (Part 3)"
+    },
+    {
+      "title": "Unit 6 Sections 1-2: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1jmaj_VpyrN_KyBLEm3rfPx8Bo-cQiEjG/view",
+      "description": "Video lecture on hypothesis testing concepts (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 6 (Sections 1-2) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/677b320bb7dc3cccd938dd2b",
+      "description": "Interactive flashcards covering hypothesis testing concepts"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 6 Sections 1-2 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=878754987",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

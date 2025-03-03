@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 6 Sections 3-4: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1jeFQcdB2pJN0iZbYzB_MZcvotx00A0mr/view",
+      "description": "Video lecture on hypothesis tests for proportions (Part 1)"
+    },
+    {
+      "title": "Unit 6 Sections 3-4: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1VkVgzdGiy73QAzXzBevf-Rb-kcFBRXNr/view",
+      "description": "Video lecture on hypothesis tests for proportions (Part 2)"
+    },
+    {
+      "title": "Unit 6 Sections 3-4: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1Tv1o7BEvI0vaM8Ec09E2MuDjFwpUGo1X/view",
+      "description": "Video lecture on hypothesis tests for proportions (Part 3)"
+    },
+    {
+      "title": "Unit 6 Sections 3-4: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1WcGkierE6UKER-UtAX-7HbGtwbmJlbZv/view",
+      "description": "Video lecture on hypothesis tests for proportions (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 6 (Sections 3-4) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/677c92050e3524a55b073738",
+      "description": "Interactive flashcards covering hypothesis tests for proportions"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 6 Sections 3-4 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=878972667",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

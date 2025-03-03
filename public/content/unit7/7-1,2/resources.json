@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 7 Sections 1-2: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1DRCmH8ENSMJwf75yG-M_hPnUWcF2uww4/view",
+      "description": "Video lecture on inference for slopes (Part 1)"
+    },
+    {
+      "title": "Unit 7 Sections 1-2: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1QOnc8wCvA10U9AvoAfl9ksdmnzC7rIi1/view",
+      "description": "Video lecture on inference for slopes (Part 2)"
+    },
+    {
+      "title": "Unit 7 Sections 1-2: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1CaDaKiUhi3e954ZcpVYUEVpWZdKgNi0o/view",
+      "description": "Video lecture on inference for slopes (Part 3)"
+    },
+    {
+      "title": "Unit 7 Sections 1-2: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1eQUfrAiMrRCz1GpDzzQJ4ueBD3IQiD6z/view",
+      "description": "Video lecture on inference for slopes (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 7 (Sections 1-2) Practice",
+      "type": "blooket",
+      "url": "https://lynnschools.schoology.com/link?a=3133487358&path=https%3A%2F%2Fdashboard.blooket.com%2Fset%2F678a957d0b1ec5cb87847f13&nid=7681156923",
+      "description": "Interactive flashcards covering inference for slopes"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 7 Sections 1-2 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=884371696",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

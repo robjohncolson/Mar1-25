@@ -1,0 +1,50 @@
+{
+  "videos": [
+    {
+      "title": "Unit 8 Sections 3-4: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1NemHYSwgnig3l3FUeyDYcDdt80aIYfd4/view",
+      "description": "Video lecture on experimental design (Part 1)"
+    },
+    {
+      "title": "Unit 8 Sections 3-4: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1A3t8-9QW7ubguCrQdApGKf4GkZWb1qBi/view",
+      "description": "Video lecture on experimental design (Part 2)"
+    },
+    {
+      "title": "Unit 8 Sections 3-4: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1tqgSvs4IHjltdUWtH7WmyqbPWGCMMoXb/view",
+      "description": "Video lecture on experimental design (Part 3)"
+    },
+    {
+      "title": "Unit 8 Sections 3-4: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/16dgP2zYBVUN2qzFlGRXKZ5aqErJv8FyQ/view",
+      "description": "Video lecture on experimental design (Part 4)"
+    },
+    {
+      "title": "Unit 8 Sections 3-4: Video 5",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1NemHYSwgnig3l3FUeyDYcDdt80aIYfd4/view",
+      "description": "Video lecture on experimental design (Part 5)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 8 (Sections 3-4) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67a15d8426f32d934507d696",
+      "description": "Interactive flashcards covering experimental design"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 8 Sections 3-4 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=887494773",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

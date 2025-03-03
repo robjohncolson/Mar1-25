@@ -1,0 +1,62 @@
+{
+  "videos": [
+    {
+      "title": "Unit 6 Sections 9-11: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1LqtzJe8MTykYtX8mVcf4pbU1BtVcvwfb/view",
+      "description": "Video lecture on chi-square tests (Part 1)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1pBYs6pAkS_RyUVfNMxoaKvg8tuapkNFe/view",
+      "description": "Video lecture on chi-square tests (Part 2)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1dIRMyHdePpkx7pCJFcAkRHIPj2Q8RtqG/view",
+      "description": "Video lecture on chi-square tests (Part 3)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1SDYELDZa9kcJldq_qf1DsOOMhrjzfkio/view",
+      "description": "Video lecture on chi-square tests (Part 4)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 5",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1nJ5tGJ5m9ft1c8yieYqHjCQAvZLotnD1/view",
+      "description": "Video lecture on chi-square tests (Part 5)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 6",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1rEKSvHoivPVRtsq63NOys-A5x-xtMjoG/view",
+      "description": "Video lecture on chi-square tests (Part 6)"
+    },
+    {
+      "title": "Unit 6 Sections 9-11: Video 7",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1K9ZtMx2HhFlPWXq6Ip-7slWaY0zJDMOU/view",
+      "description": "Video lecture on chi-square tests (Part 7)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 6 (Sections 9-11) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/67850bd5e1e94e90c0432456",
+      "description": "Interactive flashcards covering chi-square tests"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 6 Sections 9-11 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=881315869",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 

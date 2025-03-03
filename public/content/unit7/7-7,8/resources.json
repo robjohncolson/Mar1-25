@@ -1,0 +1,44 @@
+{
+  "videos": [
+    {
+      "title": "Unit 7 Sections 7-8: Video 1",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1bkfmDJMIaDxbg2XTAnRfdpamFMSCFfM-/view",
+      "description": "Video lecture on multiple regression (Part 1)"
+    },
+    {
+      "title": "Unit 7 Sections 7-8: Video 2",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1njeWzbSUOPWw0fZHWoYBU7uca9RbduBU/view",
+      "description": "Video lecture on multiple regression (Part 2)"
+    },
+    {
+      "title": "Unit 7 Sections 7-8: Video 3",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1uLGTaehZ2mRh5el69Zu88SnsWfwiKwRR/view",
+      "description": "Video lecture on multiple regression (Part 3)"
+    },
+    {
+      "title": "Unit 7 Sections 7-8: Video 4",
+      "type": "google_drive",
+      "url": "https://drive.google.com/file/d/1PAx6MB_d4DDsF5KHYAbxjOf7VUP0_-E5/view",
+      "description": "Video lecture on multiple regression (Part 4)"
+    }
+  ],
+  "practice": [
+    {
+      "title": "Unit 7 (Sections 7-8) Practice",
+      "type": "blooket",
+      "url": "https://dashboard.blooket.com/set/6793a289e4e5e4692010774b",
+      "description": "Interactive flashcards covering multiple regression"
+    }
+  ],
+  "other": [
+    {
+      "title": "Unit 7 Sections 7-8 Schoology Materials",
+      "type": "schoology",
+      "url": "https://lynnschools.schoology.com/course/7448188572/materials?f=885435141",
+      "description": "Additional course materials and resources available on Schoology"
+    }
+  ]
+} 
