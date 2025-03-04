@@ -9,9 +9,9 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 const frqLocations: Record<string, { unit: string; sections: string[] }> = {
   "1": { unit: "unit1", sections: ["1-3"] },
   "2": { unit: "unit7", sections: ["7-{1,2}"] },
-  "3": { unit: "unit3", sections: ["3-{1,2,3}"] },
+  "3": { unit: "unit4", sections: ["4-{4,5}", "4-{7,8}"] },
   "4": { unit: "unit7", sections: ["7-{1,2}"] },
-  "5": { unit: "unit5", sections: ["5-{3,4}"] },
+  "5": { unit: "unit5", sections: ["5-{5,6}"] },
   "6": { unit: "unit7", sections: ["7-{5,6}"] },
 };
 

@@ -8,9 +8,9 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 const frqPrimaryLocations: Record<number, { path: string; displayText: string }> = {
   1: { path: "/unit/unit1/1-3", displayText: "Unit 1, Section 1-3" },
   2: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
-  3: { path: "/unit/unit3/3-{1,2,3}", displayText: "Unit 3, Sections 3-1,2,3" },
+  3: { path: "/unit/unit4/4-{4,5}", displayText: "Unit 4, Sections 4-4,5" },
   4: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
-  5: { path: "/unit/unit5/5-{3,4}", displayText: "Unit 5, Sections 5-3,4" },
+  5: { path: "/unit/unit5/5-{5,6}", displayText: "Unit 5, Sections 5-5,6" },
   6: { path: "/unit/unit7/7-{5,6}", displayText: "Unit 7, Sections 7-5,6" },
 };
 
