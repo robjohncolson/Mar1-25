@@ -8,7 +8,7 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 // FRQ locations mapping based on the provided data
 const frqLocations: Record<string, { unit: string; sections: string[] }> = {
   "1": { unit: "unit1", sections: ["1-3"] },
-  "2": { unit: "unit7", sections: ["7-{1,2}"] },
+  "2": { unit: "unit7", sections: ["7-{3,4}", "7-{5,6}"] },
   "3": { unit: "unit4", sections: ["4-{4,5}", "4-{7,8}"] },
   "4": { unit: "unit7", sections: ["7-{1,2}"] },
   "5": { unit: "unit5", sections: ["5-{5,6}"] },

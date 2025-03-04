@@ -7,7 +7,7 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 // FRQ locations mapping based on the provided data
 const frqPrimaryLocations: Record<number, { path: string; displayText: string }> = {
   1: { path: "/unit/unit1/1-3", displayText: "Unit 1, Section 1-3" },
-  2: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
+  2: { path: "/unit/unit7/7-{3,4}", displayText: "Unit 7, Sections 7-3,4" },
   3: { path: "/unit/unit4/4-{4,5}", displayText: "Unit 4, Sections 4-4,5" },
   4: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
   5: { path: "/unit/unit5/5-{5,6}", displayText: "Unit 5, Sections 5-5,6" },
