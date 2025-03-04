@@ -14,13 +14,16 @@ const frqPrimaryLocations: Record<number, { path: string; displayText: string }>
   6: { path: "/unit/unit8/8-{3,4}", displayText: "Unit 8, Sections 8-3,4" },
 };
 
+// Generate softer pastel colors
 const generatePastelColors = (count: number) => {
-  const colors = [];
-  const hueStep = 360 / count;
-  for (let i = 0; i < count; i++) {
-    colors.push(`hsl(${i * hueStep}, 70%, 80%)`);
-  }
-  return colors;
+  return [
+    'rgb(255, 223, 223)', // Soft red
+    'rgb(255, 250, 205)', // Soft yellow
+    'rgb(220, 255, 220)', // Soft green
+    'rgb(211, 247, 255)', // Soft blue
+    'rgb(230, 220, 255)', // Soft purple
+    'rgb(255, 228, 225)', // Soft pink
+  ];
 };
 
 const pastelColors = generatePastelColors(6);
@@ -60,17 +63,22 @@ export default function FRQNavigation() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-4">
             {[1, 2, 3, 4, 5, 6].map((frqNumber) => (
               <Link key={frqNumber} href={`/frq-detail/${frqNumber}`}>
                 <a 
-                  className="mac-window p-4 text-center hover:shadow-lg transition-shadow duration-200"
-                  style={{ backgroundColor: pastelColors[frqNumber - 1] }}
+                  className="mac-window p-6 text-center hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 min-h-[160px] flex flex-col justify-center items-center"
+                  style={{ 
+                    backgroundColor: pastelColors[frqNumber - 1],
+                    border: '1px solid rgba(0,0,0,0.1)',
+                    borderRadius: '8px',
+                    boxShadow: hoveredFrq === frqNumber ? '0 8px 16px rgba(0,0,0,0.1)' : '0 2px 4px rgba(0,0,0,0.05)'
+                  }}
                   onMouseEnter={() => setHoveredFrq(frqNumber)}
                   onMouseLeave={() => setHoveredFrq(null)}
                 >
-                  <h3 className="text-xl font-bold mb-2">FRQ #{frqNumber}</h3>
-                  <p className="text-sm">Click to view details</p>
+                  <h3 className="text-2xl font-bold mb-3" style={{ color: 'rgba(0,0,0,0.8)' }}>FRQ #{frqNumber}</h3>
+                  <p className="text-sm" style={{ color: 'rgba(0,0,0,0.6)' }}>Click to view details</p>
                 </a>
               </Link>
             ))}
