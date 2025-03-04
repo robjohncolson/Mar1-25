@@ -6,12 +6,12 @@ import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 // FRQ locations mapping based on the provided data
 const frqPrimaryLocations: Record<number, { path: string; displayText: string }> = {
-  1: { path: "/unit/unit2/2-1", displayText: "Unit 2, Section 2-1" },
-  2: { path: "/unit/unit8/8-{3,4}", displayText: "Unit 8, Sections 8-3,4" },
+  1: { path: "/unit/unit1/1-3", displayText: "Unit 1, Section 1-3" },
+  2: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
   3: { path: "/unit/unit3/3-{1,2,3}", displayText: "Unit 3, Sections 3-1,2,3" },
-  4: { path: "/unit/unit8/8-{3,4}", displayText: "Unit 8, Sections 8-3,4" },
-  5: { path: "/unit/unit6/6-{3,4}", displayText: "Unit 6, Sections 6-3,4" },
-  6: { path: "/unit/unit8/8-{3,4}", displayText: "Unit 8, Sections 8-3,4" },
+  4: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
+  5: { path: "/unit/unit5/5-{3,4}", displayText: "Unit 5, Sections 5-3,4" },
+  6: { path: "/unit/unit7/7-{5,6}", displayText: "Unit 7, Sections 7-5,6" },
 };
 
 // Generate softer pastel colors
