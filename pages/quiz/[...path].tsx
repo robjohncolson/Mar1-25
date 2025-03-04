@@ -168,12 +168,16 @@ export default function QuizPage() {
       fetchQuizContents(fullPath);
     }
 
-    // Check sessionStorage for MCQ number
+    // Check sessionStorage for MCQ/FRQ number
     if (typeof window !== 'undefined') {
       const lastMcqNumber = sessionStorage.getItem('lastMcqNumber');
+      const lastFrqNumber = sessionStorage.getItem('lastFrqNumber');
       if (lastMcqNumber) {
         setFromMcq(true);
         setMcqNumber(lastMcqNumber);
+      } else if (lastFrqNumber) {
+        setFromMcq(false);
+        setMcqNumber(lastFrqNumber);
       }
     }
   }, [path, fetchQuizContents]);
@@ -184,6 +188,10 @@ export default function QuizPage() {
       // Clear the sessionStorage when navigating back
       sessionStorage.removeItem('lastMcqNumber');
       router.push(`/mcq-detail/${mcqNumber}`);
+    } else if (!fromMcq && mcqNumber) {
+      // Clear the sessionStorage when navigating back
+      sessionStorage.removeItem('lastFrqNumber');
+      router.push(`/frq-detail/${mcqNumber}`);
     } else {
       router.push(`/unit/${unitPath}`);
     }
@@ -202,10 +210,11 @@ export default function QuizPage() {
             className="mac-button inline-flex items-center"
           >
             <FaArrowLeft className="mr-2" /> 
-            {fromMcq && mcqNumber ? `Back to MCQ #${mcqNumber}` : 'Back to Unit'}
+            {fromMcq && mcqNumber ? `Back to MCQ #${mcqNumber}` : 
+             !fromMcq && mcqNumber ? `Back to FRQ #${mcqNumber}` : 'Back to Unit'}
           </button>
           
-          {fromMcq && mcqNumber && (
+          {(fromMcq || !fromMcq) && mcqNumber && (
             <Link href={`/unit/${unitPath}`}>
               <a className="mac-button inline-flex items-center">
                 <FaBook className="mr-2" /> Up to Unit {unitPath.replace('unit', '')}

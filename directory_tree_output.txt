@@ -2,11 +2,14 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 
 .
 ├── components
+│   ├── AIContentCard.tsx
 │   ├── ErrorBoundary.tsx
+│   ├── ExternalResources.tsx
 │   ├── HowToUse.tsx
 │   ├── Layout.tsx
 │   ├── LoadingIndicator.tsx
 │   ├── LoadingState.tsx
+│   ├── MultimediaResourceCard.tsx
 │   ├── PDFCard.tsx
 │   ├── PromptCard.tsx
 │   ├── QRCodeGenerator.tsx
@@ -22000,6 +22003,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_TheLanguageofVariationVariablesQuiz_67bf67fa31f0e1.67bf67fb0687b4.36741317.pdf
 │   │   │   │   └── TB_TheLanguageofVariationVariablesQuiz_67bf67f32d68a8.67bf67f3f3e0c4.25887022.pdf
 │   │   │   ├── 1-3
+│   │   │   │   ├── 2017 Apexam Frq1 content.png
+│   │   │   │   ├── 2017 APexam Frq1 question.png
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_RepresentingaCategoricalVariablewithTablesQuiz_67bf699fb8e111.67bf69a09976b9.70343296.pdf
 │   │   │   │   └── TB_RepresentingaCategoricalVariablewithTablesQuiz_67bf699bc94811.67bf699c950302.25961889.pdf
@@ -22013,6 +22018,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_RepresentingaQuantitativeVariablewithGraphsQuiz_67c075418f1ec8.67c0754264b7f5.48266343.pdf
 │   │   │   │   └── TB_RepresentingaQuantitativeVariablewithGraphsQuiz_67c0753928d178.67c07539f19a46.68328273.pdf
 │   │   │   ├── 1-6
+│   │   │   │   ├── 2017 Apexam Frq1 content.png
+│   │   │   │   ├── 2017 APexam Frq1 question.png
 │   │   │   │   ├── 2017 apstats exam mcq15.png
 │   │   │   │   ├── 2017 apstats exam mcq2.png
 │   │   │   │   ├── 2017 APstatsExam MCQ29.png
@@ -22039,6 +22046,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_GraphicalRepresentationsofSummaryStatisticsQuiz_67c076372c14d0.67c07638132cf7.10102410.pdf
 │   │   │   │   └── TB_GraphicalRepresentationsofSummaryStatisticsQuiz_67c0763e344890.67c0763f27f3b0.40302640.pdf
 │   │   │   ├── 2017 ap statistics mcq9.png
+│   │   │   ├── 2017 Apexam Frq1 content.png
+│   │   │   ├── 2017 APexam Frq1 question.png
 │   │   │   ├── 2017 apstats exam mcq13.png
 │   │   │   ├── 2017 apstats exam mcq14.png
 │   │   │   ├── 2017 apstats exam mcq15.png
@@ -22047,6 +22056,7 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APstatsExam MCQ29.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
+│   │   │   ├── resources.json
 │   │   │   ├── SG_Unit1ProgressCheckFRQ_67bc764b062f43.67bc764c0b1379.82401526.pdf
 │   │   │   ├── SG_Unit1ProgressCheckMCQPartA_67bf0b9d4cca99.67bf0b9ee036a1.86848588.pdf
 │   │   │   └── SG_Unit1ProgressCheckMCQPartB_67bf0ba8387fa6.67bf0baa02e924.71229969.pdf
@@ -22058,6 +22068,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_RepresentingTwoCategoricalVariablesQuiz_67c078df194264.67c078e0125303.03721672.pdf
 │   │   │   │   └── TB_RepresentingTwoCategoricalVariablesQuiz_67c078d954c8b1.67c078da6f01c0.75045346.pdf
+│   │   │   ├── 2-1,2,3
+│   │   │   │   └── resources.json
 │   │   │   ├── 2-2
 │   │   │   │   ├── 2017 apstats exam MCQ16.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22075,6 +22087,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_LinearRegressionModelsQuiz_67c0796c96c6e6.67c0796d798563.75918730.pdf
 │   │   │   │   └── TB_LinearRegressionModelsQuiz_67c0796972fb48.67c0796a4abd36.88554365.pdf
+│   │   │   ├── 2-4,5
+│   │   │   │   └── resources.json
 │   │   │   ├── 2-5
 │   │   │   │   ├── 2017 APstatsExam MCQ31.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22086,11 +22100,15 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_LeastSquaresRegressionQuiz_67c0799d205c70.67c0799e2ab724.84824641.pdf
 │   │   │   │   └── TB_LeastSquaresRegressionQuiz_67c079a5b41f49.67c079a6b12055.24867792.pdf
+│   │   │   ├── 2-6,7
+│   │   │   │   └── resources.json
 │   │   │   ├── 2-7
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_AnalyzingDeparturesfromLinearityQuiz_67c079c79d6656.67c079c9693373.91692180.pdf
 │   │   │   │   └── TB_AnalyzingDeparturesfromLinearityQuiz_67c079beb70981.67c079c0245407.80093078.pdf
+│   │   │   ├── 2-8,9
+│   │   │   │   └── resources.json
 │   │   │   ├── 2017 apstats exam MCQ16.png
 │   │   │   ├── 2017 apstats exam MCQ18.png
 │   │   │   ├── 2017 APstatsExam MCQ31.png
@@ -22102,6 +22120,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit2ProgressCheckMCQPartA_67bc764032a789.67bc7642616ff6.06835644.pdf
 │   │   │   └── SG_Unit2ProgressCheckMCQPartB_67bc762fb89977.67bc763255b5c4.91510617.pdf
 │   │   ├── unit3
+│   │   │   ├── 3-1,2,3
+│   │   │   │   └── resources.json
+│   │   │   ├── 3-4,5
+│   │   │   │   └── resources.json
+│   │   │   ├── 3-6,7
+│   │   │   │   └── resources.json
 │   │   │   ├── 3-{1,2,3}
 │   │   │   │   ├── 2017 apstats exam mcq10.png
 │   │   │   │   ├── 2017 apstats exam mcq12.png
@@ -22139,6 +22163,10 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit3ProgressCheckMCQPartA_67bc761dcb6269.67bc761ecadbf8.39294441.pdf
 │   │   │   └── SG_Unit3ProgressCheckMCQPartB_67bc7617d5e049.67bc7618e39db6.94278458.pdf
 │   │   ├── unit4
+│   │   │   ├── 4-1,2,3
+│   │   │   │   └── resources.json
+│   │   │   ├── 4-11,12
+│   │   │   │   └── resources.json
 │   │   │   ├── 4-12
 │   │   │   │   ├── 2017 APstatsExam MCQ32.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22148,21 +22176,32 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── TB_ParametersforaBinomialDistributionQuiz_67c084c50a4374.67c084c5f30785.28729996.pdf
 │   │   │   │   └── TB_TheGeometricDistributionQuiz_67c084d74da036.67c084d86357f9.51372083.pdf
 │   │   │   ├── 4-3
+│   │   │   │   ├── 2017 APexam frq3 content.png
+│   │   │   │   ├── 2017 APexam frq3 question.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_IntroductiontoProbabilityQuiz_67c082e50e2bb1.67c082e6279360.27662397.pdf
 │   │   │   │   └── TB_IntroductiontoProbabilityQuiz_67c082ef3aa803.67c082f0194ed6.41813292.pdf
+│   │   │   ├── 4-4,5
+│   │   │   │   └── resources.json
 │   │   │   ├── 4-6
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
+│   │   │   │   ├── resources.json
 │   │   │   │   ├── SG_IndependentEventsandUnionsofEventsQuiz_67c08379b371d3.67c0837b11f109.84121512.pdf
 │   │   │   │   └── TB_IndependentEventsandUnionsofEventsQuiz_67c083807a53b8.67c083817fea95.23978856.pdf
+│   │   │   ├── 4-7,8
+│   │   │   │   └── resources.json
+│   │   │   ├── 4-9,10
+│   │   │   │   └── resources.json
 │   │   │   ├── 4-[1,2}
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_EstimatingProbabilitiesUsingSimulationQuiz_67c0829f63ee62.67c082a04f3d52.95212582.pdf
 │   │   │   │   └── TB_EstimatingProbabilitiesUsingSimulationQuiz_67c082985b9492.67c08299593680.49600493.pdf
 │   │   │   ├── 4-{4,5}
+│   │   │   │   ├── 2017 APexam frq3 content.png
+│   │   │   │   ├── 2017 APexam frq3 question.png
 │   │   │   │   ├── 2017 apstats mcq7.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
@@ -22171,6 +22210,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── TB_ConditionalProbabilityQuiz_67c08330e1c176.67c08331da6d59.61576190.pdf
 │   │   │   │   └── TB_MutuallyExclusiveEventsQuiz_67c08321ebbcb2.67c0832309f480.99928834.pdf
 │   │   │   ├── 4-{7,8}
+│   │   │   │   ├── 2017 APexam frq3 content.png
+│   │   │   │   ├── 2017 APexam frq3 question.png
 │   │   │   │   ├── 2017 apstats mcq8.png
 │   │   │   │   ├── 2017 APstatsExam MCQ25.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22187,6 +22228,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_IntroductiontotheBinomialDistributionQuiz_67c084516df7d0.67c084529832e8.21152712.pdf
 │   │   │   │   ├── TB_CombiningRandomVariablesQuiz_67c08445a3c063.67c08446b2e5e7.74148017.pdf
 │   │   │   │   └── TB_IntroductiontotheBinomialDistributionQuiz_67c08458588490.67c08459835027.47701853.pdf
+│   │   │   ├── 2017 APexam frq3 content.png
+│   │   │   ├── 2017 APexam frq3 question.png
 │   │   │   ├── 2017 apstats mcq7.png
 │   │   │   ├── 2017 apstats mcq8.png
 │   │   │   ├── 2017 APstatsExam MCQ25.png
@@ -22199,6 +22242,14 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit4ProgressCheckMCQPartB_67bc75e8e50ee7.67bc75eb2ba664.24756356.pdf
 │   │   │   └── SG_Unit4ProgressCheckMCQPartC_67bc75d752db42.67bc75d9013dd9.90797448.pdf
 │   │   ├── unit5
+│   │   │   ├── 5-1,2
+│   │   │   │   └── resources.json
+│   │   │   ├── 5-3,4
+│   │   │   │   └── resources.json
+│   │   │   ├── 5-5,6
+│   │   │   │   └── resources.json
+│   │   │   ├── 5-7,8
+│   │   │   │   └── resources.json
 │   │   │   ├── 5-{1,2}
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
@@ -22213,6 +22264,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── TB_BiasedandUnbiasedPointEstimatesQuiz_67c08578cad9e9.67c08579de6102.88404390.pdf
 │   │   │   │   └── TB_TheCentralLimitTheoremQuiz_67c08569c988b5.67c0856ac19280.42617112.pdf
 │   │   │   ├── 5-{5,6}
+│   │   │   │   ├── 2017 APexam FRQ5 content.png
+│   │   │   │   ├── 2017 APexam FRQ5 quesetion.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_SamplingDistributionsforDifferencesinSampleProportionsQuiz_67c085a77465a2.67c085a9675b76.97549760.pdf
@@ -22228,6 +22281,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_SamplingDistributionsforSampleMeansQuiz_67c085c2cd0c19.67c085c40b6101.44430581.pdf
 │   │   │   │   ├── TB_SamplingDistributionsforDifferencesinSampleMeansQuiz_67c085e0b98d18.67c085e2415665.09337016.pdf
 │   │   │   │   └── TB_SamplingDistributionsforSampleMeansQuiz_67c085c8c573f2.67c085c9ba5905.87829989.pdf
+│   │   │   ├── 2017 APexam FRQ5 content.png
+│   │   │   ├── 2017 APexam FRQ5 quesetion.png
 │   │   │   ├── 2017 APstatsExam MCQ21.png
 │   │   │   ├── 2017 APstatsExam MCQ30.png
 │   │   │   ├── grokFRQ.prompt
@@ -22237,12 +22292,22 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit5ProgressCheckMCQPartB_67bc75ad34bf39.67bc75af102131.51980503.pdf
 │   │   │   └── SG_Unit5ProgressCheckMCQPartC_67bc7515b79ae9.67bc75179de029.79739994.pdf
 │   │   ├── unit6
+│   │   │   ├── 6-1,2
+│   │   │   │   └── resources.json
 │   │   │   ├── 6-11
 │   │   │   │   ├── 2017 APstatsExam MCQ40.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_CarryingOutaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c087733b5e19.67c08775452982.18644211.pdf
 │   │   │   │   └── TB_CarryingOutaTestfortheDifferenceofTwoPopulationProportionsQuiz_67c0877a17a172.67c0877ba06c72.20278715.pdf
+│   │   │   ├── 6-3,4
+│   │   │   │   └── resources.json
+│   │   │   ├── 6-5,6
+│   │   │   │   └── resources.json
+│   │   │   ├── 6-7,8
+│   │   │   │   └── resources.json
+│   │   │   ├── 6-9,10,11
+│   │   │   │   └── resources.json
 │   │   │   ├── 6-{1,2}
 │   │   │   │   ├── 2017 APstatsExam MCQ23.png
 │   │   │   │   ├── 2017 APstatsExam MCQ28.png
@@ -22300,7 +22365,19 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit6ProgressCheckMCQPartc_67bc74d02a11f0.67bc74d202d399.58059717.pdf
 │   │   │   └── SG_Unit6ProgressCheckMCQPartD_67bc74d95d9508.67bc74dc3ef765.20290291.pdf
 │   │   ├── unit7
+│   │   │   ├── 7-1,2
+│   │   │   │   └── resources.json
+│   │   │   ├── 7-3,4
+│   │   │   │   └── resources.json
+│   │   │   ├── 7-5,6
+│   │   │   │   └── resources.json
+│   │   │   ├── 7-7,8
+│   │   │   │   └── resources.json
+│   │   │   ├── 7-9,10
+│   │   │   │   └── resources.json
 │   │   │   ├── 7-{1,2}
+│   │   │   │   ├── 2017 APexam frq4 content.png
+│   │   │   │   ├── 2017 APexam FRQ4 question.png
 │   │   │   │   ├── 2017 apstats exam mcq11.png
 │   │   │   │   ├── 2017APexamMCQ4.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22308,6 +22385,11 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── SG_ConstructingaConfidenceIntervalforaPopulationMeanQuiz_67c0880a6561b3.67c0880bdbab65.51433117.pdf
 │   │   │   │   └── TB_ConstructingaConfidenceIntervalforaPopulationMeanQuiz_67c088109f73b8.67c08811dd9d97.47575018.pdf
 │   │   │   ├── 7-{3,4}
+│   │   │   │   ├── 2017 APexam FRQ2 content.png
+│   │   │   │   ├── 2017 APexam FRQ2 question.png
+│   │   │   │   ├── 2017 Apexam FRQ6 content.png
+│   │   │   │   ├── 2017 Apexam FRQ6 question1.png
+│   │   │   │   ├── 2017 Apexam FRQ6 question2.png
 │   │   │   │   ├── 2017 apstats exam MCQ17.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
@@ -22316,6 +22398,11 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── TB_JustifyingaClaimAboutaPopulationMeanBasedonaConfidenceIntervalQuiz_67c0883341baf2.67c088346afc97.70224159.pdf
 │   │   │   │   └── TB_SettingUpaTestforaPopulationMeanQuiz_67c08847e3a8f5.67c0884938b193.81901938.pdf
 │   │   │   ├── 7-{5,6}
+│   │   │   │   ├── 2017 APexam FRQ2 content.png
+│   │   │   │   ├── 2017 APexam FRQ2 question.png
+│   │   │   │   ├── 2017 Apexam FRQ6 content.png
+│   │   │   │   ├── 2017 Apexam FRQ6 question1.png
+│   │   │   │   ├── 2017 Apexam FRQ6 question2.png
 │   │   │   │   ├── 2017 APstatsExam MCQ38.png
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
@@ -22328,6 +22415,13 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   ├── grokMCQ.prompt
 │   │   │   │   ├── SG_CarryingOutaTestfortheDifferenceofTwoPopulationMeansQuiz_67c088b1db5fe0.67c088b37ee6d2.25363008.pdf
 │   │   │   │   └── TB_CarryingOutaTestfortheDifferenceofTwoPopulationMeansQuiz_67c088b810bb48.67c088b97eb496.44933060.pdf
+│   │   │   ├── 2017 APexam FRQ2 content.png
+│   │   │   ├── 2017 APexam FRQ2 question.png
+│   │   │   ├── 2017 APexam frq4 content.png
+│   │   │   ├── 2017 APexam FRQ4 question.png
+│   │   │   ├── 2017 Apexam FRQ6 content.png
+│   │   │   ├── 2017 Apexam FRQ6 question1.png
+│   │   │   ├── 2017 Apexam FRQ6 question2.png
 │   │   │   ├── 2017 apstats exam mcq11.png
 │   │   │   ├── 2017 apstats exam MCQ17.png
 │   │   │   ├── 2017 APstatsExam MCQ38.png
@@ -22339,6 +22433,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit7ProgressCheckMCQPartB_67bc747c337759.67bc747eb2d0e9.44721612.pdf
 │   │   │   └── SG_Unit7ProgressCheckMCQPartC_67bc748a75f7f4.67bc748d0e7f82.86979547.pdf
 │   │   ├── unit8
+│   │   │   ├── 8-1,2
+│   │   │   │   └── resources.json
+│   │   │   ├── 8-3,4
+│   │   │   │   └── resources.json
+│   │   │   ├── 8-5,6,7
+│   │   │   │   └── resources.json
 │   │   │   ├── 8-{1,2}
 │   │   │   │   ├── grokFRQ.prompt
 │   │   │   │   ├── grokMCQ.prompt
@@ -22366,6 +22466,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── SG_Unit8ProgressCheckMCQPartA_67bc7422726ce3.67bc742463f354.53157696.pdf
 │   │   │   └── SG_Unit8ProgressCheckMCQPartB_67bc742c00bbc4.67bc742e22caa6.99538616.pdf
 │   │   ├── unit9
+│   │   │   ├── 9-1,2
+│   │   │   │   └── resources.json
+│   │   │   ├── 9-3,4
+│   │   │   │   └── resources.json
+│   │   │   ├── 9-5,6
+│   │   │   │   └── resources.json
 │   │   │   ├── 9-{1,2}
 │   │   │   │   ├── 2017 APstatsExam MCQ33.png
 │   │   │   │   ├── grokFRQ.prompt
@@ -22402,6 +22508,7 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 ├── scripts
 │   ├── create-content-structure.js
 │   ├── deploy.js
+│   ├── release.js
 │   └── setup-content.js
 ├── styles
 │   └── globals.css
@@ -22412,14 +22519,18 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   └── localContent.ts
 ├── .gitignore
 ├── 2017mcq-locations.txt
+├── CHANGELOG.md
+├── CHECKLIST.md
 ├── directory_tree.py
 ├── directory_tree_output.txt
 ├── knowledge-tree.txt
+├── Multimedia-Resource-URLS.txt
 ├── next.config.js
 ├── package-lock.json
 ├── package.json
 ├── postcss.config.js
 ├── README.md
+├── RELEASE.md
 ├── tailwind.config.js
 └── tsconfig.json
 ├── vercel.json

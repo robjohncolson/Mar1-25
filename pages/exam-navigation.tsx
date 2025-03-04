@@ -60,12 +60,10 @@ export default function ExamNavigation() {
               </p>
               <div className="w-full">
                 <Link href="/frq-navigation">
-                  <a className="mac-button text-lg py-2 px-6 w-full text-center opacity-50 cursor-not-allowed whitespace-normal h-auto min-h-[48px] flex items-center justify-center" 
-                     onClick={(e) => e.preventDefault()}>
-                    Explore FRQs (Coming Soon)
+                  <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
+                    Explore FRQs
                   </a>
                 </Link>
-                <p className="text-xs text-center mt-2 italic">FRQ content is currently being processed</p>
               </div>
             </div>
           </div>
