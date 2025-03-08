@@ -1,17 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaPencilAlt, FaLayerGroup } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 // FRQ locations mapping based on the provided data
-const frqPrimaryLocations: Record<number, { path: string; displayText: string }> = {
-  1: { path: "/unit/unit1/1-3", displayText: "Unit 1, Section 1-3" },
-  2: { path: "/unit/unit7/7-{3,4}", displayText: "Unit 7, Sections 7-3,4" },
-  3: { path: "/unit/unit4/4-{4,5}", displayText: "Unit 4, Sections 4-4,5" },
-  4: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
-  5: { path: "/unit/unit5/5-{5,6}", displayText: "Unit 5, Sections 5-5,6" },
-  6: { path: "/unit/unit7/7-{5,6}", displayText: "Unit 7, Sections 7-5,6" },
+const frqPrimaryLocations: Record<string, Record<number, { path: string; displayText: string }>> = {
+  '2017': {
+    1: { path: "/unit/unit1/1-3", displayText: "Unit 1, Section 1-3" },
+    2: { path: "/unit/unit7/7-{3,4}", displayText: "Unit 7, Sections 7-3,4" },
+    3: { path: "/unit/unit4/4-{4,5}", displayText: "Unit 4, Sections 4-4,5" },
+    4: { path: "/unit/unit7/7-{1,2}", displayText: "Unit 7, Sections 7-1,2" },
+    5: { path: "/unit/unit5/5-{5,6}", displayText: "Unit 5, Sections 5-5,6" },
+    6: { path: "/unit/unit7/7-{5,6}", displayText: "Unit 7, Sections 7-5,6" },
+  },
+  '2018': {
+    1: { path: "/unit/unit1", displayText: "Unit 1" },
+    2: { path: "/unit/unit3", displayText: "Unit 3" },
+    3: { path: "/unit/unit3", displayText: "Unit 3" },
+    4: { path: "/unit/unit7", displayText: "Unit 7" },
+    5: { path: "/unit/unit2", displayText: "Unit 2" },
+    6: { path: "/unit/unit8", displayText: "Unit 8" },
+  },
+  '2019': {
+    1: { path: "/unit/unit1", displayText: "Unit 1" },
+    2: { path: "/unit/unit5", displayText: "Unit 5" },
+    3: { path: "/unit/unit1", displayText: "Unit 1" },
+    4: { path: "/unit/unit3", displayText: "Unit 3" },
+    5: { path: "/unit/unit7", displayText: "Unit 7" },
+    6: { path: "/unit/unit8", displayText: "Unit 8" },
+  }
 };
 
 // Generate softer pastel colors
@@ -29,7 +48,16 @@ const generatePastelColors = (count: number) => {
 const pastelColors = generatePastelColors(6);
 
 export default function FRQNavigation() {
+  const router = useRouter();
   const [hoveredFrq, setHoveredFrq] = useState<number | null>(null);
+  const [selectedYear, setSelectedYear] = useState('2017');
+
+  useEffect(() => {
+    const { year } = router.query;
+    if (year && typeof year === 'string' && ['2017', '2018', '2019'].includes(year)) {
+      setSelectedYear(year);
+    }
+  }, [router.query]);
 
   return (
     <Layout title="AP Statistics Hub - FRQ Navigation">
@@ -49,23 +77,23 @@ export default function FRQNavigation() {
         </div>
 
         {/* Tooltip for displaying location */}
-        {hoveredFrq && (
+        {hoveredFrq && frqPrimaryLocations[selectedYear] && frqPrimaryLocations[selectedYear][hoveredFrq] && (
           <div className="mac-window p-2 mb-4 text-center">
-            <p>FRQ #{hoveredFrq} relates to: {frqPrimaryLocations[hoveredFrq].displayText}</p>
+            <p>FRQ #{hoveredFrq} relates to: {frqPrimaryLocations[selectedYear][hoveredFrq].displayText}</p>
           </div>
         )}
 
-        {/* 2017 AP Exam FRQs */}
+        {/* AP Exam FRQs */}
         <div className="mac-window p-4 mb-8">
           <div className="mac-header p-2 mb-4">
             <h2 className="text-xl font-bold text-mac-white flex items-center">
-              <FaLayerGroup className="mr-2" /> 2017 AP Statistics Exam FRQs
+              <FaLayerGroup className="mr-2" /> {selectedYear} AP Statistics Exam FRQs
             </h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-4">
             {[1, 2, 3, 4, 5, 6].map((frqNumber) => (
-              <Link key={frqNumber} href={`/frq-detail/${frqNumber}`}>
+              <Link key={frqNumber} href={`/frq-detail/${frqNumber}?year=${selectedYear}`}>
                 <a 
                   className="mac-window p-6 text-center hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 min-h-[160px] flex flex-col justify-center items-center"
                   style={{ 
@@ -86,7 +114,7 @@ export default function FRQNavigation() {
         </div>
 
         <div className="mac-window p-4 mt-8">
-          <QRCodeGenerator url="/frq-navigation" title="FRQ Navigation" />
+          <QRCodeGenerator url={`/frq-navigation?year=${selectedYear}`} title={`${selectedYear} FRQ Navigation`} />
         </div>
       </div>
     </Layout>

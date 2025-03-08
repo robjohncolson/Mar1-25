@@ -1,4 +1,4 @@
-Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Mar1-25
+Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\ApStatHub
 
 .
 ├── components
@@ -21963,6 +21963,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── file.ts
 │   │   │   └── index.ts
 │   │   └── file.ts
+│   ├── frq-detail
+│   │   └── [id].tsx
 │   ├── mcq-detail
 │   │   └── [id].tsx
 │   ├── prompt
@@ -21990,6 +21992,18 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── ap-statistics-2017-international-practice-exam-scoring-worksheet.pdf
 │   │   │   ├── grokFRQ.prompt
 │   │   │   └── grokMCQ.prompt
+│   │   ├── 2018apexam
+│   │   │   ├── ap-statistics-2018-international-practice-exam-frq-scoring-guidelines.pdf
+│   │   │   ├── ap-statistics-2018-international-practice-exam-frq.pdf
+│   │   │   ├── ap-statistics-2018-international-practice-exam-mcq-answers.pdf
+│   │   │   ├── ap-statistics-2018-international-practice-exam-mcq.pdf
+│   │   │   └── ap-statistics-2018-international-practice-exam-scoring-worksheet.pdf
+│   │   ├── 2019apexam
+│   │   │   ├── ap-statistics-2019-international-practice-exam-frq-scoring-guidelines.pdf
+│   │   │   ├── ap-statistics-2019-international-practice-exam-mcq-answers.pdf
+│   │   │   ├── ap-statistics-2019-international-practice-exam-scoring-worksheet.pdf
+│   │   │   ├── ap-statistics-2019-practice-exam-frq.pdf
+│   │   │   └── ap-statistics-2019-practice-exam-mcq.pdf
 │   │   ├── unit1
 │   │   │   ├── 1-10
 │   │   │   │   ├── 2017 apstats exam mcq14.png
@@ -22054,6 +22068,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 apstats exam MCQ19.png
 │   │   │   ├── 2017 apstats exam mcq6.png
 │   │   │   ├── 2017 APstatsExam MCQ29.png
+│   │   │   ├── 2018APexam FRQ1-1.png
+│   │   │   ├── 2018APexam FRQ1-2.png
+│   │   │   ├── 2019APexam FRQ1-1.png
+│   │   │   ├── 2019APexam FRQ1-2.png
+│   │   │   ├── 2019APexam FRQ3-1.png
+│   │   │   ├── 2019APexam FRQ3-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── resources.json
@@ -22114,6 +22134,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APstatsExam MCQ31.png
 │   │   │   ├── 2017APExamMCQ1.png
 │   │   │   ├── 2017APexamMCQ3.png
+│   │   │   ├── 2018APexam FRQ5-1.png
+│   │   │   ├── 2018APexam FRQ5-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit2ProgressCheckFRQ_67bc76250c2e88.67bc76266dd470.88466429.pdf
@@ -22157,6 +22179,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APstatsExam MCQ24.png
 │   │   │   ├── 2017 APstatsExam MCQ35.png
 │   │   │   ├── 2017 APstatsExam MCQ37.png
+│   │   │   ├── 2018APexam FRQ2-1.png
+│   │   │   ├── 2018APexam FRQ2-2.png
+│   │   │   ├── 2018APexam FRQ3-1.png
+│   │   │   ├── 2018APexam FRQ3-2.png
+│   │   │   ├── 2019APexam FRQ4-1.png
+│   │   │   ├── 2019APexam FRQ4-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit3ProgressCheckFRQ_67bc7611038c57.67bc7611eecb36.63613256.pdf
@@ -22235,6 +22263,13 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APstatsExam MCQ25.png
 │   │   │   ├── 2017 APstatsExam MCQ32.png
 │   │   │   ├── 2017 APstatsExam MCQ34.png
+│   │   │   ├── 2018APexam FRQ3-1.png
+│   │   │   ├── 2018APexam FRQ3-2.png
+│   │   │   ├── 2018APexam FRQ6-1.png
+│   │   │   ├── 2018APexam FRQ6-2.png
+│   │   │   ├── 2018APexam FRQ6-3.png
+│   │   │   ├── 2019APexam FRQ5-1.png
+│   │   │   ├── 2019APexam FRQ5-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit4ProgressCheckFRQ_67bc75ce0b7672.67bc75cf4363e7.17676262.pdf
@@ -22285,6 +22320,13 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APexam FRQ5 quesetion.png
 │   │   │   ├── 2017 APstatsExam MCQ21.png
 │   │   │   ├── 2017 APstatsExam MCQ30.png
+│   │   │   ├── 2018APexam FRQ1-1.png
+│   │   │   ├── 2018APexam FRQ1-2.png
+│   │   │   ├── 2018APexam FRQ6-1.png
+│   │   │   ├── 2018APexam FRQ6-2.png
+│   │   │   ├── 2018APexam FRQ6-3.png
+│   │   │   ├── 2019APexam FRQ5-1.png
+│   │   │   ├── 2019APexam FRQ5-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit5ProgressCheckFRQ_67bc7511e23e30.67bc7514281577.48427394.pdf
@@ -22357,6 +22399,9 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 APstatsExam MCQ36.png
 │   │   │   ├── 2017 APstatsExam MCQ39.png
 │   │   │   ├── 2017 APstatsExam MCQ40.png
+│   │   │   ├── 2018APexam FRQ6-1.png
+│   │   │   ├── 2018APexam FRQ6-2.png
+│   │   │   ├── 2018APexam FRQ6-3.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit6ProgressCheckFRQ_67bc74e62d22c5.67bc74e7b8d4a6.27167338.pdf
@@ -22426,6 +22471,12 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   ├── 2017 apstats exam MCQ17.png
 │   │   │   ├── 2017 APstatsExam MCQ38.png
 │   │   │   ├── 2017APexamMCQ4.png
+│   │   │   ├── 2018APexam FRQ4-1.png
+│   │   │   ├── 2018APexam FRQ4-2.png
+│   │   │   ├── 2019APexam FRQ6-1.png
+│   │   │   ├── 2019APexam FRQ6-2.png
+│   │   │   ├── 2019APexam FRQ6-3.png
+│   │   │   ├── 2019APexam FRQ6-4.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit7ProgressCheckFRQ_67bc74962dd602.67bc7498323da8.24631921.pdf
@@ -22493,11 +22544,14 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ma
 │   │   │   │   └── TB_CarryingOutaTestfortheSlopeofaRegressionModelQuiz_67c08a2e7248e3.67c08a2fd50994.73534930.pdf
 │   │   │   ├── 2017 APstatsExam MCQ27.png
 │   │   │   ├── 2017 APstatsExam MCQ33.png
+│   │   │   ├── 2019APexam FRQ2-1.png
+│   │   │   ├── 2019APexam FRQ2-2.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit9ProgressCheckFRQ_67bc73eda09f46.67bc73eecba8c5.32342583.pdf
 │   │   │   ├── SG_Unit9ProgressCheckMCQPartA_67bc73cc3ec957.67bc73cdb7a2a9.43202686.pdf
 │   │   │   └── SG_Unit9ProgressCheckMCQPartB_67bc73e590d497.67bc73e7754f75.49048955.pdf
+│   │   ├── Apstats_20_18_19__FRQ_mapping.pdf
 │   │   ├── directory_tree.py
 │   │   ├── directory_tree_output.txt
 │   │   ├── find_mcq_files.py

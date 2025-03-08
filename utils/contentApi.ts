@@ -67,6 +67,13 @@ export interface ExternalResources {
   other?: OtherResource[];
 }
 
+export interface APExamContent {
+  year: string;
+  pdfs: PDF[];
+  prompts: Prompt[];
+  images: Image[];
+}
+
 // Simple in-memory cache
 const directoryCache: Record<string, { data: ContentFile[], timestamp: number }> = {};
 const fileContentCache: Record<string, { content: string, timestamp: number }> = {};
@@ -292,45 +299,57 @@ export async function getQuizzesForUnit(unitPath: string): Promise<Quiz[]> {
 }
 
 // Function to get the 2017 AP Exam content
-export async function getAPExamContent(): Promise<{
-  pdfs: PDF[];
-  prompts: Prompt[];
-  images: Image[];
-}> {
-  const contents = await getDirectoryContents('2017apexam');
-  
-  const pdfs = contents
-    .filter((item) => item.type === 'file' && item.name.toLowerCase().endsWith('.pdf'))
-    .map((pdf) => ({
-      name: pdf.name,
-      path: pdf.path,
-      download_url: pdf.download_url || '',
-    }));
-  
-  const promptFiles = contents.filter(
-    (item) => item.type === 'file' && item.name.toLowerCase().includes('prompt')
-  );
-  
-  const images = contents
-    .filter((item) => item.type === 'file' && /\.(png|jpg|jpeg|gif)$/i.test(item.name))
-    .map((img) => ({
-      name: img.name,
-      path: img.path,
-      download_url: img.download_url || '',
-    }));
-  
-  const prompts: Prompt[] = [];
-  
-  for (const promptFile of promptFiles) {
-    const content = await getFileContent(promptFile.path);
-    prompts.push({
-      name: promptFile.name,
-      path: promptFile.path,
-      content,
-    });
+export async function getAPExamContent(): Promise<APExamContent[]> {
+  const examYears = ['2017', '2018', '2019'];
+  const examContents: APExamContent[] = [];
+
+  for (const year of examYears) {
+    try {
+      const contents = await getDirectoryContents(`${year}apexam`);
+      
+      const pdfs = contents
+        .filter((item) => item.type === 'file' && item.name.toLowerCase().endsWith('.pdf'))
+        .map((pdf) => ({
+          name: pdf.name,
+          path: pdf.path,
+          download_url: pdf.download_url || '',
+        }));
+      
+      const promptFiles = contents.filter(
+        (item) => item.type === 'file' && item.name.toLowerCase().includes('prompt')
+      );
+      
+      const images = contents
+        .filter((item) => item.type === 'file' && /\.(png|jpg|jpeg|gif)$/i.test(item.name))
+        .map((img) => ({
+          name: img.name,
+          path: img.path,
+          download_url: img.download_url || '',
+        }));
+      
+      const prompts: Prompt[] = [];
+      
+      for (const promptFile of promptFiles) {
+        const content = await getFileContent(promptFile.path);
+        prompts.push({
+          name: promptFile.name,
+          path: promptFile.path,
+          content,
+        });
+      }
+
+      examContents.push({
+        year,
+        pdfs,
+        prompts,
+        images,
+      });
+    } catch (error) {
+      console.error(`Error loading ${year} AP exam content:`, error);
+    }
   }
   
-  return { pdfs, prompts, images };
+  return examContents;
 }
 
 // Function to get the knowledge tree content

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import { FaArrowLeft, FaClipboardCheck, FaListOl, FaPencilAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaClipboardCheck, FaListOl, FaPencilAlt, FaCalendarAlt } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 
 export default function ExamNavigation() {
+  const [selectedYear, setSelectedYear] = useState('2017');
+  const examYears = ['2017', '2018', '2019'];
+
   return (
     <Layout title="AP Statistics Hub - Exam Navigation">
       <div className="max-w-4xl mx-auto">
@@ -21,6 +24,28 @@ export default function ExamNavigation() {
             </Link>
           </div>
         </div>
+
+        <div className="mac-window p-4 mb-8">
+          <div className="mac-header p-2 mb-4">
+            <h2 className="text-xl font-bold text-mac-white flex items-center">
+              <FaCalendarAlt className="mr-2" /> Select Exam Year
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {examYears.map((year) => (
+              <button
+                key={year}
+                className={`mac-button text-lg py-2 px-6 w-full text-center ${
+                  selectedYear === year ? 'bg-blue-500 text-white' : ''
+                }`}
+                onClick={() => setSelectedYear(year)}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        </div>
         
         <div className="mac-window p-4 mb-8">
           <div className="mac-header p-2 mb-4">
@@ -29,7 +54,7 @@ export default function ExamNavigation() {
           
           <p className="mb-6">
             The AP Statistics Exam consists of 40 Multiple Choice Questions (MCQs) and 6 Free Response Questions (FRQs).
-            Select which type of questions you'd like to explore:
+            Select which type of questions you'd like to explore from the {selectedYear} exam:
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
@@ -40,9 +65,9 @@ export default function ExamNavigation() {
                 </h3>
               </div>
               <p className="mb-6 text-center">
-                Navigate through the 40 multiple choice questions from the AP Statistics Exam.
+                Navigate through the 40 multiple choice questions from the {selectedYear} AP Statistics Exam.
               </p>
-              <Link href="/mcq-navigation">
+              <Link href={`/mcq-navigation?year=${selectedYear}`}>
                 <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                   Explore MCQs
                 </a>
@@ -56,10 +81,10 @@ export default function ExamNavigation() {
                 </h3>
               </div>
               <p className="mb-6 text-center">
-                Navigate through the 6 free response questions from the AP Statistics Exam.
+                Navigate through the 6 free response questions from the {selectedYear} AP Statistics Exam.
               </p>
               <div className="w-full">
-                <Link href="/frq-navigation">
+                <Link href={`/frq-navigation?year=${selectedYear}`}>
                   <a className="mac-button text-lg py-2 px-6 w-full text-center whitespace-normal h-auto min-h-[48px] flex items-center justify-center">
                     Explore FRQs
                   </a>
