@@ -21997,13 +21997,17 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── ap-statistics-2018-international-practice-exam-frq.pdf
 │   │   │   ├── ap-statistics-2018-international-practice-exam-mcq-answers.pdf
 │   │   │   ├── ap-statistics-2018-international-practice-exam-mcq.pdf
-│   │   │   └── ap-statistics-2018-international-practice-exam-scoring-worksheet.pdf
+│   │   │   ├── ap-statistics-2018-international-practice-exam-scoring-worksheet.pdf
+│   │   │   ├── grokFRQ.prompt
+│   │   │   └── grokMCQ.prompt
 │   │   ├── 2019apexam
 │   │   │   ├── ap-statistics-2019-international-practice-exam-frq-scoring-guidelines.pdf
 │   │   │   ├── ap-statistics-2019-international-practice-exam-mcq-answers.pdf
 │   │   │   ├── ap-statistics-2019-international-practice-exam-scoring-worksheet.pdf
 │   │   │   ├── ap-statistics-2019-practice-exam-frq.pdf
-│   │   │   └── ap-statistics-2019-practice-exam-mcq.pdf
+│   │   │   ├── ap-statistics-2019-practice-exam-mcq.pdf
+│   │   │   ├── grokFRQ.prompt
+│   │   │   └── grokMCQ.prompt
 │   │   ├── unit1
 │   │   │   ├── 1-10
 │   │   │   │   ├── 2017 apstats exam mcq14.png
@@ -22068,8 +22072,23 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 apstats exam MCQ19.png
 │   │   │   ├── 2017 apstats exam mcq6.png
 │   │   │   ├── 2017 APstatsExam MCQ29.png
+│   │   │   ├── 2018_AP_MCQ_05.png
+│   │   │   ├── 2018_AP_MCQ_07.png
+│   │   │   ├── 2018_AP_MCQ_10.png
+│   │   │   ├── 2018_AP_MCQ_11.png
+│   │   │   ├── 2018_AP_MCQ_12.png
+│   │   │   ├── 2018_AP_MCQ_13.png
+│   │   │   ├── 2018_AP_MCQ_15.png
+│   │   │   ├── 2018_AP_MCQ_18.png
 │   │   │   ├── 2018APexam FRQ1-1.png
 │   │   │   ├── 2018APexam FRQ1-2.png
+│   │   │   ├── 2019_AP_MCQ_01.png
+│   │   │   ├── 2019_AP_MCQ_04.png
+│   │   │   ├── 2019_AP_MCQ_05.png
+│   │   │   ├── 2019_AP_MCQ_07.png
+│   │   │   ├── 2019_AP_MCQ_09.png
+│   │   │   ├── 2019_AP_MCQ_11.png
+│   │   │   ├── 2019_AP_MCQ_24.png
 │   │   │   ├── 2019APexam FRQ1-1.png
 │   │   │   ├── 2019APexam FRQ1-2.png
 │   │   │   ├── 2019APexam FRQ3-1.png
@@ -22134,8 +22153,15 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 APstatsExam MCQ31.png
 │   │   │   ├── 2017APExamMCQ1.png
 │   │   │   ├── 2017APexamMCQ3.png
+│   │   │   ├── 2018_AP_MCQ_01.png
+│   │   │   ├── 2018_AP_MCQ_02.png
+│   │   │   ├── 2018_AP_MCQ_24.png
 │   │   │   ├── 2018APexam FRQ5-1.png
 │   │   │   ├── 2018APexam FRQ5-2.png
+│   │   │   ├── 2019_AP_MCQ_03.png
+│   │   │   ├── 2019_AP_MCQ_20.png
+│   │   │   ├── 2019_AP_MCQ_21.png
+│   │   │   ├── 2019_AP_MCQ_35.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit2ProgressCheckFRQ_67bc76250c2e88.67bc76266dd470.88466429.pdf
@@ -22179,10 +22205,20 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 APstatsExam MCQ24.png
 │   │   │   ├── 2017 APstatsExam MCQ35.png
 │   │   │   ├── 2017 APstatsExam MCQ37.png
+│   │   │   ├── 2018_AP_MCQ_03.png
+│   │   │   ├── 2018_AP_MCQ_14.png
+│   │   │   ├── 2018_AP_MCQ_16.png
+│   │   │   ├── 2018_AP_MCQ_22.png
+│   │   │   ├── 2018_AP_MCQ_28.png
 │   │   │   ├── 2018APexam FRQ2-1.png
 │   │   │   ├── 2018APexam FRQ2-2.png
 │   │   │   ├── 2018APexam FRQ3-1.png
 │   │   │   ├── 2018APexam FRQ3-2.png
+│   │   │   ├── 2019_AP_MCQ_08.png
+│   │   │   ├── 2019_AP_MCQ_12.png
+│   │   │   ├── 2019_AP_MCQ_16.png
+│   │   │   ├── 2019_AP_MCQ_19.png
+│   │   │   ├── 2019_AP_MCQ_27.png
 │   │   │   ├── 2019APexam FRQ4-1.png
 │   │   │   ├── 2019APexam FRQ4-2.png
 │   │   │   ├── grokFRQ.prompt
@@ -22263,11 +22299,22 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 APstatsExam MCQ25.png
 │   │   │   ├── 2017 APstatsExam MCQ32.png
 │   │   │   ├── 2017 APstatsExam MCQ34.png
+│   │   │   ├── 2018_AP_MCQ_09.png
+│   │   │   ├── 2018_AP_MCQ_19.png
+│   │   │   ├── 2018_AP_MCQ_25.png
+│   │   │   ├── 2018_AP_MCQ_35.png
 │   │   │   ├── 2018APexam FRQ3-1.png
 │   │   │   ├── 2018APexam FRQ3-2.png
 │   │   │   ├── 2018APexam FRQ6-1.png
 │   │   │   ├── 2018APexam FRQ6-2.png
 │   │   │   ├── 2018APexam FRQ6-3.png
+│   │   │   ├── 2019_AP_MCQ_02.png
+│   │   │   ├── 2019_AP_MCQ_06.png
+│   │   │   ├── 2019_AP_MCQ_10.png
+│   │   │   ├── 2019_AP_MCQ_17.png
+│   │   │   ├── 2019_AP_MCQ_26.png
+│   │   │   ├── 2019_AP_MCQ_28.png
+│   │   │   ├── 2019_AP_MCQ_37.png
 │   │   │   ├── 2019APexam FRQ5-1.png
 │   │   │   ├── 2019APexam FRQ5-2.png
 │   │   │   ├── grokFRQ.prompt
@@ -22320,11 +22367,19 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 APexam FRQ5 quesetion.png
 │   │   │   ├── 2017 APstatsExam MCQ21.png
 │   │   │   ├── 2017 APstatsExam MCQ30.png
+│   │   │   ├── 2018_AP_MCQ_04.png
+│   │   │   ├── 2018_AP_MCQ_27.png
+│   │   │   ├── 2018_AP_MCQ_30.png
+│   │   │   ├── 2018_AP_MCQ_37.png
 │   │   │   ├── 2018APexam FRQ1-1.png
 │   │   │   ├── 2018APexam FRQ1-2.png
 │   │   │   ├── 2018APexam FRQ6-1.png
 │   │   │   ├── 2018APexam FRQ6-2.png
 │   │   │   ├── 2018APexam FRQ6-3.png
+│   │   │   ├── 2019_AP_MCQ_13.png
+│   │   │   ├── 2019_AP_MCQ_18.png
+│   │   │   ├── 2019_AP_MCQ_22.png
+│   │   │   ├── 2019_AP_MCQ_31.png
 │   │   │   ├── 2019APexam FRQ5-1.png
 │   │   │   ├── 2019APexam FRQ5-2.png
 │   │   │   ├── grokFRQ.prompt
@@ -22399,9 +22454,20 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 APstatsExam MCQ36.png
 │   │   │   ├── 2017 APstatsExam MCQ39.png
 │   │   │   ├── 2017 APstatsExam MCQ40.png
+│   │   │   ├── 2018_AP_MCQ_21.png
+│   │   │   ├── 2018_AP_MCQ_26.png
+│   │   │   ├── 2018_AP_MCQ_29.png
+│   │   │   ├── 2018_AP_MCQ_31.png
+│   │   │   ├── 2018_AP_MCQ_33.png
+│   │   │   ├── 2018_AP_MCQ_39.png
 │   │   │   ├── 2018APexam FRQ6-1.png
 │   │   │   ├── 2018APexam FRQ6-2.png
 │   │   │   ├── 2018APexam FRQ6-3.png
+│   │   │   ├── 2019_AP_MCQ_14.png
+│   │   │   ├── 2019_AP_MCQ_15.png
+│   │   │   ├── 2019_AP_MCQ_29.png
+│   │   │   ├── 2019_AP_MCQ_32.png
+│   │   │   ├── 2019_AP_MCQ_38.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit6ProgressCheckFRQ_67bc74e62d22c5.67bc74e7b8d4a6.27167338.pdf
@@ -22471,8 +22537,20 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   ├── 2017 apstats exam MCQ17.png
 │   │   │   ├── 2017 APstatsExam MCQ38.png
 │   │   │   ├── 2017APexamMCQ4.png
+│   │   │   ├── 2018_AP_MCQ_06.png
+│   │   │   ├── 2018_AP_MCQ_17.png
+│   │   │   ├── 2018_AP_MCQ_20.png
+│   │   │   ├── 2018_AP_MCQ_23.png
+│   │   │   ├── 2018_AP_MCQ_34.png
+│   │   │   ├── 2018_AP_MCQ_36.png
 │   │   │   ├── 2018APexam FRQ4-1.png
 │   │   │   ├── 2018APexam FRQ4-2.png
+│   │   │   ├── 2019_AP_MCQ_23.png
+│   │   │   ├── 2019_AP_MCQ_25.png
+│   │   │   ├── 2019_AP_MCQ_30.png
+│   │   │   ├── 2019_AP_MCQ_34.png
+│   │   │   ├── 2019_AP_MCQ_36.png
+│   │   │   ├── 2019_AP_MCQ_40.png
 │   │   │   ├── 2019APexam FRQ6-1.png
 │   │   │   ├── 2019APexam FRQ6-2.png
 │   │   │   ├── 2019APexam FRQ6-3.png
@@ -22511,6 +22589,9 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   │   ├── TB_CarryingOutaChiSquareTestforHomogeneityorIndependenceQuiz_67c08974236f99.67c08975564141.80667438.pdf
 │   │   │   │   └── TB_SettingUpaChiSquareTestforHomogeneityorIndependenceQuiz_67c089658e1208.67c08966cb8e40.43086925.pdf
 │   │   │   ├── 2017 APstatsExam MCQ26.png
+│   │   │   ├── 2018_AP_MCQ_08.png
+│   │   │   ├── 2018_AP_MCQ_40.png
+│   │   │   ├── 2019_AP_MCQ_39.png
 │   │   │   ├── grokFRQ.prompt
 │   │   │   ├── grokMCQ.prompt
 │   │   │   ├── SG_Unit8ProgressCheckFRQ_67bc74358f0489.67bc7436ac2d67.44264482.pdf
@@ -22544,6 +22625,9 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   │   │   │   └── TB_CarryingOutaTestfortheSlopeofaRegressionModelQuiz_67c08a2e7248e3.67c08a2fd50994.73534930.pdf
 │   │   │   ├── 2017 APstatsExam MCQ27.png
 │   │   │   ├── 2017 APstatsExam MCQ33.png
+│   │   │   ├── 2018_AP_MCQ_32.png
+│   │   │   ├── 2018_AP_MCQ_38.png
+│   │   │   ├── 2019_AP_MCQ_33.png
 │   │   │   ├── 2019APexam FRQ2-1.png
 │   │   │   ├── 2019APexam FRQ2-2.png
 │   │   │   ├── grokFRQ.prompt
@@ -22573,6 +22657,8 @@ Directory tree for: C:\Users\ColsonR\OneDrive - Lynn Public Schools\Documents\Ap
 │   └── localContent.ts
 ├── .gitignore
 ├── 2017mcq-locations.txt
+├── Apstats_20_18_19__FRQ_mapping.pdf
+├── apstats_20_18_19__mcq_mapping.pdf
 ├── CHANGELOG.md
 ├── CHECKLIST.md
 ├── directory_tree.py
