@@ -16,6 +16,14 @@ async function ensureDemoAccountExists() {
   console.log('Checking if demo account exists...');
   
   try {
+    // First check if we can connect to Supabase
+    const { error: testError } = await supabase.from('profiles').select('count', { count: 'exact', head: true });
+    
+    if (testError) {
+      console.error('Cannot connect to Supabase:', testError);
+      return;
+    }
+    
     // Check if demo account already exists
     const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
       email: DEMO_EMAIL,
@@ -30,6 +38,10 @@ async function ensureDemoAccountExists() {
         const { data, error: signUpError } = await supabase.auth.signUp({
           email: DEMO_EMAIL,
           password: DEMO_PASSWORD,
+          options: {
+            // Skip email verification
+            emailRedirectTo: window.location.origin,
+          }
         });
         
         if (signUpError) {
@@ -41,6 +53,9 @@ async function ensureDemoAccountExists() {
         
         // Set up profile for demo account
         if (data?.user) {
+          // Wait a moment for the auth to propagate
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
           const { error: profileError } = await supabase
             .from('profiles')
             .upsert({
@@ -75,8 +90,11 @@ async function ensureDemoAccountExists() {
 
 function isSupabaseAvailable() {
   try {
-    return typeof supabase.auth !== 'undefined' && typeof supabase.from === 'function';
+    return typeof supabase.auth !== 'undefined' && 
+           typeof supabase.from === 'function' && 
+           typeof supabase.auth.signInWithPassword === 'function';
   } catch (error) {
+    console.error('Supabase availability check failed:', error);
     return false;
   }
 }
@@ -84,7 +102,26 @@ function isSupabaseAvailable() {
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [supabaseAvailable] = useState(isSupabaseAvailable());
+  const [supabaseAvailable, setSupabaseAvailable] = useState(false);
+
+  // Check Supabase availability on mount
+  useEffect(() => {
+    const checkSupabase = async () => {
+      const available = isSupabaseAvailable();
+      console.log('Supabase available:', available);
+      setSupabaseAvailable(available);
+      
+      if (available) {
+        try {
+          await ensureDemoAccountExists();
+        } catch (error) {
+          console.error('Failed to set up demo account:', error);
+        }
+      }
+    };
+    
+    checkSupabase();
+  }, []);
 
   useEffect(() => {
     const handleStart = () => setLoading(true);
@@ -100,13 +137,6 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeError', handleComplete);
     };
   }, [router]);
-
-  useEffect(() => {
-    // Only run in production environment and when Supabase is available
-    if (process.env.NODE_ENV === 'production' && isSupabaseAvailable()) {
-      ensureDemoAccountExists();
-    }
-  }, []);
 
   // Render the app with or without AuthProvider based on Supabase availability
   const renderApp = () => {

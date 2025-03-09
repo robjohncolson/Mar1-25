@@ -28,22 +28,29 @@ export default function UserMenu() {
     setIsOpen(false);
   };
 
-  // If Supabase is not available, don't render the menu
+  // If Supabase is not available, render a simple sign-in button
   if (!isSupabaseAvailable) {
-    return null;
+    return (
+      <Link href="/login">
+        <a className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800">
+          <span className="hidden md:inline-block">Sign In</span>
+          <FaSignInAlt className="w-5 h-5" />
+        </a>
+      </Link>
+    );
   }
 
   return (
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 mac-button py-1 px-3"
+        className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         {user && profile ? (
           <>
-            <span className="hidden md:inline-block">{profile.display_name || user.email}</span>
+            <span className="hidden md:inline-block mr-2">{profile.display_name || user.email}</span>
             <div className="w-8 h-8 rounded-full overflow-hidden">
               {profile.avatar_data ? (
                 <PixelAvatar 
@@ -57,7 +64,7 @@ export default function UserMenu() {
           </>
         ) : (
           <>
-            <span className="hidden md:inline-block">Sign In</span>
+            <span className="hidden md:inline-block mr-2">Sign In</span>
             <FaSignInAlt className="w-5 h-5" />
           </>
         )}
