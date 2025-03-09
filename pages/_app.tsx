@@ -7,16 +7,79 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { supabase } from '@/utils/supabaseClient';
 
-// Check if Supabase is properly initialized
-const isSupabaseAvailable = () => {
+// Demo account credentials
+const DEMO_EMAIL = 'demo@apstatshub.com';
+const DEMO_PASSWORD = 'apstatsdemo123';
+
+// Function to ensure demo account exists
+async function ensureDemoAccountExists() {
+  console.log('Checking if demo account exists...');
+  
   try {
-    // Try to access a method on the supabase client
-    return typeof supabase.auth !== 'undefined';
+    // Check if demo account already exists
+    const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
+      email: DEMO_EMAIL,
+      password: DEMO_PASSWORD
+    });
+    
+    if (signInError) {
+      // If demo account doesn't exist, create it
+      if (signInError.message.includes('Invalid login credentials')) {
+        console.log('Demo account does not exist. Creating...');
+        
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email: DEMO_EMAIL,
+          password: DEMO_PASSWORD,
+        });
+        
+        if (signUpError) {
+          console.error('Error creating demo account:', signUpError);
+          return;
+        }
+        
+        console.log('Demo account created successfully!');
+        
+        // Set up profile for demo account
+        if (data?.user) {
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .upsert({
+              id: data.user.id,
+              display_name: 'Demo User',
+              avatar_data: {
+                resolution: 2,
+                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                last_edited: new Date().toISOString()
+              },
+              stars_count: 10, // Give demo account some stars to start with
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            });
+          
+          if (profileError) {
+            console.error('Error setting up demo profile:', profileError);
+          } else {
+            console.log('Demo profile set up successfully!');
+          }
+        }
+      } else {
+        console.error('Error checking demo account:', signInError);
+      }
+    } else {
+      console.log('Demo account already exists!');
+    }
   } catch (error) {
-    console.error('Supabase client initialization error:', error);
+    console.error('Error in demo account setup:', error);
+  }
+}
+
+function isSupabaseAvailable() {
+  try {
+    return typeof supabase.auth !== 'undefined' && typeof supabase.from === 'function';
+  } catch (error) {
     return false;
   }
-};
+}
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -37,6 +100,13 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeError', handleComplete);
     };
   }, [router]);
+
+  useEffect(() => {
+    // Only run in production environment and when Supabase is available
+    if (process.env.NODE_ENV === 'production' && isSupabaseAvailable()) {
+      ensureDemoAccountExists();
+    }
+  }, []);
 
   // Render the app with or without AuthProvider based on Supabase availability
   const renderApp = () => {

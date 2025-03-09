@@ -9,7 +9,8 @@ type AuthContextType = {
   session: Session | null;
   isLoading: boolean;
   isSupabaseAvailable: boolean;
-  signIn: (email: string) => Promise<{ error: any | null }>;
+  signIn: (email: string, password: string) => Promise<{ error: any | null }>;
+  signUp: (email: string, password: string) => Promise<{ error: any | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -75,19 +76,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [isSupabaseAvailable]);
 
-  const signIn = async (email: string) => {
+  const signIn = async (email: string, password: string) => {
     if (!isSupabaseAvailable) {
       return { error: new Error('Supabase client is not available') };
     }
 
     setIsLoading(true);
     
-    // Use the site URL from config
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
+      password
+    });
+    
+    setIsLoading(false);
+    return { error };
+  };
+
+  const signUp = async (email: string, password: string) => {
+    if (!isSupabaseAvailable) {
+      return { error: new Error('Supabase client is not available') };
+    }
+
+    setIsLoading(true);
+    
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
       options: {
         emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
-      },
+      }
     });
     
     setIsLoading(false);
@@ -118,6 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isLoading,
     isSupabaseAvailable,
     signIn,
+    signUp,
     signOut,
     refreshProfile,
   };

@@ -131,4 +131,16 @@ All notable changes to the AP Statistics Hub will be documented in this file.
 
 ### Changed
 - Updated UI components for better mobile responsiveness
-- Enhanced navigation between MCQs and content sections 
+- Enhanced navigation between MCQs and content sections
+
+## [3.0.0] - ExamVault Release - 2023-06-XX
+
+### Added
+- ExamVault feature with 2018 and 2019 AP Statistics Exam content
+- Multiple exam year support for FRQs and MCQs
+- User authentication with email/password (replacing magic links)
+- Demo account for instant access without registration
+- Progress tracking for students
+- User profiles with customizable pixel avatars
+- Completion markers for tracking progress through content
+- Stars system for gamification and motivation 

@@ -174,3 +174,20 @@ If you need to work on a Windows laptop without administrator privileges:
 ## License
 
 MIT
+
+## Authentication
+
+The AP Statistics Hub now supports two authentication methods:
+
+1. **Email/Password Authentication**: Users can create accounts with an email and password.
+2. **Demo Account**: For quick access, users can click the "Use Demo Account" button on the login page.
+
+### Demo Account
+
+The application automatically sets up a demo account when it starts up in production. This account provides instant access to all features without requiring registration.
+
+Demo account credentials:
+- Email: demo@apstatshub.com
+- Password: apstatsdemo123
+
+The demo account comes with a pre-configured profile and some initial progress data.
