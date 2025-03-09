@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase, Profile, getUserProfile } from '@/utils/supabaseClient';
+import config from '@/utils/config';
 
 type AuthContextType = {
   user: User | null;
@@ -80,12 +81,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setIsLoading(true);
+    
+    // Use the site URL from config
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
       },
     });
+    
     setIsLoading(false);
     return { error };
   };

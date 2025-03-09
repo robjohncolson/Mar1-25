@@ -18,6 +18,29 @@ export default function Login() {
     if (error && typeof error === 'string') {
       setMessage({ type: 'error', text: error });
     }
+    
+    // Check for hash error parameters in the URL (from redirects)
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const hashError = hashParams.get('error');
+    const hashErrorDescription = hashParams.get('error_description');
+    
+    if (hashError) {
+      let errorMessage = 'Authentication failed';
+      
+      if (hashErrorDescription) {
+        errorMessage = hashErrorDescription.replace(/\+/g, ' ');
+      }
+      
+      setMessage({ 
+        type: 'error', 
+        text: errorMessage 
+      });
+      
+      // Clean up the URL
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
   }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
