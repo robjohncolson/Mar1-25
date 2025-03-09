@@ -54,6 +54,19 @@ export default function App({ Component, pageProps }: AppProps) {
   // Set mounted state after component mounts (client-side only)
   useEffect(() => {
     setIsMounted(true);
+    
+    // Fix for Safari - ensure localStorage is accessible
+    try {
+      // Test localStorage
+      localStorage.setItem('test', 'test');
+      localStorage.removeItem('test');
+      
+      // Log storage info
+      console.log('localStorage is available');
+      console.log('Storage keys:', Object.keys(localStorage));
+    } catch (e) {
+      console.error('localStorage is not available:', e);
+    }
   }, []);
 
   // Check Supabase availability on mount
@@ -73,6 +86,31 @@ export default function App({ Component, pageProps }: AppProps) {
             console.error('Error getting session:', error);
           } else {
             console.log('Session check:', data.session ? 'Active' : 'None');
+            
+            // If we have a session, log some details
+            if (data.session) {
+              console.log('User:', data.session.user.email);
+              console.log('Session expires:', new Date(data.session.expires_at! * 1000).toLocaleString());
+              
+              // Check if session is about to expire
+              const expiresAt = data.session.expires_at! * 1000;
+              const now = Date.now();
+              const timeLeft = expiresAt - now;
+              
+              console.log('Session time left:', Math.floor(timeLeft / 1000 / 60), 'minutes');
+              
+              // If session is about to expire, refresh it
+              if (timeLeft < 15 * 60 * 1000) { // Less than 15 minutes
+                console.log('Session about to expire, refreshing...');
+                const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
+                
+                if (refreshError) {
+                  console.error('Error refreshing session:', refreshError);
+                } else {
+                  console.log('Session refreshed successfully');
+                }
+              }
+            }
           }
         } catch (error) {
           console.error('Failed to check session:', error);

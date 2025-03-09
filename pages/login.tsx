@@ -147,36 +147,6 @@ export default function Login() {
       if (isSignUp) {
         console.log('Signing up with:', email);
         
-        // First check if the user already exists
-        const { error: checkError } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
-        
-        if (!checkError) {
-          // User already exists and password is correct
-          console.log('User already exists with these credentials, redirecting...');
-          setMessage({ 
-            type: 'success', 
-            text: 'Account already exists! Signing you in...' 
-          });
-          
-          // Wait a moment before redirecting
-          setTimeout(() => {
-            router.push('/');
-          }, 1500);
-          return;
-        }
-        
-        // Check for rate limiting
-        if (checkError.message && checkError.message.includes('rate')) {
-          setMessage({ 
-            type: 'error', 
-            text: 'Too many login attempts. Please wait a moment and try again.' 
-          });
-          return;
-        }
-        
         // Create new account
         const { error, user } = await signUp(email, password);
         
@@ -199,6 +169,10 @@ export default function Login() {
             type: 'success', 
             text: 'Account created successfully! You are now signed in.' 
           });
+          
+          // Verify session after signup
+          const { data } = await supabase.auth.getSession();
+          console.log('Session after signup:', !!data.session);
           
           // Redirect to home page after a short delay
           setTimeout(() => {
@@ -233,6 +207,11 @@ export default function Login() {
           }
         } else {
           console.log('Sign in successful, redirecting...');
+          
+          // Verify session after signin
+          const { data } = await supabase.auth.getSession();
+          console.log('Session after signin:', !!data.session);
+          
           // Redirect to home page
           router.push('/');
         }

@@ -2,14 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthContext';
-import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt, FaSync } from 'react-icons/fa';
 import PixelAvatar from './PixelAvatar';
+import { supabase } from '@/utils/supabaseClient';
 
 export default function UserMenu() {
   const router = useRouter();
   const { user, profile, session, signOut, isSupabaseAvailable } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Set mounted state after component mounts (client-side only)
@@ -54,6 +56,31 @@ export default function UserMenu() {
   const handleSignIn = () => {
     setIsOpen(false);
     router.push('/login');
+  };
+  
+  const handleRefreshSession = async () => {
+    setIsRefreshing(true);
+    try {
+      // Check current session
+      const { data: beforeData } = await supabase.auth.getSession();
+      console.log('Session before refresh:', !!beforeData.session);
+      
+      // Try to refresh the session
+      const { data, error } = await supabase.auth.refreshSession();
+      
+      if (error) {
+        console.error('Error refreshing session:', error);
+      } else {
+        console.log('Session refreshed:', !!data.session);
+      }
+      
+      // Force reload to ensure UI is updated
+      window.location.reload();
+    } catch (error) {
+      console.error('Error refreshing session:', error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   // During SSR/SSG, return a simple placeholder
@@ -135,6 +162,14 @@ export default function UserMenu() {
                   <FaUser className="mr-2" /> Profile
                 </a>
               </Link>
+              <button
+                onClick={handleRefreshSession}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center"
+                disabled={isRefreshing}
+              >
+                <FaSync className={`mr-2 ${isRefreshing ? 'animate-spin' : ''}`} /> 
+                {isRefreshing ? 'Refreshing...' : 'Refresh Session'}
+              </button>
               <button
                 onClick={handleSignOut}
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center"

@@ -16,7 +16,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    storageKey: 'sb-apstats-auth',
+    // Use default storage key format
+    storageKey: undefined,
   },
   global: {
     headers: {
@@ -31,13 +32,20 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   },
 });
 
-// Clear any existing Supabase sessions on client-side
+// Log session storage information
 if (typeof window !== 'undefined') {
-  // Clear any old Supabase tokens that might be causing issues
-  Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('sb-') && key !== 'sb-apstats-auth') {
-      console.log('Removing old Supabase token:', key);
-      localStorage.removeItem(key);
+  console.log('Local storage keys:', Object.keys(localStorage));
+  
+  // Check for existing session
+  supabase.auth.getSession().then(({ data, error }) => {
+    if (error) {
+      console.error('Error getting session:', error);
+    } else {
+      console.log('Session exists:', !!data.session);
+      if (data.session) {
+        console.log('User:', data.session.user.email);
+        console.log('Session expires:', new Date(data.session.expires_at! * 1000).toLocaleString());
+      }
     }
   });
 }

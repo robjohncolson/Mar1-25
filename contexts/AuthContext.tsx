@@ -181,10 +181,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log('Signing in with email/password:', email);
     
     try {
-      // Clear any existing session first
-      await supabase.auth.signOut();
-      
-      // Sign in with new credentials
+      // Sign in with credentials
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -198,6 +195,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       console.log('Sign in successful:', data.user?.email);
       console.log('Session established:', !!data.session);
+      
+      if (data.session) {
+        console.log('Session expires at:', new Date(data.session.expires_at! * 1000).toLocaleString());
+        
+        // Verify session was stored
+        const { data: sessionData } = await supabase.auth.getSession();
+        console.log('Session verification:', !!sessionData.session);
+      }
       
       // Update state
       setSession(data.session);
@@ -237,9 +242,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log('Signing up with email/password:', email);
     
     try {
-      // Clear any existing session first
-      await supabase.auth.signOut();
-      
       // Create a new user
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -261,6 +263,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       console.log('Sign up successful:', data.user?.email);
       console.log('Session established:', !!data.session);
+      
+      if (data.session) {
+        console.log('Session expires at:', new Date(data.session.expires_at! * 1000).toLocaleString());
+        
+        // Verify session was stored
+        const { data: sessionData } = await supabase.auth.getSession();
+        console.log('Session verification:', !!sessionData.session);
+      } else {
+        console.log('No session created during sign up - attempting to sign in');
+        
+        // If no session was created, try to sign in
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        
+        if (signInError) {
+          console.error('Error signing in after sign up:', signInError);
+        } else {
+          console.log('Sign in after sign up successful');
+          // Update session with the one from sign in
+          setSession(signInData.session);
+        }
+      }
       
       // Update state
       setSession(data.session);
