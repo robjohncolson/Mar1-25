@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import { FaGraduationCap, FaBookOpen, FaClipboardCheck } from 'react-icons/fa';
+import { FaGraduationCap, FaBookOpen, FaClipboardCheck, FaSignInAlt, FaUser, FaCheckCircle } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
+import { useSimpleAuth } from '@/contexts/SimpleAuthContext';
 
-export default function LandingPage() {
+export default function Home() {
+  const { user, isAuthenticated, isLoading } = useSimpleAuth();
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <Layout title="AP Statistics Hub - Welcome">
       <div className="max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[70vh]">
@@ -19,6 +28,32 @@ export default function LandingPage() {
               Welcome to the AP Statistics Hub! Choose how you'd like to navigate the content:
             </p>
             
+            {isMounted && (
+              <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <h2 className="text-xl font-semibold mb-2">Authentication Status</h2>
+                
+                {isLoading ? (
+                  <p>Loading authentication status...</p>
+                ) : isAuthenticated && user ? (
+                  <div className="flex items-center text-green-600">
+                    <FaCheckCircle className="mr-2" />
+                    <span>
+                      Signed in as <strong>{user.username}</strong>
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col space-y-2">
+                    <p className="text-orange-500">You are not signed in.</p>
+                    <Link href="/simple-login">
+                      <a className="mac-button inline-flex items-center">
+                        <FaSignInAlt className="mr-2" /> Sign In / Create Account
+                      </a>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
               <div className="mac-window p-4 flex flex-col items-center">
                 <div className="mac-header p-2 w-full mb-4">

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import { FaGithub, FaHome } from 'react-icons/fa';
-import UserMenu from './UserMenu';
+import SimpleUserMenu from './SimpleUserMenu';
 
 interface LayoutProps {
   children: ReactNode;
@@ -49,11 +49,12 @@ export default function Layout({
               href="https://github.com/robjohncolson/Mar1-25" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center"
+              className="text-mac-white hover:text-gray-200 transition-colors"
+              aria-label="GitHub Repository"
             >
-              <FaGithub className="mr-1" /> GitHub
+              <FaGithub size={20} />
             </a>
-            <UserMenu />
+            <SimpleUserMenu />
           </div>
         </div>
       </header>
