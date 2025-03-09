@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { supabase } from '@/utils/supabaseClient';
+import { v4 as uuidv4 } from 'uuid';
 
 // Extend the built-in session types
 declare module "next-auth" {
@@ -35,75 +36,76 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.username) {
+          console.error('No username provided');
+          return null;
+        }
+
+        const username = credentials.username.trim();
+        console.log(`Attempting to authenticate user: ${username}`);
+
+        // Username validation - only allow alphanumeric characters and underscores
+        if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+          console.error('Invalid username format');
           return null;
         }
 
         try {
-          // Check if user exists in the database
-          const { data, error } = await supabase
+          // First, check if the user exists in the profiles table
+          const { data: existingProfile, error: profileError } = await supabase
             .from('profiles')
             .select('*')
-            .eq('username', credentials.username)
-            .single();
+            .eq('username', username)
+            .maybeSingle();
 
-          if (error) {
-            // If user doesn't exist, create a new one
-            if (error.code === 'PGRST116') {
-              // Generate a unique ID for the new user
-              const userId = crypto.randomUUID();
-              
-              // Create a new user in the auth.users table (simplified approach)
-              const { data: authUser, error: authError } = await supabase.auth.admin.createUser({
-                email: `${credentials.username}@example.com`,
-                password: crypto.randomUUID(),
-                user_metadata: { username: credentials.username }
-              });
-              
-              if (authError) {
-                console.error('Error creating auth user:', authError);
-                return null;
-              }
-              
-              // Create a profile for the new user
-              const { data: newProfile, error: profileError } = await supabase
-                .from('profiles')
-                .insert({
-                  id: authUser.user.id,
-                  username: credentials.username,
-                  display_name: credentials.username,
-                  avatar_data: {
-                    resolution: 2,
-                    colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
-                    last_edited: new Date().toISOString()
-                  },
-                  stars_count: 0,
-                  created_at: new Date().toISOString(),
-                  updated_at: new Date().toISOString()
-                })
-                .select()
-                .single();
-              
-              if (profileError) {
-                console.error('Error creating profile:', profileError);
-                return null;
-              }
-              
-              return {
-                id: authUser.user.id,
-                username: credentials.username,
-                name: credentials.username
-              };
-            }
+          if (profileError) {
+            console.error('Error checking for existing profile:', profileError);
+            return null;
+          }
+
+          // If user exists, return the user data
+          if (existingProfile) {
+            console.log(`User found: ${username}`);
+            return {
+              id: existingProfile.id,
+              username: existingProfile.username,
+              name: existingProfile.display_name
+            };
+          }
+
+          console.log(`User not found, creating new user: ${username}`);
+          
+          // Generate a UUID for the new user
+          const userId = uuidv4();
+          
+          // Create a profile directly in the profiles table
+          const { data: newProfile, error: newProfileError } = await supabase
+            .from('profiles')
+            .insert({
+              id: userId,
+              username: username,
+              display_name: username,
+              avatar_data: {
+                resolution: 2,
+                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                last_edited: new Date().toISOString()
+              },
+              stars_count: 0,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+            .select()
+            .single();
             
-            console.error('Error finding user:', error);
+          if (newProfileError) {
+            console.error('Error creating profile:', newProfileError);
             return null;
           }
           
-          // Return the existing user
+          console.log(`Profile created for: ${username} with ID: ${userId}`);
           return {
-            id: data.id,
-            username: data.username || credentials.username,
-            name: data.display_name
+            id: userId,
+            username: username,
+            name: username
           };
         } catch (error) {
           console.error('Unexpected error during authentication:', error);
@@ -121,6 +123,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       // Initial sign in
       if (user) {
+        console.log('Setting JWT token with user:', user);
         token.id = user.id;
         token.username = user.username;
       }
@@ -128,6 +131,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token && session.user) {
+        console.log('Setting session with token:', token);
         session.user.id = token.id;
         session.user.username = token.username;
       }
@@ -139,7 +143,7 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.NEXTAUTH_SECRET || 'your-secret-key-change-in-production',
-  debug: process.env.NODE_ENV === 'development',
+  debug: true, // Enable debug mode to see more detailed logs
 };
 
 export default NextAuth(authOptions); 

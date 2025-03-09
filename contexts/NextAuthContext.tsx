@@ -62,19 +62,40 @@ export function NextAuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     
     try {
+      console.log(`Attempting to sign in with username: ${username}`);
+      
+      // First, check if the username is valid
+      if (!username.trim()) {
+        console.error('Username is empty');
+        setIsLoading(false);
+        return { error: new Error('Username cannot be empty') };
+      }
+      
+      // Username validation - only allow alphanumeric characters and underscores
+      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+        console.error('Invalid username format');
+        setIsLoading(false);
+        return { error: new Error('Username can only contain letters, numbers, and underscores') };
+      }
+      
       const result = await signIn('credentials', {
         redirect: false,
-        username,
+        username: username.trim(),
+        callbackUrl: '/',
       });
+      
+      console.log('Sign in result:', result);
       
       setIsLoading(false);
       
       if (result?.error) {
+        console.error('Sign in error:', result.error);
         return { error: new Error(result.error) };
       }
       
       return { error: null };
     } catch (error) {
+      console.error('Unexpected error during sign in:', error);
       setIsLoading(false);
       return { error };
     }

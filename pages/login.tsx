@@ -23,6 +23,29 @@ export default function Login() {
   // Check for error query param
   const { error } = router.query;
   
+  // Handle error from NextAuth
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    if (error) {
+      let errorMessage = 'An error occurred during sign in.';
+      
+      // Handle specific NextAuth error codes
+      if (error === 'CredentialsSignin') {
+        errorMessage = 'Failed to sign in. Please try again with a different username.';
+      } else if (typeof error === 'string') {
+        errorMessage = error;
+      }
+      
+      setMessage({ type: 'error', text: errorMessage });
+      
+      // Clear the error from the URL
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, [error, isMounted]);
+  
   // Check Supabase connection on mount
   useEffect(() => {
     if (!isMounted) return;
@@ -50,19 +73,6 @@ export default function Login() {
     
     return () => clearInterval(interval);
   }, [isMounted]);
-  
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    if (error && typeof error === 'string') {
-      setMessage({ type: 'error', text: error });
-      
-      // Clear the error from the URL
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
-    }
-  }, [error, isMounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,16 +82,32 @@ export default function Login() {
       return;
     }
     
+    // Username validation - only allow alphanumeric characters and underscores
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      setMessage({ 
+        type: 'error', 
+        text: 'Username can only contain letters, numbers, and underscores' 
+      });
+      return;
+    }
+    
     setMessage(null);
+    setDebugInfo('Attempting to sign in...');
     
     try {
       // Sign in with username
       const { error } = await signInWithUsername(username);
       
       if (error) {
-        setMessage({ type: 'error', text: error.message || 'Failed to sign in' });
+        console.error('Sign in error:', error);
+        setMessage({ 
+          type: 'error', 
+          text: error.message || 'Failed to sign in. Please try again.' 
+        });
+        setDebugInfo(`Sign in error: ${error.message || 'Unknown error'}`);
       } else {
         setMessage({ type: 'success', text: 'Signed in successfully!' });
+        setDebugInfo('Sign in successful!');
         
         // Redirect to home page after a short delay
         setTimeout(() => {
@@ -89,10 +115,12 @@ export default function Login() {
         }, 1500);
       }
     } catch (error: any) {
+      console.error('Unexpected error during sign in:', error);
       setMessage({ 
         type: 'error', 
         text: error?.message || 'An unexpected error occurred' 
       });
+      setDebugInfo(`Unexpected error: ${error?.message || 'Unknown error'}`);
     }
   };
 
@@ -135,8 +163,13 @@ export default function Login() {
                   className="mac-input pl-10 w-full"
                   placeholder="Enter your username"
                   disabled={isLoading}
+                  autoComplete="username"
+                  autoFocus
                 />
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Username can only contain letters, numbers, and underscores.
+              </p>
             </div>
             
             <div className="flex items-center justify-between mb-6">
@@ -177,6 +210,59 @@ export default function Login() {
               <div className="mt-4 p-3 bg-gray-100 text-xs font-mono">
                 <h3 className="font-bold mb-2">Debug Information:</h3>
                 <pre className="whitespace-pre-wrap">{debugInfo}</pre>
+                
+                <div className="mt-4 border-t pt-4">
+                  <h3 className="font-bold mb-2">Debug Actions:</h3>
+                  <div className="flex space-x-2">
+                    <button 
+                      onClick={async () => {
+                        try {
+                          setMessage(null);
+                          const response = await fetch('/api/auth/test-create-user', {
+                            method: 'POST',
+                          });
+                          const data = await response.json();
+                          setMessage({ 
+                            type: data.success ? 'success' : 'error', 
+                            text: data.message || data.error || 'Test completed' 
+                          });
+                          setDebugInfo(JSON.stringify(data, null, 2));
+                        } catch (error: any) {
+                          setMessage({ 
+                            type: 'error', 
+                            text: error.message || 'Test failed' 
+                          });
+                        }
+                      }}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                    >
+                      Test Create User
+                    </button>
+                    
+                    <button 
+                      onClick={async () => {
+                        try {
+                          setMessage(null);
+                          const response = await fetch('/api/auth/session-info');
+                          const data = await response.json();
+                          setDebugInfo(JSON.stringify(data, null, 2));
+                          setMessage({ 
+                            type: 'success', 
+                            text: 'Session info retrieved' 
+                          });
+                        } catch (error: any) {
+                          setMessage({ 
+                            type: 'error', 
+                            text: error.message || 'Failed to get session' 
+                          });
+                        }
+                      }}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                    >
+                      Check Session
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
