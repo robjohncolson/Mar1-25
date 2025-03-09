@@ -5,7 +5,7 @@ import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt } from 'react-icons/fa'
 import PixelAvatar from './PixelAvatar';
 
 export default function UserMenu() {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, signOut, isSupabaseAvailable } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -27,6 +27,11 @@ export default function UserMenu() {
     await signOut();
     setIsOpen(false);
   };
+
+  // If Supabase is not available, don't render the menu
+  if (!isSupabaseAvailable) {
+    return null;
+  }
 
   return (
     <div className="relative" ref={menuRef}>

@@ -13,11 +13,27 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isSupabaseAvailable, setIsSupabaseAvailable] = useState(true);
+
+  // Check if Supabase is available
+  useEffect(() => {
+    try {
+      if (!supabase || typeof supabase.from !== 'function') {
+        setIsSupabaseAvailable(false);
+      }
+    } catch (error) {
+      console.error('Error checking Supabase availability:', error);
+      setIsSupabaseAvailable(false);
+    }
+  }, []);
 
   // Check if content is completed on mount
   useEffect(() => {
     const checkCompletion = async () => {
-      if (!user) return;
+      if (!user || !isSupabaseAvailable) {
+        setIsInitialized(true);
+        return;
+      }
       
       setIsLoading(true);
       
@@ -44,11 +60,13 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
     
     if (user) {
       checkCompletion();
+    } else {
+      setIsInitialized(true);
     }
-  }, [user, contentId]);
+  }, [user, contentId, isSupabaseAvailable]);
 
   const handleToggle = async () => {
-    if (!user || isLoading) return;
+    if (!user || isLoading || !isSupabaseAvailable) return;
     
     setIsLoading(true);
     
@@ -66,7 +84,7 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
     }
   };
 
-  if (!user || !isInitialized) {
+  if (!user || !isInitialized || !isSupabaseAvailable) {
     return null;
   }
 

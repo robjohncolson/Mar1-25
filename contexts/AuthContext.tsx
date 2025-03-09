@@ -7,6 +7,7 @@ type AuthContextType = {
   profile: Profile | null;
   session: Session | null;
   isLoading: boolean;
+  isSupabaseAvailable: boolean;
   signIn: (email: string) => Promise<{ error: any | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -14,13 +15,29 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Check if Supabase is properly initialized
+const checkSupabaseAvailability = () => {
+  try {
+    return typeof supabase.auth !== 'undefined' && typeof supabase.from === 'function';
+  } catch (error) {
+    console.error('Supabase client initialization error:', error);
+    return false;
+  }
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSupabaseAvailable, setIsSupabaseAvailable] = useState(checkSupabaseAvailability());
 
   useEffect(() => {
+    if (!isSupabaseAvailable) {
+      setIsLoading(false);
+      return;
+    }
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -55,9 +72,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [isSupabaseAvailable]);
 
   const signIn = async (email: string) => {
+    if (!isSupabaseAvailable) {
+      return { error: new Error('Supabase client is not available') };
+    }
+
     setIsLoading(true);
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -70,13 +91,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+    if (!isSupabaseAvailable) {
+      return;
+    }
+
     setIsLoading(true);
     await supabase.auth.signOut();
     setIsLoading(false);
   };
 
   const refreshProfile = async () => {
-    if (user) {
+    if (user && isSupabaseAvailable) {
       const profile = await getUserProfile(user.id);
       setProfile(profile);
     }
@@ -87,6 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     profile,
     session,
     isLoading,
+    isSupabaseAvailable,
     signIn,
     signOut,
     refreshProfile,
