@@ -8,7 +8,7 @@ import { supabase } from '@/utils/supabaseClient';
 
 export default function Login() {
   const router = useRouter();
-  const { signIn, signUp, isLoading, isSupabaseAvailable } = useAuth();
+  const { signIn, signUp, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -32,49 +32,35 @@ export default function Login() {
     const checkSupabase = async () => {
       try {
         const info = [];
-        info.push(`Supabase Available: ${isSupabaseAvailable}`);
+        info.push(`Supabase Available: true`);
         
-        if (isSupabaseAvailable) {
-          // Test Supabase connection
-          const { error: testError } = await supabase.from('profiles').select('count', { count: 'exact', head: true });
-          info.push(`DB Connection: ${testError ? 'Failed' : 'Success'}`);
-          if (testError) info.push(`Error: ${testError.message}`);
+        // Test Supabase connection
+        const { error: testError } = await supabase.from('profiles').select('count', { count: 'exact', head: true });
+        info.push(`DB Connection: ${testError ? 'Failed' : 'Success'}`);
+        if (testError) info.push(`Error: ${testError.message}`);
+        
+        // Test auth
+        const { data, error: authError } = await supabase.auth.getSession();
+        info.push(`Auth Connection: ${authError ? 'Failed' : 'Success'}`);
+        if (authError) info.push(`Error: ${authError.message}`);
+        
+        info.push(`Session: ${data.session ? 'Active' : 'None'}`);
+        if (data.session) {
+          info.push(`User: ${data.session.user.email}`);
+          info.push(`Expires: ${new Date(data.session.expires_at! * 1000).toLocaleString()}`);
+        }
+        
+        // Check local storage for auth token
+        const hasLocalStorage = typeof window !== 'undefined' && window.localStorage;
+        if (hasLocalStorage) {
+          const supabaseKeys = Object.keys(localStorage).filter(key => 
+            key.startsWith('sb-') || key.includes('supabase')
+          );
           
-          // Test auth
-          const { data, error: authError } = await supabase.auth.getSession();
-          info.push(`Auth Connection: ${authError ? 'Failed' : 'Success'}`);
-          if (authError) info.push(`Error: ${authError.message}`);
-          
-          info.push(`Session: ${data.session ? 'Active' : 'None'}`);
-          if (data.session) {
-            info.push(`User: ${data.session.user.email}`);
-            info.push(`Expires: ${new Date(data.session.expires_at! * 1000).toLocaleString()}`);
-          }
-          
-          // Check local storage for auth token
-          const hasLocalStorage = typeof window !== 'undefined' && window.localStorage;
-          if (hasLocalStorage) {
-            const supabaseKeys = Object.keys(localStorage).filter(key => 
-              key.startsWith('sb-') || key.includes('supabase')
-            );
-            
-            if (supabaseKeys.length > 0) {
-              info.push(`Supabase Storage Keys: ${supabaseKeys.join(', ')}`);
-              
-              // Check if we have the correct storage key
-              const hasAuthToken = supabaseKeys.includes('sb-apstats-auth');
-              info.push(`Has Correct Auth Token: ${hasAuthToken ? 'Yes' : 'No'}`);
-            } else {
-              info.push('No Supabase Storage Keys Found');
-            }
-          }
-          
-          // Check cookies
-          const hasCookies = typeof document !== 'undefined' && document.cookie;
-          if (hasCookies) {
-            const cookies = document.cookie.split(';').map(c => c.trim());
-            const authCookies = cookies.filter(c => c.startsWith('sb-') || c.includes('auth'));
-            info.push(`Auth Cookies: ${authCookies.length > 0 ? authCookies.join(', ') : 'None'}`);
+          if (supabaseKeys.length > 0) {
+            info.push(`Supabase Storage Keys: ${supabaseKeys.join(', ')}`);
+          } else {
+            info.push('No Supabase Storage Keys Found');
           }
         }
         
@@ -90,7 +76,7 @@ export default function Login() {
     const interval = setInterval(checkSupabase, 5000);
     
     return () => clearInterval(interval);
-  }, [isSupabaseAvailable, isMounted]);
+  }, [isMounted]);
   
   useEffect(() => {
     if (!isMounted) return;
@@ -145,27 +131,12 @@ export default function Login() {
     
     try {
       if (isSignUp) {
-        console.log('Signing up with:', email);
-        
         // Create new account
         const { error, user } = await signUp(email, password);
         
         if (error) {
-          console.error('Sign up error:', error);
-          
-          // Check for rate limiting
-          if (error.message && error.message.includes('rate')) {
-            setMessage({ 
-              type: 'error', 
-              text: 'Too many signup attempts. Please wait a moment and try again.' 
-            });
-            return;
-          }
-          
           setMessage({ type: 'error', text: error.message || 'Failed to create account' });
         } else {
-          console.log('Sign up successful, user:', user?.email);
-          
           // Check if email confirmation is needed
           if (user && !user.email_confirmed_at) {
             setMessage({ 
@@ -178,10 +149,6 @@ export default function Login() {
               text: 'Account created successfully! You are now signed in.' 
             });
             
-            // Verify session after signup
-            const { data } = await supabase.auth.getSession();
-            console.log('Session after signup:', !!data.session);
-            
             // Redirect to home page after a short delay
             setTimeout(() => {
               router.push('/');
@@ -189,29 +156,11 @@ export default function Login() {
           }
         }
       } else {
-        console.log('Signing in with:', email);
         // Sign in with email and password
         const { error } = await signIn(email, password);
         
         if (error) {
-          console.error('Sign in error:', error);
-          
-          // Check for rate limiting
-          if (error.message && error.message.includes('rate')) {
-            setMessage({ 
-              type: 'error', 
-              text: 'Too many login attempts. Please wait a moment and try again.' 
-            });
-            return;
-          }
-          
-          // Provide a more helpful message for invalid credentials
-          if (error.message && error.message.includes('Invalid login credentials')) {
-            setMessage({ 
-              type: 'error', 
-              text: 'Invalid email or password. Please check your credentials and try again.' 
-            });
-          } else if (error.message && error.message.includes('Email not confirmed')) {
+          if (error.message && error.message.includes('Email not confirmed')) {
             setMessage({ 
               type: 'error', 
               text: 'Please verify your email address before signing in. Check your inbox for a verification link.' 
@@ -229,7 +178,6 @@ export default function Login() {
         }
       }
     } catch (error: any) {
-      console.error('Unexpected error:', error);
       setMessage({ 
         type: 'error', 
         text: error?.message || 'An unexpected error occurred' 
@@ -261,34 +209,6 @@ export default function Login() {
             <p className="mb-6 text-gray-600">
               Please wait while we initialize the authentication system.
             </p>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
-  // If Supabase is not available, show a message
-  if (!isSupabaseAvailable) {
-    return (
-      <Layout title="AP Statistics Hub - Login">
-        <div className="max-w-md mx-auto">
-          <div className="mac-window p-6">
-            <h2 className="text-xl font-bold mb-4">Authentication Unavailable</h2>
-            <p className="mb-6 text-gray-600">
-              The authentication service is currently unavailable. Please try again later or contact the administrator.
-            </p>
-            <Link href="/">
-              <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> Back to Home
-              </a>
-            </Link>
-            
-            {debugInfo && (
-              <div className="mt-6 p-3 bg-gray-100 text-xs font-mono">
-                <h3 className="font-bold mb-2">Debug Information:</h3>
-                <pre className="whitespace-pre-wrap">{debugInfo}</pre>
-              </div>
-            )}
           </div>
         </div>
       </Layout>

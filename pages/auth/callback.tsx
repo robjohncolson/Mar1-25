@@ -13,83 +13,30 @@ export default function AuthCallback() {
   const [isProcessing, setIsProcessing] = useState(true);
 
   useEffect(() => {
-    // Check for hash error parameters in the URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const hashError = hashParams.get('error');
-    const hashErrorDescription = hashParams.get('error_description');
-    
-    if (hashError) {
-      let errorMessage = 'Authentication failed';
-      
-      if (hashErrorDescription) {
-        errorMessage = hashErrorDescription.replace(/\+/g, ' ');
-      }
-      
-      setError(errorMessage);
-      setIsProcessing(false);
-      return;
-    }
-
-    const handleAuthCallback = async () => {
+    // This page is loaded after email verification
+    // The hash fragment will contain the access token and refresh token
+    const handleCallback = async () => {
       try {
-        console.log('Processing auth callback...');
-        
-        // First check if this is an email verification callback
-        const accessToken = hashParams.get('access_token');
-        const refreshToken = hashParams.get('refresh_token');
-        const type = hashParams.get('type');
-        
-        if (accessToken && type === 'recovery') {
-          console.log('Processing password recovery...');
-          // Handle password recovery flow
-          // This would typically redirect to a password reset page
-          router.push('/reset-password');
-          return;
-        }
-        
-        if (accessToken && refreshToken) {
-          console.log('Setting session from tokens in URL...');
-          // Set the session from the tokens in the URL
-          const { data, error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken
-          });
-          
-          if (error) {
-            console.error('Error setting session from tokens:', error);
-            setError(error.message);
-            setIsProcessing(false);
-            return;
-          }
-          
-          console.log('Session set successfully from tokens');
-          setSuccess(true);
-          
-          // Redirect after a short delay
-          setTimeout(() => {
-            router.push('/');
-          }, 2000);
-          return;
-        }
-        
-        // If no tokens in URL, try to get the current session
+        // The supabase client will automatically handle the hash fragment
         const { data, error } = await supabase.auth.getSession();
         
         if (error) {
           console.error('Error during auth callback:', error);
           setError(error.message);
           setIsProcessing(false);
-        } else if (data.session) {
-          console.log('Session found, redirecting...');
+          return;
+        }
+        
+        if (data.session) {
+          // Success! We have a session
           setSuccess(true);
           
-          // Redirect after a short delay
+          // Redirect to home page after a short delay
           setTimeout(() => {
             router.push('/');
           }, 2000);
         } else {
-          console.log('No session found, redirecting to login...');
-          // Redirect to login page
+          // No session found, redirect to login
           router.push('/login');
         }
       } catch (err) {
@@ -99,7 +46,7 @@ export default function AuthCallback() {
       }
     };
 
-    handleAuthCallback();
+    handleCallback();
   }, [router]);
 
   if (error) {

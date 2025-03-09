@@ -5,121 +5,16 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { supabase } from '@/utils/supabaseClient';
-
-// Demo account credentials
-const DEMO_EMAIL = 'demo@apstatshub.com';
-const DEMO_PASSWORD = 'apstatsdemo123';
-
-// Function to ensure demo account exists
-async function ensureDemoAccountExists() {
-  console.log('Checking if demo account exists...');
-  
-  try {
-    // First check if we can connect to Supabase
-    const { error: testError } = await supabase.from('profiles').select('count', { count: 'exact', head: true });
-    
-    if (testError) {
-      console.error('Cannot connect to Supabase:', testError);
-      return;
-    }
-    
-    // We won't try to create the demo account on app startup anymore
-    // This will be handled when the user clicks the demo account button
-    console.log('Demo account will be created when needed');
-    return;
-  } catch (error) {
-    console.error('Error in demo account setup:', error);
-  }
-}
-
-// Function to check if Supabase is available
-function isSupabaseAvailable() {
-  try {
-    return typeof supabase.auth !== 'undefined' && 
-           typeof supabase.from === 'function' && 
-           typeof supabase.auth.signInWithPassword === 'function';
-  } catch (error) {
-    console.error('Supabase availability check failed:', error);
-    return false;
-  }
-}
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [supabaseAvailable, setSupabaseAvailable] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   // Set mounted state after component mounts (client-side only)
   useEffect(() => {
     setIsMounted(true);
-    
-    // Fix for Safari - ensure localStorage is accessible
-    try {
-      // Test localStorage
-      localStorage.setItem('test', 'test');
-      localStorage.removeItem('test');
-      
-      // Log storage info
-      console.log('localStorage is available');
-      console.log('Storage keys:', Object.keys(localStorage));
-    } catch (e) {
-      console.error('localStorage is not available:', e);
-    }
   }, []);
-
-  // Check Supabase availability on mount
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const checkSupabase = async () => {
-      const available = isSupabaseAvailable();
-      console.log('Supabase available:', available);
-      setSupabaseAvailable(available);
-      
-      if (available) {
-        try {
-          // Test Supabase connection
-          const { data, error } = await supabase.auth.getSession();
-          if (error) {
-            console.error('Error getting session:', error);
-          } else {
-            console.log('Session check:', data.session ? 'Active' : 'None');
-            
-            // If we have a session, log some details
-            if (data.session) {
-              console.log('User:', data.session.user.email);
-              console.log('Session expires:', new Date(data.session.expires_at! * 1000).toLocaleString());
-              
-              // Check if session is about to expire
-              const expiresAt = data.session.expires_at! * 1000;
-              const now = Date.now();
-              const timeLeft = expiresAt - now;
-              
-              console.log('Session time left:', Math.floor(timeLeft / 1000 / 60), 'minutes');
-              
-              // If session is about to expire, refresh it
-              if (timeLeft < 15 * 60 * 1000) { // Less than 15 minutes
-                console.log('Session about to expire, refreshing...');
-                const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
-                
-                if (refreshError) {
-                  console.error('Error refreshing session:', refreshError);
-                } else {
-                  console.log('Session refreshed successfully');
-                }
-              }
-            }
-          }
-        } catch (error) {
-          console.error('Failed to check session:', error);
-        }
-      }
-    };
-    
-    checkSupabase();
-  }, [isMounted]);
 
   useEffect(() => {
     if (!isMounted) return;
@@ -138,42 +33,16 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, [router, isMounted]);
 
-  // Render the app with or without AuthProvider based on Supabase availability
-  const renderApp = () => {
-    // During SSR, render without AuthProvider
-    if (!isMounted) {
-      return (
-        <ErrorBoundary>
-          <Component {...pageProps} />
-        </ErrorBoundary>
-      );
-    }
-    
-    // On client-side, use AuthProvider if Supabase is available
-    if (supabaseAvailable) {
-      return (
-        <AuthProvider>
-          <ErrorBoundary>
-            <Component {...pageProps} />
-          </ErrorBoundary>
-        </AuthProvider>
-      );
-    } else {
-      // Fallback when Supabase is not available
-      return (
-        <ErrorBoundary>
-          <Component {...pageProps} />
-        </ErrorBoundary>
-      );
-    }
-  };
-
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      {renderApp()}
+      <AuthProvider>
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
+      </AuthProvider>
     </>
   );
 } 

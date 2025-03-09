@@ -16,19 +16,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    // Set explicit storage key to avoid issues
-    storageKey: 'sb-apstats-auth-token',
-  },
-  global: {
-    headers: {
-      'x-application-name': 'ap-stats-hub',
-    },
-  },
-  // Disable retries to avoid rate limiting
-  realtime: {
-    params: {
-      eventsPerSecond: 1,
-    },
   },
 });
 
