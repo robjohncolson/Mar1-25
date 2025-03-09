@@ -13,7 +13,6 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
   const [isCompleted, setIsCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [isSupabaseAvailable, setIsSupabaseAvailable] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
   // Set mounted state after component mounts (client-side only)
@@ -21,26 +20,12 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
     setIsMounted(true);
   }, []);
 
-  // Check if Supabase is available
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    try {
-      if (!supabase || typeof supabase.from !== 'function') {
-        setIsSupabaseAvailable(false);
-      }
-    } catch (error) {
-      console.error('Error checking Supabase availability:', error);
-      setIsSupabaseAvailable(false);
-    }
-  }, [isMounted]);
-
   // Check if content is completed on mount
   useEffect(() => {
     if (!isMounted) return;
     
     const checkCompletion = async () => {
-      if (!user || !isSupabaseAvailable) {
+      if (!user) {
         setIsInitialized(true);
         return;
       }
@@ -61,22 +46,18 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
           setIsCompleted(data?.status === 'completed');
         }
       } catch (error) {
-        console.error('Error checking completion status:', error);
+        console.error('Unexpected error checking completion:', error);
       } finally {
         setIsLoading(false);
         setIsInitialized(true);
       }
     };
     
-    if (user) {
-      checkCompletion();
-    } else {
-      setIsInitialized(true);
-    }
-  }, [user, contentId, isSupabaseAvailable, isMounted]);
-
+    checkCompletion();
+  }, [user, contentId, isMounted]);
+  
   const handleToggle = async () => {
-    if (!user || isLoading || !isSupabaseAvailable) return;
+    if (!user || isLoading) return;
     
     setIsLoading(true);
     
@@ -85,6 +66,8 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
       
       if (result) {
         setIsCompleted(result.status === 'completed');
+        
+        // Refresh profile to update stars count
         refreshProfile();
       }
     } catch (error) {
@@ -93,27 +76,27 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
       setIsLoading(false);
     }
   };
-
-  // During SSR/SSG, return null
+  
+  // Don't render anything during SSR
   if (!isMounted) {
     return null;
   }
-
-  if (!user || !isInitialized || !isSupabaseAvailable) {
+  
+  // Don't render if not logged in or not initialized
+  if (!user || !isInitialized) {
     return null;
   }
-
+  
   return (
     <button
       onClick={handleToggle}
       disabled={isLoading}
-      className={`transition-all duration-300 ${className}`}
-      aria-label={isCompleted ? "Mark as incomplete" : "Mark as completed"}
-      title={isCompleted ? "Mark as incomplete" : "Mark as completed"}
+      className={`completion-marker ${className} ${
+        isCompleted ? 'text-yellow-500' : 'text-gray-400'
+      } hover:text-yellow-600 transition-colors focus:outline-none disabled:opacity-50`}
+      title={isCompleted ? 'Mark as incomplete' : 'Mark as completed'}
     >
-      <FaStar 
-        className={`text-2xl ${isCompleted ? 'text-yellow-400' : 'text-gray-300'} hover:text-yellow-500`} 
-      />
+      <FaStar className={`${isLoading ? 'animate-pulse' : ''}`} />
     </button>
   );
 } 
