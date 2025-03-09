@@ -213,7 +213,7 @@ export default function Login() {
                 
                 <div className="mt-4 border-t pt-4">
                   <h3 className="font-bold mb-2">Debug Actions:</h3>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 flex-wrap">
                     <button 
                       onClick={async () => {
                         try {
@@ -234,7 +234,7 @@ export default function Login() {
                           });
                         }
                       }}
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs mb-2"
                     >
                       Test Create User
                     </button>
@@ -257,9 +257,35 @@ export default function Login() {
                           });
                         }
                       }}
-                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs mb-2"
                     >
                       Check Session
+                    </button>
+                    
+                    <button 
+                      onClick={async () => {
+                        try {
+                          setMessage(null);
+                          setDebugInfo('Adding username column...');
+                          const response = await fetch('/api/auth/add-username-column', {
+                            method: 'POST',
+                          });
+                          const data = await response.json();
+                          setDebugInfo(JSON.stringify(data, null, 2));
+                          setMessage({ 
+                            type: data.success ? 'success' : 'error', 
+                            text: data.message || data.error || 'Migration completed' 
+                          });
+                        } catch (error: any) {
+                          setMessage({ 
+                            type: 'error', 
+                            text: error.message || 'Migration failed' 
+                          });
+                        }
+                      }}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs mb-2"
+                    >
+                      Add Username Column
                     </button>
                   </div>
                 </div>

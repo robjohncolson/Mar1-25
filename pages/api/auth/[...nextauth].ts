@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
             .eq('username', username)
             .maybeSingle();
 
-          if (profileError) {
+          if (profileError && profileError.code !== 'PGRST116') {
             console.error('Error checking for existing profile:', profileError);
             return null;
           }
@@ -74,36 +74,88 @@ export const authOptions: NextAuthOptions = {
 
           console.log(`User not found, creating new user: ${username}`);
           
-          // Generate a UUID for the new user
-          const userId = uuidv4();
+          // Create a random email and password for the auth user
+          const randomEmail = `${username}_${Date.now()}@example.com`;
+          const randomPassword = Math.random().toString(36).slice(-10);
           
-          // Create a profile directly in the profiles table
-          const { data: newProfile, error: newProfileError } = await supabase
-            .from('profiles')
-            .insert({
-              id: userId,
-              username: username,
-              display_name: username,
-              avatar_data: {
-                resolution: 2,
-                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
-                last_edited: new Date().toISOString()
-              },
-              stars_count: 0,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            })
-            .select()
-            .single();
-            
-          if (newProfileError) {
-            console.error('Error creating profile:', newProfileError);
+          // Create a new user in the auth.users table
+          const { data: authData, error: authError } = await supabase.auth.signUp({
+            email: randomEmail,
+            password: randomPassword,
+            options: {
+              data: {
+                username: username
+              }
+            }
+          });
+          
+          if (authError || !authData.user) {
+            console.error('Error creating auth user:', authError);
             return null;
           }
           
-          console.log(`Profile created for: ${username} with ID: ${userId}`);
+          console.log(`Auth user created with ID: ${authData.user.id}`);
+          
+          // Wait a moment for the trigger to create the profile
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Check if the profile was created by the trigger
+          const { data: newProfile, error: newProfileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', authData.user.id)
+            .single();
+          
+          if (newProfileError) {
+            console.error('Error fetching new profile:', newProfileError);
+            
+            // If the profile wasn't created by the trigger, create it manually
+            const { data: manualProfile, error: manualProfileError } = await supabase
+              .from('profiles')
+              .insert({
+                id: authData.user.id,
+                username: username,
+                display_name: username,
+                avatar_data: {
+                  resolution: 2,
+                  colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                  last_edited: new Date().toISOString()
+                },
+                stars_count: 0,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              })
+              .select()
+              .single();
+            
+            if (manualProfileError) {
+              console.error('Error creating manual profile:', manualProfileError);
+              return null;
+            }
+            
+            console.log(`Manual profile created for: ${username}`);
+            return {
+              id: authData.user.id,
+              username: username,
+              name: username
+            };
+          }
+          
+          // Update the profile with the username if it wasn't set by the trigger
+          if (!newProfile.username) {
+            const { error: updateError } = await supabase
+              .from('profiles')
+              .update({ username: username })
+              .eq('id', authData.user.id);
+            
+            if (updateError) {
+              console.error('Error updating profile with username:', updateError);
+            }
+          }
+          
+          console.log(`Profile created for: ${username} with ID: ${authData.user.id}`);
           return {
-            id: userId,
+            id: authData.user.id,
             username: username,
             name: username
           };
