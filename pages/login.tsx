@@ -3,15 +3,13 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { useNextAuth } from '@/contexts/NextAuthContext';
-import { FaEnvelope, FaArrowLeft, FaLock, FaUserPlus, FaBug } from 'react-icons/fa';
+import { FaUser, FaArrowLeft, FaSignInAlt, FaBug } from 'react-icons/fa';
 import { supabase } from '@/utils/supabaseClient';
 
 export default function Login() {
   const router = useRouter();
-  const { signInWithCredentials, signUpWithCredentials, isLoading } = useNextAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+  const { signInWithUsername, isLoading } = useNextAuth();
+  const [username, setUsername] = useState('');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [debugInfo, setDebugInfo] = useState<string | null>(null);
   const [showDebug, setShowDebug] = useState(false);
@@ -38,31 +36,6 @@ export default function Login() {
         const { error: testError } = await supabase.from('profiles').select('count', { count: 'exact', head: true });
         info.push(`DB Connection: ${testError ? 'Failed' : 'Success'}`);
         if (testError) info.push(`Error: ${testError.message}`);
-        
-        // Test auth
-        const { data, error: authError } = await supabase.auth.getSession();
-        info.push(`Auth Connection: ${authError ? 'Failed' : 'Success'}`);
-        if (authError) info.push(`Error: ${authError.message}`);
-        
-        info.push(`Session: ${data.session ? 'Active' : 'None'}`);
-        if (data.session) {
-          info.push(`User: ${data.session.user.email}`);
-          info.push(`Expires: ${new Date(data.session.expires_at! * 1000).toLocaleString()}`);
-        }
-        
-        // Check local storage for auth token
-        const hasLocalStorage = typeof window !== 'undefined' && window.localStorage;
-        if (hasLocalStorage) {
-          const supabaseKeys = Object.keys(localStorage).filter(key => 
-            key.startsWith('sb-') || key.includes('supabase')
-          );
-          
-          if (supabaseKeys.length > 0) {
-            info.push(`Supabase Storage Keys: ${supabaseKeys.join(', ')}`);
-          } else {
-            info.push('No Supabase Storage Keys Found');
-          }
-        }
         
         setDebugInfo(info.join('\n'));
       } catch (error: any) {
@@ -94,70 +67,26 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email.trim()) {
-      setMessage({ type: 'error', text: 'Please enter your email address' });
-      return;
-    }
-
-    if (!password.trim()) {
-      setMessage({ type: 'error', text: 'Please enter your password' });
-      return;
-    }
-    
-    if (password.length < 6) {
-      setMessage({ type: 'error', text: 'Password must be at least 6 characters long' });
+    if (!username.trim()) {
+      setMessage({ type: 'error', text: 'Please enter a username' });
       return;
     }
     
     setMessage(null);
     
     try {
-      if (isSignUp) {
-        // Create new account
-        const { error, user } = await signUpWithCredentials(email, password);
-        
-        if (error) {
-          setMessage({ type: 'error', text: error.message || 'Failed to create account' });
-        } else {
-          // Check if email confirmation is needed
-          if (user && !user.email_confirmed_at) {
-            setMessage({ 
-              type: 'success', 
-              text: 'Account created! Please check your email to verify your account before signing in.' 
-            });
-          } else {
-            setMessage({ 
-              type: 'success', 
-              text: 'Account created successfully! You are now signed in.' 
-            });
-            
-            // Redirect to home page after a short delay
-            setTimeout(() => {
-              router.push('/');
-            }, 1500);
-          }
-        }
+      // Sign in with username
+      const { error } = await signInWithUsername(username);
+      
+      if (error) {
+        setMessage({ type: 'error', text: error.message || 'Failed to sign in' });
       } else {
-        // Sign in with email and password
-        const { error } = await signInWithCredentials(email, password);
+        setMessage({ type: 'success', text: 'Signed in successfully!' });
         
-        if (error) {
-          if (error.message && error.message.includes('Email not confirmed')) {
-            setMessage({ 
-              type: 'error', 
-              text: 'Please verify your email address before signing in. Check your inbox for a verification link.' 
-            });
-          } else {
-            setMessage({ type: 'error', text: error.message || 'Failed to sign in' });
-          }
-        } else {
-          setMessage({ type: 'success', text: 'Signed in successfully!' });
-          
-          // Redirect to home page after a short delay
-          setTimeout(() => {
-            router.push('/');
-          }, 1500);
-        }
+        // Redirect to home page after a short delay
+        setTimeout(() => {
+          router.push('/');
+        }, 1500);
       }
     } catch (error: any) {
       setMessage({ 
@@ -172,13 +101,15 @@ export default function Login() {
       <div className="max-w-md mx-auto">
         <div className="mac-window p-4 mb-6">
           <h1 className="text-2xl font-bold mb-0 flex items-center mac-header p-2">
-            <span className="text-mac-white">
-              {isSignUp ? 'Create Account' : 'Sign In'}
-            </span>
+            <span className="text-mac-white">Sign In</span>
           </h1>
         </div>
         
         <div className="mac-window p-6">
+          <p className="mb-6 text-gray-600">
+            Enter a username to track your progress. If this is your first time, a new account will be created for you automatically.
+          </p>
+          
           {message && (
             <div className={`p-3 mb-4 rounded ${
               message.type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
@@ -188,41 +119,21 @@ export default function Login() {
           )}
           
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium mb-1">
-                Email Address
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="text-gray-400" />
-                </div>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mac-input pl-10 w-full"
-                  placeholder="you@example.com"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-            
             <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium mb-1">
-                Password
+              <label htmlFor="username" className="block text-sm font-medium mb-1">
+                Username
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="text-gray-400" />
+                  <FaUser className="text-gray-400" />
                 </div>
                 <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="mac-input pl-10 w-full"
-                  placeholder="••••••••"
+                  placeholder="Enter your username"
                   disabled={isLoading}
                 />
               </div>
@@ -236,25 +147,12 @@ export default function Login() {
               >
                 {isLoading ? (
                   <span>Processing...</span>
-                ) : isSignUp ? (
-                  <>
-                    <FaUserPlus className="mr-2" />
-                    Create Account
-                  </>
                 ) : (
-                  'Sign In'
+                  <>
+                    <FaSignInAlt className="mr-2" />
+                    Sign In / Create Account
+                  </>
                 )}
-              </button>
-            </div>
-            
-            <div className="text-center">
-              <button
-                type="button"
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-blue-600 hover:underline"
-                disabled={isLoading}
-              >
-                {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
               </button>
             </div>
           </form>

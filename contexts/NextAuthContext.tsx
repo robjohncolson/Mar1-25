@@ -5,13 +5,12 @@ import { Profile, getUserProfile, createUserProfileIfNotExists } from '@/utils/s
 type NextAuthContextType = {
   user: {
     id: string;
-    email?: string | null;
+    username: string;
     name?: string | null;
   } | null;
   profile: Profile | null;
   isLoading: boolean;
-  signInWithCredentials: (email: string, password: string) => Promise<{ error: any | null }>;
-  signUpWithCredentials: (email: string, password: string) => Promise<{ error: any | null, user: any | null }>;
+  signInWithUsername: (username: string) => Promise<{ error: any | null }>;
   signOutUser: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -21,8 +20,7 @@ const defaultNextAuthContext: NextAuthContextType = {
   user: null,
   profile: null,
   isLoading: false,
-  signInWithCredentials: async () => ({ error: new Error('Auth not initialized') }),
-  signUpWithCredentials: async () => ({ error: new Error('Auth not initialized'), user: null }),
+  signInWithUsername: async () => ({ error: new Error('Auth not initialized') }),
   signOutUser: async () => {},
   refreshProfile: async () => {},
 };
@@ -60,14 +58,13 @@ export function NextAuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signInWithCredentials = async (email: string, password: string) => {
+  const signInWithUsername = async (username: string) => {
     setIsLoading(true);
     
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        email,
-        password,
+        username,
       });
       
       setIsLoading(false);
@@ -80,54 +77,6 @@ export function NextAuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       setIsLoading(false);
       return { error };
-    }
-  };
-
-  // For signup, we'll use our custom API endpoint
-  const signUpWithCredentials = async (email: string, password: string) => {
-    setIsLoading(true);
-    
-    try {
-      // Call our API to create a user
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        setIsLoading(false);
-        return { error: new Error(data.error), user: null };
-      }
-      
-      // If email confirmation is required, return success but don't sign in
-      if (data.user && !data.user.emailConfirmed) {
-        setIsLoading(false);
-        return { error: null, user: { ...data.user, email_confirmed_at: null } };
-      }
-      
-      // If email is already confirmed, sign in the user
-      const result = await signIn('credentials', {
-        redirect: false,
-        email,
-        password,
-      });
-      
-      setIsLoading(false);
-      
-      if (result?.error) {
-        return { error: new Error(result.error), user: null };
-      }
-      
-      return { error: null, user: data.user };
-    } catch (error) {
-      console.error('Error during sign up:', error);
-      setIsLoading(false);
-      return { error, user: null };
     }
   };
 
@@ -163,8 +112,7 @@ export function NextAuthProvider({ children }: { children: ReactNode }) {
         user: session?.user || null,
         profile,
         isLoading,
-        signInWithCredentials,
-        signUpWithCredentials,
+        signInWithUsername,
         signOutUser,
         refreshProfile,
       }}
