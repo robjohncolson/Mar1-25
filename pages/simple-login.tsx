@@ -12,13 +12,19 @@ export default function SimpleLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [debugInfo, setDebugInfo] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isMounted && isAuthenticated) {
       router.push('/');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, isMounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +52,9 @@ export default function SimpleLogin() {
       const { error } = await login(username);
       
       if (error) {
+        console.error('Login error:', error);
         setMessage({ type: 'error', text: error.message || 'Authentication failed' });
-        setDebugInfo(error.message || 'Authentication failed');
+        setDebugInfo(`Login error: ${error.message || 'Unknown error'}`);
         setIsLoading(false);
         return;
       }
@@ -66,7 +73,7 @@ export default function SimpleLogin() {
         type: 'error', 
         text: error.message || 'An unexpected error occurred' 
       });
-      setDebugInfo(error.message || 'An unexpected error occurred');
+      setDebugInfo(`Unexpected error: ${error.message || 'Unknown error'}`);
     } finally {
       setIsLoading(false);
     }
@@ -82,13 +89,26 @@ export default function SimpleLogin() {
     await handleSubmit(fakeEvent);
   };
 
+  // Don't render anything during SSR
+  if (!isMounted) {
+    return (
+      <Layout title="Simple Login - AP Statistics Hub">
+        <div className="max-w-md mx-auto">
+          <div className="mac-window p-6">
+            <p className="text-center">Loading...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   // Show loading state while checking authentication
   if (authLoading) {
     return (
       <Layout title="Simple Login - AP Statistics Hub">
         <div className="max-w-md mx-auto">
           <div className="mac-window p-6">
-            <p className="text-center">Loading...</p>
+            <p className="text-center">Loading authentication...</p>
           </div>
         </div>
       </Layout>
@@ -169,12 +189,50 @@ export default function SimpleLogin() {
                 </a>
               </Link>
               
-              <button
-                onClick={handleTestUser}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
-              >
-                Create Test User
-              </button>
+              <div className="flex space-x-2">
+                <button
+                  onClick={handleTestUser}
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                  disabled={isLoading}
+                >
+                  Create Test User
+                </button>
+                
+                <button
+                  onClick={async () => {
+                    try {
+                      setMessage(null);
+                      setDebugInfo('Checking constraint...');
+                      const response = await fetch('/api/auth/check-constraint');
+                      const data = await response.json();
+                      setDebugInfo(JSON.stringify(data, null, 2));
+                      
+                      if (data.constraintExists) {
+                        setMessage({
+                          type: 'error',
+                          text: 'Foreign key constraint exists. Please follow the instructions to remove it.'
+                        });
+                      } else {
+                        setMessage({
+                          type: 'success',
+                          text: 'No foreign key constraint found. You can create users directly.'
+                        });
+                      }
+                    } catch (error: any) {
+                      console.error('Error checking constraint:', error);
+                      setMessage({
+                        type: 'error',
+                        text: error.message || 'Failed to check constraint'
+                      });
+                      setDebugInfo(error.message || 'Failed to check constraint');
+                    }
+                  }}
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs"
+                  disabled={isLoading}
+                >
+                  Check Constraint
+                </button>
+              </div>
             </div>
             
             {debugInfo && (

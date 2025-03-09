@@ -29,6 +29,7 @@ export function SimpleAuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Check for existing auth on mount
   useEffect(() => {
@@ -47,13 +48,25 @@ export function SimpleAuthProvider({ children }: { children: ReactNode }) {
         console.error('Error checking auth:', error);
       } finally {
         setIsLoading(false);
+        setIsInitialized(true);
       }
     };
     
-    checkAuth();
+    // Only run on client-side
+    if (typeof window !== 'undefined') {
+      checkAuth();
+    } else {
+      setIsLoading(false);
+      setIsInitialized(true);
+    }
   }, []);
 
   const login = async (username: string) => {
+    if (!isInitialized) {
+      console.error('Auth not initialized yet');
+      return { error: new Error('Auth not initialized') };
+    }
+    
     setIsLoading(true);
     
     try {

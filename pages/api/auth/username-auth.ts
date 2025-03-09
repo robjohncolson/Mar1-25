@@ -48,47 +48,52 @@ export default async function handler(
       // Generate a UUID for the user
       const userId = uuidv4();
       
-      // Insert directly into the profiles table
-      const { data: newUser, error: createError } = await supabase
-        .from('profiles')
-        .insert({
-          id: userId,
-          username: username,
-          display_name: username,
-          avatar_data: {
-            resolution: 2,
-            colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
-            last_edited: new Date().toISOString()
-          },
-          stars_count: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })
-        .select()
-        .single();
-      
-      if (createError) {
-        console.error('Error creating user:', createError);
+      try {
+        // Insert directly into the profiles table
+        const { data: newUser, error: createError } = await supabase
+          .from('profiles')
+          .insert({
+            id: userId,
+            username: username,
+            display_name: username,
+            avatar_data: {
+              resolution: 2,
+              colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+              last_edited: new Date().toISOString()
+            },
+            stars_count: 0,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
+          .select()
+          .single();
         
-        // Check if it's a foreign key constraint error
-        if (createError.message.includes('foreign key constraint')) {
-          return res.status(400).json({
-            error: 'Foreign key constraint violation. You need to modify your database schema.',
-            message: 'Your profiles table has a foreign key constraint that requires each profile to have a corresponding auth.users entry. You need to remove this constraint to use username-only authentication.',
-            instructions: [
-              "1. Go to your Supabase dashboard",
-              "2. Open the SQL Editor",
-              "3. Run the following SQL:",
-              "ALTER TABLE profiles DROP CONSTRAINT profiles_id_fkey;",
-              "4. Then try again"
-            ]
-          });
+        if (createError) {
+          console.error('Error creating user:', createError);
+          
+          // Check if it's a foreign key constraint error
+          if (createError.message.includes('foreign key constraint')) {
+            return res.status(400).json({
+              error: 'Foreign key constraint violation. You need to modify your database schema.',
+              message: 'Your profiles table has a foreign key constraint that requires each profile to have a corresponding auth.users entry. You need to remove this constraint to use username-only authentication.',
+              instructions: [
+                "1. Go to your Supabase dashboard",
+                "2. Open the SQL Editor",
+                "3. Run the following SQL:",
+                "ALTER TABLE profiles DROP CONSTRAINT profiles_id_fkey;",
+                "4. Then try again"
+              ]
+            });
+          }
+          
+          return res.status(500).json({ error: createError.message });
         }
         
-        return res.status(500).json({ error: createError.message });
+        user = newUser;
+      } catch (error: any) {
+        console.error('Error creating user:', error);
+        return res.status(500).json({ error: error.message || 'Failed to create user' });
       }
-      
-      user = newUser;
     }
     
     // Create a JWT token
