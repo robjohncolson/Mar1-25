@@ -75,7 +75,8 @@ export const authOptions: NextAuthOptions = {
           console.log(`User not found, creating new user: ${username}`);
           
           // Create a random email and password for the auth user
-          const randomEmail = `${username}_${Date.now()}@example.com`;
+          const timestamp = Date.now();
+          const randomEmail = `${username}_${timestamp}@example.com`;
           const randomPassword = Math.random().toString(36).slice(-10);
           
           // Create a new user in the auth.users table

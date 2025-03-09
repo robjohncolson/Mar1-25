@@ -10,7 +10,8 @@ export default async function handler(
     const testUsername = `test_${Date.now()}`;
     
     // Create a random email and password for the auth user
-    const randomEmail = `${testUsername}_${Date.now()}@example.com`;
+    const timestamp = Date.now();
+    const randomEmail = `test_${timestamp}@example.com`;
     const randomPassword = Math.random().toString(36).slice(-10);
     
     console.log(`Creating test user: ${testUsername} with email: ${randomEmail}`);

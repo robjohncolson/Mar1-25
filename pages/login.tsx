@@ -287,6 +287,49 @@ export default function Login() {
                     >
                       Add Username Column
                     </button>
+                    
+                    <button 
+                      onClick={async () => {
+                        try {
+                          setMessage(null);
+                          
+                          // Use a test username
+                          const testUsername = `test_${Date.now()}`;
+                          setUsername(testUsername);
+                          
+                          // Try to sign in with the test username
+                          const { error } = await signInWithUsername(testUsername);
+                          
+                          if (error) {
+                            console.error('Test login error:', error);
+                            setMessage({ 
+                              type: 'error', 
+                              text: error.message || 'Test login failed' 
+                            });
+                            setDebugInfo(`Test login failed: ${error.message}`);
+                          } else {
+                            setMessage({ 
+                              type: 'success', 
+                              text: `Test login successful with username: ${testUsername}` 
+                            });
+                            setDebugInfo(`Test login successful with username: ${testUsername}`);
+                            
+                            // Check session after login
+                            const response = await fetch('/api/auth/session-info');
+                            const data = await response.json();
+                            setDebugInfo(JSON.stringify(data, null, 2));
+                          }
+                        } catch (error: any) {
+                          setMessage({ 
+                            type: 'error', 
+                            text: error.message || 'Test login failed' 
+                          });
+                        }
+                      }}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded text-xs mb-2"
+                    >
+                      Test Login
+                    </button>
                   </div>
                 </div>
               </div>
