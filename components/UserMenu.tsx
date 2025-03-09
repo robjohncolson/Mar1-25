@@ -7,7 +7,13 @@ import PixelAvatar from './PixelAvatar';
 export default function UserMenu() {
   const { user, profile, signOut, isSupabaseAvailable } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Close the menu when clicking outside
   useEffect(() => {
@@ -28,12 +34,22 @@ export default function UserMenu() {
     setIsOpen(false);
   };
 
+  // During SSR/SSG, return a simple placeholder
+  if (!isMounted) {
+    return (
+      <div className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800">
+        <span className="hidden md:inline-block mr-2">Sign In</span>
+        <FaSignInAlt className="w-5 h-5" />
+      </div>
+    );
+  }
+
   // If Supabase is not available, render a simple sign-in button
   if (!isSupabaseAvailable) {
     return (
       <Link href="/login">
         <a className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800">
-          <span className="hidden md:inline-block">Sign In</span>
+          <span className="hidden md:inline-block mr-2">Sign In</span>
           <FaSignInAlt className="w-5 h-5" />
         </a>
       </Link>

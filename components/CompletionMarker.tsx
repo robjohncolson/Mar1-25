@@ -14,9 +14,17 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isSupabaseAvailable, setIsSupabaseAvailable] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Check if Supabase is available
   useEffect(() => {
+    if (!isMounted) return;
+    
     try {
       if (!supabase || typeof supabase.from !== 'function') {
         setIsSupabaseAvailable(false);
@@ -25,10 +33,12 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
       console.error('Error checking Supabase availability:', error);
       setIsSupabaseAvailable(false);
     }
-  }, []);
+  }, [isMounted]);
 
   // Check if content is completed on mount
   useEffect(() => {
+    if (!isMounted) return;
+    
     const checkCompletion = async () => {
       if (!user || !isSupabaseAvailable) {
         setIsInitialized(true);
@@ -63,7 +73,7 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
     } else {
       setIsInitialized(true);
     }
-  }, [user, contentId, isSupabaseAvailable]);
+  }, [user, contentId, isSupabaseAvailable, isMounted]);
 
   const handleToggle = async () => {
     if (!user || isLoading || !isSupabaseAvailable) return;
@@ -83,6 +93,11 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
       setIsLoading(false);
     }
   };
+
+  // During SSR/SSG, return null
+  if (!isMounted) {
+    return null;
+  }
 
   if (!user || !isInitialized || !isSupabaseAvailable) {
     return null;

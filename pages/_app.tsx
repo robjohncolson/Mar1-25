@@ -103,9 +103,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [supabaseAvailable, setSupabaseAvailable] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Check Supabase availability on mount
   useEffect(() => {
+    if (!isMounted) return;
+    
     const checkSupabase = async () => {
       const available = isSupabaseAvailable();
       console.log('Supabase available:', available);
@@ -121,9 +129,11 @@ export default function App({ Component, pageProps }: AppProps) {
     };
     
     checkSupabase();
-  }, []);
+  }, [isMounted]);
 
   useEffect(() => {
+    if (!isMounted) return;
+    
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
 
@@ -136,10 +146,20 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('routeChangeComplete', handleComplete);
       router.events.off('routeChangeError', handleComplete);
     };
-  }, [router]);
+  }, [router, isMounted]);
 
   // Render the app with or without AuthProvider based on Supabase availability
   const renderApp = () => {
+    // During SSR, render without AuthProvider
+    if (!isMounted) {
+      return (
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
+      );
+    }
+    
+    // On client-side, use AuthProvider if Supabase is available
     if (supabaseAvailable) {
       return (
         <AuthProvider>

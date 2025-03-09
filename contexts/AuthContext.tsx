@@ -15,12 +15,27 @@ type AuthContextType = {
   refreshProfile: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// Create a default mock implementation for SSR/SSG
+const defaultAuthContext: AuthContextType = {
+  user: null,
+  profile: null,
+  session: null,
+  isLoading: false,
+  isSupabaseAvailable: false,
+  signIn: async () => ({ error: new Error('Auth not initialized') }),
+  signUp: async () => ({ error: new Error('Auth not initialized') }),
+  signOut: async () => {},
+  refreshProfile: async () => {},
+};
+
+const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 // Check if Supabase is properly initialized
 const checkSupabaseAvailability = () => {
   try {
-    return typeof supabase.auth !== 'undefined' && typeof supabase.from === 'function';
+    return typeof supabase.auth !== 'undefined' && 
+           typeof supabase.from === 'function' && 
+           typeof supabase.auth.signInWithPassword === 'function';
   } catch (error) {
     console.error('Supabase client initialization error:', error);
     return false;
@@ -144,9 +159,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuth() {
+  // Use the context, but don't throw an error if it's not available
+  // This allows the hook to be used during SSR/SSG
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
   return context;
 } 

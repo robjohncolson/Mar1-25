@@ -5,6 +5,29 @@ const nextConfig = {
   images: {
     domains: ['raw.githubusercontent.com'],
   },
+  // Disable static site generation for pages that use authentication
+  // This will make them server-side rendered instead
+  experimental: {
+    // This is needed to prevent SSG errors with authentication
+    appDir: false,
+  },
+  // Configure which pages should not be statically generated
+  exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
+    // During development, just use the default
+    if (dev) {
+      return defaultPathMap;
+    }
+    
+    // In production, exclude auth-related pages from static generation
+    const pathMap = { ...defaultPathMap };
+    
+    // Remove auth-related pages from static generation
+    delete pathMap['/profile'];
+    delete pathMap['/login'];
+    delete pathMap['/auth/callback'];
+    
+    return pathMap;
+  },
   async headers() {
     return [
       {

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:vercel": "NEXT_DISABLE_STATIC_GENERATION=true next build",
     "start": "next start",
     "lint": "next lint",
     "create-content": "node scripts/create-content-structure.js",

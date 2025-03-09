@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": {
+        "buildCommand": "npm run build:vercel"
+      }
     }
   ],
   "routes": [
@@ -14,6 +17,7 @@
   ],
   "env": {
     "NEXT_PUBLIC_GITHUB_OWNER": "robjohncolson",
-    "NEXT_PUBLIC_GITHUB_REPO": "feb24-25"
+    "NEXT_PUBLIC_GITHUB_REPO": "feb24-25",
+    "NEXT_DISABLE_STATIC_GENERATION": "true"
   }
 } 

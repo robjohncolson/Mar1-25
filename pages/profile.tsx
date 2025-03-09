@@ -39,23 +39,29 @@ export default function Profile() {
   const [selectedColor, setSelectedColor] = useState('#3498db');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Redirect if not logged in
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (isMounted && !isLoading && !user) {
       router.push('/login');
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, router, isMounted]);
 
   // Load profile data
   useEffect(() => {
-    if (profile) {
+    if (isMounted && profile) {
       setDisplayName(profile.display_name || '');
       if (profile.avatar_data) {
         setAvatarData(profile.avatar_data);
       }
     }
-  }, [profile]);
+  }, [profile, isMounted]);
 
   // Calculate max resolution based on stars count
   const getMaxResolution = (starsCount: number) => {
@@ -82,37 +88,45 @@ export default function Profile() {
     // Create a new colors array with the appropriate size
     let newColors: string[];
     
-    if (newResolution <= avatarData.resolution) {
-      // Downsizing: take a subset of the current colors
+    if (newResolution === 1) {
+      // For 1x1, just use the first color or a default
+      newColors = [avatarData.colors[0] || '#3498db'];
+    } else if (newResolution < avatarData.resolution) {
+      // For downsizing, sample the existing grid
       newColors = [];
+      const ratio = avatarData.resolution / newResolution;
+      
       for (let y = 0; y < newResolution; y++) {
         for (let x = 0; x < newResolution; x++) {
-          const index = y * avatarData.resolution + x;
-          if (index < avatarData.colors.length) {
-            newColors.push(avatarData.colors[index]);
-          } else {
-            newColors.push('#3498db');
-          }
+          const sourceX = Math.floor(x * ratio);
+          const sourceY = Math.floor(y * ratio);
+          const sourceIndex = sourceY * avatarData.resolution + sourceX;
+          newColors.push(avatarData.colors[sourceIndex] || '#3498db');
         }
+      }
+    } else if (newResolution > avatarData.resolution) {
+      // For upsizing, repeat the existing grid
+      newColors = [];
+      const totalPixels = newResolution * newResolution;
+      
+      for (let i = 0; i < totalPixels; i++) {
+        const x = i % newResolution;
+        const y = Math.floor(i / newResolution);
+        
+        // Map to the closest pixel in the original grid
+        const sourceX = Math.floor(x * avatarData.resolution / newResolution);
+        const sourceY = Math.floor(y * avatarData.resolution / newResolution);
+        const sourceIndex = sourceY * avatarData.resolution + sourceX;
+        
+        newColors.push(avatarData.colors[sourceIndex] || '#3498db');
       }
     } else {
-      // Upsizing: expand the current colors and fill with the selected color
-      newColors = Array(newResolution * newResolution).fill(selectedColor);
-      
-      // Copy existing colors to the center of the new grid
-      const offset = Math.floor((newResolution - avatarData.resolution) / 2);
-      for (let y = 0; y < avatarData.resolution; y++) {
-        for (let x = 0; x < avatarData.resolution; x++) {
-          const oldIndex = y * avatarData.resolution + x;
-          const newIndex = (y + offset) * newResolution + (x + offset);
-          if (oldIndex < avatarData.colors.length && newIndex < newColors.length) {
-            newColors[newIndex] = avatarData.colors[oldIndex];
-          }
-        }
-      }
+      // Same resolution, no change
+      newColors = [...avatarData.colors];
     }
     
     setAvatarData({
+      ...avatarData,
       resolution: newResolution,
       colors: newColors,
       last_edited: new Date().toISOString(),
@@ -159,6 +173,33 @@ export default function Profile() {
     }
   };
 
+  // During SSR/SSG, return a simple placeholder
+  if (!isMounted) {
+    return (
+      <Layout title="AP Statistics Hub - Profile">
+        <div className="max-w-4xl mx-auto">
+          <div className="mac-window p-4 mb-6">
+            <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
+              <FaUser className="mr-2 text-mac-white" /> 
+              <span className="text-mac-white">Profile</span>
+            </h1>
+            <div className="mt-4">
+              <Link href="/">
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> Back to Home
+                </a>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="mac-window p-6">
+            <p className="text-center">Loading profile...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   // If loading or not logged in, show loading state
   if (isLoading || !user || !profile) {
     return (
@@ -169,6 +210,13 @@ export default function Profile() {
               <FaUser className="mr-2 text-mac-white" /> 
               <span className="text-mac-white">Profile</span>
             </h1>
+            <div className="mt-4">
+              <Link href="/">
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> Back to Home
+                </a>
+              </Link>
+            </div>
           </div>
           
           <div className="mac-window p-6">
@@ -248,7 +296,7 @@ export default function Profile() {
               />
             </div>
             
-            <div className="mb-4">
+            <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Progress
               </label>
@@ -319,7 +367,7 @@ export default function Profile() {
               
               <div className="w-full mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  <FaPalette className="inline mr-1" /> Color Palette
+                  Color Palette
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {COLORS.map((color) => (
@@ -334,38 +382,40 @@ export default function Profile() {
                     />
                   ))}
                 </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Selected color: <span style={{ color: selectedColor }}>{selectedColor}</span>
+                </p>
               </div>
-            </div>
-            
-            {/* Pixel Editor */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Pixel Editor
-              </label>
-              <div 
-                className="border-2 border-gray-300 p-1"
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: `repeat(${avatarData.resolution}, 1fr)`,
-                  gridTemplateRows: `repeat(${avatarData.resolution}, 1fr)`,
-                  gap: '2px',
-                  width: '100%',
-                  aspectRatio: '1',
-                }}
-              >
-                {avatarData.colors.map((color, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePixelClick(index)}
-                    className="w-full h-full hover:opacity-90 transition-opacity"
-                    style={{ backgroundColor: color }}
-                    aria-label={`Edit pixel ${index}`}
-                  />
-                ))}
+              
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Pixel Editor
+                </label>
+                <div 
+                  className="border-2 border-gray-300 p-1"
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: `repeat(${avatarData.resolution}, 1fr)`,
+                    gridTemplateRows: `repeat(${avatarData.resolution}, 1fr)`,
+                    gap: '2px',
+                    width: '100%',
+                    aspectRatio: '1',
+                  }}
+                >
+                  {avatarData.colors.map((color, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handlePixelClick(index)}
+                      className="w-full h-full hover:opacity-90 transition-opacity"
+                      style={{ backgroundColor: color }}
+                      aria-label={`Edit pixel ${index}`}
+                    />
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Click on a pixel to change its color
+                </p>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
-                Click on a pixel to change its color
-              </p>
             </div>
           </div>
         </div>

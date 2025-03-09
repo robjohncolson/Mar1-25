@@ -20,12 +20,20 @@ export default function Login() {
   const [isDemoLoading, setIsDemoLoading] = useState(false);
   const [debugInfo, setDebugInfo] = useState<string | null>(null);
   const [showDebug, setShowDebug] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
+  // Set mounted state after component mounts (client-side only)
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
   // Check for error query param
   const { error } = router.query;
   
   // Check Supabase connection on mount
   useEffect(() => {
+    if (!isMounted) return;
+    
     const checkSupabase = async () => {
       try {
         const info = [];
@@ -52,9 +60,11 @@ export default function Login() {
     };
     
     checkSupabase();
-  }, [isSupabaseAvailable]);
+  }, [isSupabaseAvailable, isMounted]);
   
   useEffect(() => {
+    if (!isMounted) return;
+    
     if (error && typeof error === 'string') {
       setMessage({ type: 'error', text: error });
     }
@@ -81,7 +91,7 @@ export default function Login() {
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
-  }, [error]);
+  }, [error, isMounted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -196,6 +206,36 @@ export default function Login() {
       setIsDemoLoading(false);
     }
   };
+
+  // During SSR/SSG, return a simple login page without auth functionality
+  if (!isMounted) {
+    return (
+      <Layout title="AP Statistics Hub - Login">
+        <div className="max-w-md mx-auto">
+          <div className="mac-window p-4 mb-6">
+            <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
+              <FaEnvelope className="mr-2 text-mac-white" /> 
+              <span className="text-mac-white">Sign In</span>
+            </h1>
+            <div className="mt-4">
+              <Link href="/">
+                <a className="mac-button inline-flex items-center">
+                  <FaArrowLeft className="mr-2" /> Back to Home
+                </a>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="mac-window p-6">
+            <h2 className="text-xl font-bold mb-4">Loading authentication...</h2>
+            <p className="mb-6 text-gray-600">
+              Please wait while we initialize the authentication system.
+            </p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
 
   // If Supabase is not available, show a message
   if (!isSupabaseAvailable) {
