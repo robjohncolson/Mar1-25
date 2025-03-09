@@ -4,10 +4,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { SessionProvider } from 'next-auth/react';
-import { NextAuthProvider } from '@/contexts/NextAuthContext';
+import { SimpleAuthProvider } from '@/contexts/SimpleAuthContext';
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -39,13 +38,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <SessionProvider session={session}>
-        <NextAuthProvider>
-          <ErrorBoundary>
-            <Component {...pageProps} />
-          </ErrorBoundary>
-        </NextAuthProvider>
-      </SessionProvider>
+      <SimpleAuthProvider>
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
+      </SimpleAuthProvider>
     </>
   );
 } 
