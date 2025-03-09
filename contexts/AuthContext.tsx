@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
-import { supabase, Profile, getUserProfile } from '@/utils/supabaseClient';
+import { supabase, Profile, getUserProfile, createUserProfileIfNotExists } from '@/utils/supabaseClient';
 import config from '@/utils/config';
 
 type AuthContextType = {
@@ -10,7 +10,7 @@ type AuthContextType = {
   isLoading: boolean;
   isSupabaseAvailable: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any | null }>;
-  signUp: (email: string, password: string) => Promise<{ error: any | null }>;
+  signUp: (email: string, password: string) => Promise<{ error: any | null, user: User | null }>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
@@ -23,7 +23,7 @@ const defaultAuthContext: AuthContextType = {
   isLoading: false,
   isSupabaseAvailable: false,
   signIn: async () => ({ error: new Error('Auth not initialized') }),
-  signUp: async () => ({ error: new Error('Auth not initialized') }),
+  signUp: async () => ({ error: new Error('Auth not initialized'), user: null }),
   signOut: async () => {},
   refreshProfile: async () => {},
 };
@@ -72,12 +72,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
+          // Get or create profile
           const profile = await getUserProfile(session.user.id);
-          setProfile(profile);
+          if (!profile) {
+            // Create profile if it doesn't exist
+            const newProfile = await createUserProfileIfNotExists(session.user.id);
+            setProfile(newProfile);
+          } else {
+            setProfile(profile);
+          }
         } else {
           setProfile(null);
         }
@@ -97,11 +105,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setIsLoading(true);
+    console.log('Signing in with email/password:', email);
     
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     });
+    
+    if (error) {
+      console.error('Sign in error:', error);
+    } else {
+      console.log('Sign in successful:', data.user?.email);
+      
+      // Ensure profile exists
+      if (data.user) {
+        await createUserProfileIfNotExists(data.user.id);
+      }
+    }
     
     setIsLoading(false);
     return { error };
@@ -109,21 +129,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     if (!isSupabaseAvailable) {
-      return { error: new Error('Supabase client is not available') };
+      return { error: new Error('Supabase client is not available'), user: null };
     }
 
     setIsLoading(true);
+    console.log('Signing up with email/password:', email);
     
-    const { error } = await supabase.auth.signUp({
+    // First, check if the user already exists
+    const { data: existingUser, error: checkError } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    
+    if (!checkError && existingUser.user) {
+      console.log('User already exists, signing in:', email);
+      
+      // Ensure profile exists
+      await createUserProfileIfNotExists(existingUser.user.id);
+      
+      setIsLoading(false);
+      return { error: null, user: existingUser.user };
+    }
+    
+    // Create a new user
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
+        // Skip email verification for simplicity
         emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
+        data: {
+          display_name: email.split('@')[0] // Use part of email as display name
+        }
       }
     });
     
+    if (error) {
+      console.error('Sign up error:', error);
+      setIsLoading(false);
+      return { error, user: null };
+    }
+    
+    console.log('Sign up successful:', data.user?.email);
+    
+    // Create a profile for the new user
+    if (data.user) {
+      try {
+        // Create profile
+        await createUserProfileIfNotExists(data.user.id, email.split('@')[0]);
+      } catch (profileError) {
+        console.error('Error creating profile:', profileError);
+      }
+    }
+    
     setIsLoading(false);
-    return { error };
+    return { error, user: data.user };
   };
 
   const signOut = async () => {
@@ -132,6 +192,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     setIsLoading(true);
+    console.log('Signing out');
     await supabase.auth.signOut();
     setIsLoading(false);
   };

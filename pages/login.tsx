@@ -109,34 +109,39 @@ export default function Login() {
     setMessage(null);
     
     try {
-      let result;
-      
       if (isSignUp) {
         console.log('Signing up with:', email);
         // Sign up with email and password
-        result = await signUp(email, password);
-      } else {
-        console.log('Signing in with:', email);
-        // Sign in with email and password
-        result = await signIn(email, password);
-      }
-      
-      console.log('Auth result:', result);
-      const { error } = result;
-      
-      if (error) {
-        console.error('Authentication error:', error);
-        setMessage({ type: 'error', text: error.message || 'Authentication failed' });
-      } else {
-        if (isSignUp) {
+        const { error, user } = await signUp(email, password);
+        
+        if (error) {
+          console.error('Sign up error:', error);
+          setMessage({ type: 'error', text: error.message || 'Failed to create account' });
+        } else {
+          console.log('Sign up successful, user:', user?.email);
           setMessage({ 
             type: 'success', 
             text: 'Account created successfully! You are now signed in.' 
           });
+          
+          // Redirect to home page after a short delay
+          setTimeout(() => {
+            router.push('/');
+          }, 1500);
         }
-        console.log('Authentication successful, redirecting...');
-        // Redirect to home page
-        router.push('/');
+      } else {
+        console.log('Signing in with:', email);
+        // Sign in with email and password
+        const { error } = await signIn(email, password);
+        
+        if (error) {
+          console.error('Sign in error:', error);
+          setMessage({ type: 'error', text: error.message || 'Invalid login credentials' });
+        } else {
+          console.log('Sign in successful, redirecting...');
+          // Redirect to home page
+          router.push('/');
+        }
       }
     } catch (error: any) {
       console.error('Authentication error:', error);
@@ -170,11 +175,43 @@ export default function Login() {
             password: DEMO_PASSWORD,
             options: {
               emailRedirectTo: window.location.origin,
+              data: {
+                display_name: 'Demo User'
+              }
             }
           });
           
           if (signUpError) {
             throw signUpError;
+          }
+          
+          console.log('Demo account created, setting up profile...');
+          
+          // Set up profile for demo account
+          if (signUpData?.user) {
+            // Wait a moment for the auth to propagate
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            const { error: profileError } = await supabase
+              .from('profiles')
+              .upsert({
+                id: signUpData.user.id,
+                display_name: 'Demo User',
+                avatar_data: {
+                  resolution: 2,
+                  colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                  last_edited: new Date().toISOString()
+                },
+                stars_count: 10, // Give demo account some stars to start with
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              });
+            
+            if (profileError) {
+              console.error('Error setting up demo profile:', profileError);
+            } else {
+              console.log('Demo profile set up successfully!');
+            }
           }
           
           console.log('Demo account created, signing in...');
@@ -366,6 +403,9 @@ export default function Login() {
                 placeholder="Your password"
                 disabled={isLoading || isDemoLoading}
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Password must be at least 6 characters long
+              </p>
             </div>
             
             <button

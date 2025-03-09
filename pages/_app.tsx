@@ -25,7 +25,7 @@ async function ensureDemoAccountExists() {
     }
     
     // Check if demo account already exists
-    const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email: DEMO_EMAIL,
       password: DEMO_PASSWORD
     });
@@ -35,12 +35,15 @@ async function ensureDemoAccountExists() {
       if (signInError.message.includes('Invalid login credentials')) {
         console.log('Demo account does not exist. Creating...');
         
-        const { data, error: signUpError } = await supabase.auth.signUp({
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
           email: DEMO_EMAIL,
           password: DEMO_PASSWORD,
           options: {
             // Skip email verification
             emailRedirectTo: window.location.origin,
+            data: {
+              display_name: 'Demo User'
+            }
           }
         });
         
@@ -52,14 +55,14 @@ async function ensureDemoAccountExists() {
         console.log('Demo account created successfully!');
         
         // Set up profile for demo account
-        if (data?.user) {
+        if (signUpData?.user) {
           // Wait a moment for the auth to propagate
           await new Promise(resolve => setTimeout(resolve, 1000));
           
           const { error: profileError } = await supabase
             .from('profiles')
             .upsert({
-              id: data.user.id,
+              id: signUpData.user.id,
               display_name: 'Demo User',
               avatar_data: {
                 resolution: 2,
@@ -82,6 +85,42 @@ async function ensureDemoAccountExists() {
       }
     } else {
       console.log('Demo account already exists!');
+      
+      // Check if the demo account has a profile
+      if (data?.user) {
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+        
+        if (profileError || !profile) {
+          console.log('Demo account exists but has no profile. Creating profile...');
+          
+          const { error: createProfileError } = await supabase
+            .from('profiles')
+            .upsert({
+              id: data.user.id,
+              display_name: 'Demo User',
+              avatar_data: {
+                resolution: 2,
+                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                last_edited: new Date().toISOString()
+              },
+              stars_count: 10, // Give demo account some stars to start with
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            });
+          
+          if (createProfileError) {
+            console.error('Error creating demo profile:', createProfileError);
+          } else {
+            console.log('Demo profile created successfully!');
+          }
+        } else {
+          console.log('Demo account has a profile:', profile.display_name);
+        }
+      }
     }
   } catch (error) {
     console.error('Error in demo account setup:', error);
