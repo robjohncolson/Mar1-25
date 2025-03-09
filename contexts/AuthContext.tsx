@@ -247,7 +247,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         password,
         options: {
-          // Skip email verification for simplicity
+          // Set the redirect URL for email verification
           emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
           data: {
             display_name: email.split('@')[0] // Use part of email as display name
@@ -263,6 +263,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       console.log('Sign up successful:', data.user?.email);
       console.log('Session established:', !!data.session);
+      console.log('Email confirmation sent:', !data.user?.email_confirmed_at);
       
       if (data.session) {
         console.log('Session expires at:', new Date(data.session.expires_at! * 1000).toLocaleString());
@@ -270,29 +271,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Verify session was stored
         const { data: sessionData } = await supabase.auth.getSession();
         console.log('Session verification:', !!sessionData.session);
+        
+        // Update state with session data
+        setSession(data.session);
+        setUser(data.user);
       } else {
-        console.log('No session created during sign up - attempting to sign in');
-        
-        // If no session was created, try to sign in
-        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
-        
-        if (signInError) {
-          console.error('Error signing in after sign up:', signInError);
-        } else {
-          console.log('Sign in after sign up successful');
-          // Update session with the one from sign in
-          setSession(signInData.session);
-        }
+        // If no session was created, the user likely needs to confirm their email
+        console.log('No session created during sign up - user may need to confirm email');
       }
       
-      // Update state
-      setSession(data.session);
-      setUser(data.user);
-      
-      // Create a profile for the new user
+      // Create a profile for the new user even if email verification is pending
       if (data.user) {
         try {
           // Create profile

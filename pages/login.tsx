@@ -165,19 +165,28 @@ export default function Login() {
           setMessage({ type: 'error', text: error.message || 'Failed to create account' });
         } else {
           console.log('Sign up successful, user:', user?.email);
-          setMessage({ 
-            type: 'success', 
-            text: 'Account created successfully! You are now signed in.' 
-          });
           
-          // Verify session after signup
-          const { data } = await supabase.auth.getSession();
-          console.log('Session after signup:', !!data.session);
-          
-          // Redirect to home page after a short delay
-          setTimeout(() => {
-            router.push('/');
-          }, 1500);
+          // Check if email confirmation is needed
+          if (user && !user.email_confirmed_at) {
+            setMessage({ 
+              type: 'success', 
+              text: 'Account created! Please check your email to verify your account before signing in.' 
+            });
+          } else {
+            setMessage({ 
+              type: 'success', 
+              text: 'Account created successfully! You are now signed in.' 
+            });
+            
+            // Verify session after signup
+            const { data } = await supabase.auth.getSession();
+            console.log('Session after signup:', !!data.session);
+            
+            // Redirect to home page after a short delay
+            setTimeout(() => {
+              router.push('/');
+            }, 1500);
+          }
         }
       } else {
         console.log('Signing in with:', email);
@@ -202,33 +211,29 @@ export default function Login() {
               type: 'error', 
               text: 'Invalid email or password. Please check your credentials and try again.' 
             });
+          } else if (error.message && error.message.includes('Email not confirmed')) {
+            setMessage({ 
+              type: 'error', 
+              text: 'Please verify your email address before signing in. Check your inbox for a verification link.' 
+            });
           } else {
             setMessage({ type: 'error', text: error.message || 'Failed to sign in' });
           }
         } else {
-          console.log('Sign in successful, redirecting...');
+          setMessage({ type: 'success', text: 'Signed in successfully!' });
           
-          // Verify session after signin
-          const { data } = await supabase.auth.getSession();
-          console.log('Session after signin:', !!data.session);
-          
-          // Redirect to home page
-          router.push('/');
+          // Redirect to home page after a short delay
+          setTimeout(() => {
+            router.push('/');
+          }, 1500);
         }
       }
     } catch (error: any) {
-      console.error('Authentication error:', error);
-      
-      // Check for rate limiting
-      if (error.message && error.message.includes('rate')) {
-        setMessage({ 
-          type: 'error', 
-          text: 'Too many authentication attempts. Please wait a moment and try again.' 
-        });
-        return;
-      }
-      
-      setMessage({ type: 'error', text: error?.message || 'An unexpected error occurred' });
+      console.error('Unexpected error:', error);
+      setMessage({ 
+        type: 'error', 
+        text: error?.message || 'An unexpected error occurred' 
+      });
     }
   };
 

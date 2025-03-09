@@ -16,8 +16,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    // Use default storage key format
-    storageKey: undefined,
+    // Set explicit storage key to avoid issues
+    storageKey: 'sb-apstats-auth-token',
   },
   global: {
     headers: {
