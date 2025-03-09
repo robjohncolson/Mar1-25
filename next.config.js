@@ -5,12 +5,6 @@ const nextConfig = {
   images: {
     domains: ['raw.githubusercontent.com'],
   },
-  api: {
-    responseLimit: '8mb',
-    bodyParser: {
-      sizeLimit: '8mb',
-    },
-  },
   async headers() {
     return [
       {

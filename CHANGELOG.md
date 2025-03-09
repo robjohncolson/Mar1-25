@@ -2,6 +2,61 @@
 
 All notable changes to the AP Statistics Hub will be documented in this file.
 
+## [3.0.0] - 2024-06-06 - "ExamVault"
+
+### Added
+- Multi-year exam support for 2018 and 2019 AP Statistics exams
+- Year selection interface in exam navigation
+- User authentication with Supabase
+- User profiles with customizable pixel avatars
+- Progress tracking with completion markers
+- Star system for unlocking higher resolution avatars
+
+### Changed
+- Refactored content API to support multiple exam years
+- Enhanced navigation to maintain year context
+- Improved UI across exam navigation pages
+
+### Fixed
+- Type issues in profile handling
+- Invalid Next.js configuration options
+
+## [2.2.1] - 2024-03-02
+
+### Added
+- Support for external resources in quiz content
+- Video embedding capabilities
+- Practice resource links
+
+### Changed
+- Improved mobile responsiveness
+- Enhanced error handling for content loading
+
+### Fixed
+- Issue with PDF rendering on certain browsers
+- Navigation bugs in unit selection
+
+## [2.0.0] - 2024-02-01 - "MediaMaster"
+
+### Added
+- Complete redesign with new UI
+- Support for multimedia content
+- Interactive quiz navigation
+- Unit-based content organization
+
+### Changed
+- Migrated to Next.js framework
+- Implemented TypeScript for better type safety
+- Enhanced content management system
+
+## [1.0.0] - 2024-01-15 - "Foundation"
+
+### Added
+- Initial release with basic AP Statistics content
+- Support for 2017 AP exam materials
+- Simple navigation and content viewing
+- Basic responsive design
+
 ## [2.2.1] - 2025-03-22
 
 ### Added

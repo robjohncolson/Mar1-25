@@ -13,7 +13,7 @@ export type Profile = {
   avatar_data: {
     resolution: number;
     colors: string[];
-    last_edited: string;
+    last_edited: string | null;
   } | null;
   stars_count: number;
   created_at: string;
