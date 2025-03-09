@@ -5,8 +5,25 @@ import config from './config';
 const supabaseUrl = config.supabase.url;
 const supabaseAnonKey = config.supabase.anonKey;
 
+console.log('Initializing Supabase client with:', { 
+  url: supabaseUrl.substring(0, 15) + '...',  // Log partial URL for security
+  hasKey: !!supabaseAnonKey 
+});
+
 // Create a single supabase client for interacting with your database
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    storageKey: 'apstats-auth-token',
+  },
+  global: {
+    headers: {
+      'x-application-name': 'ap-stats-hub',
+    },
+  },
+});
 
 // Types for user profiles and completions
 export type Profile = {

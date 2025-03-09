@@ -24,6 +24,25 @@ const config = {
     // Whether authentication is enabled
     authEnabled: true,
   },
+  
+  // Debug information
+  debug: {
+    // Whether to show debug information
+    enabled: process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_DEBUG === 'true',
+    
+    // Log level
+    logLevel: 'info', // 'debug', 'info', 'warn', 'error'
+  },
 };
+
+// Log configuration in development
+if (typeof window !== 'undefined' && (process.env.NODE_ENV !== 'production' || config.debug.enabled)) {
+  console.log('Config loaded:', {
+    supabaseUrl: config.supabase.url.substring(0, 15) + '...',
+    hasSupabaseKey: !!config.supabase.anonKey,
+    baseUrl: config.site.baseUrl,
+    authEnabled: config.features.authEnabled,
+  });
+}
 
 export default config; 

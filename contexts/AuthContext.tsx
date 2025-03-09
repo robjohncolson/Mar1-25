@@ -56,34 +56,69 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        getUserProfile(session.user.id).then(profile => {
-          setProfile(profile);
-        });
+    const initializeAuth = async () => {
+      try {
+        console.log('Initializing auth...');
+        const { data, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          setIsLoading(false);
+          return;
+        }
+        
+        const currentSession = data.session;
+        console.log('Initial session:', currentSession ? 'Found' : 'None');
+        
+        setSession(currentSession);
+        
+        if (currentSession?.user) {
+          console.log('User found in session:', currentSession.user.email);
+          setUser(currentSession.user);
+          
+          // Get or create profile
+          const userProfile = await getUserProfile(currentSession.user.id);
+          if (userProfile) {
+            console.log('Profile found for user');
+            setProfile(userProfile);
+          } else {
+            console.log('Creating profile for user');
+            const newProfile = await createUserProfileIfNotExists(currentSession.user.id);
+            setProfile(newProfile);
+          }
+        } else {
+          console.log('No user in session');
+          setUser(null);
+          setProfile(null);
+        }
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error initializing auth:', error);
+        setIsLoading(false);
       }
-      
-      setIsLoading(false);
-    });
+    };
+    
+    initializeAuth();
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email);
-        setSession(session);
-        setUser(session?.user ?? null);
+      async (event, newSession) => {
+        console.log('Auth state changed:', event, newSession?.user?.email);
         
-        if (session?.user) {
+        setSession(newSession);
+        setUser(newSession?.user ?? null);
+        
+        if (newSession?.user) {
           // Get or create profile
-          const profile = await getUserProfile(session.user.id);
+          const profile = await getUserProfile(newSession.user.id);
           if (!profile) {
             // Create profile if it doesn't exist
-            const newProfile = await createUserProfileIfNotExists(session.user.id);
+            console.log('Creating profile for user after auth change');
+            const newProfile = await createUserProfileIfNotExists(newSession.user.id);
             setProfile(newProfile);
           } else {
+            console.log('Profile found for user after auth change');
             setProfile(profile);
           }
         } else {
@@ -120,6 +155,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       console.log('Sign in successful:', data.user?.email);
+      console.log('Session established:', !!data.session);
       
       // Ensure profile exists
       if (data.user) {
@@ -169,6 +205,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       console.log('Sign up successful:', data.user?.email);
+      console.log('Session established:', !!data.session);
       
       // Create a profile for the new user
       if (data.user) {
@@ -200,14 +237,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setIsLoading(true);
     console.log('Signing out');
-    await supabase.auth.signOut();
-    setIsLoading(false);
+    
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error signing out:', error);
+      } else {
+        console.log('Sign out successful');
+        // Clear user and profile state
+        setUser(null);
+        setProfile(null);
+        setSession(null);
+      }
+    } catch (error) {
+      console.error('Unexpected error during sign out:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const refreshProfile = async () => {
     if (user && isSupabaseAvailable) {
-      const profile = await getUserProfile(user.id);
-      setProfile(profile);
+      try {
+        const profile = await getUserProfile(user.id);
+        setProfile(profile);
+      } catch (error) {
+        console.error('Error refreshing profile:', error);
+      }
     }
   };
 

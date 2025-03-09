@@ -51,6 +51,21 @@ export default function Login() {
           if (authError) info.push(`Error: ${authError.message}`);
           
           info.push(`Session: ${data.session ? 'Active' : 'None'}`);
+          
+          // Check local storage for auth token
+          const hasLocalStorage = typeof window !== 'undefined' && window.localStorage;
+          if (hasLocalStorage) {
+            const hasAuthToken = !!localStorage.getItem('apstats-auth-token');
+            info.push(`Auth Token in Storage: ${hasAuthToken ? 'Found' : 'None'}`);
+          }
+          
+          // Check cookies
+          const hasCookies = typeof document !== 'undefined' && document.cookie;
+          if (hasCookies) {
+            const cookies = document.cookie.split(';').map(c => c.trim());
+            const authCookies = cookies.filter(c => c.startsWith('sb-') || c.includes('auth'));
+            info.push(`Auth Cookies: ${authCookies.length > 0 ? authCookies.join(', ') : 'None'}`);
+          }
         }
         
         setDebugInfo(info.join('\n'));
@@ -60,6 +75,11 @@ export default function Login() {
     };
     
     checkSupabase();
+    
+    // Refresh debug info every 5 seconds
+    const interval = setInterval(checkSupabase, 5000);
+    
+    return () => clearInterval(interval);
   }, [isSupabaseAvailable, isMounted]);
   
   useEffect(() => {
@@ -232,13 +252,21 @@ export default function Login() {
     try {
       console.log('Attempting demo login...');
       
-      // Use a direct API call to sign in with the demo account
+      // First, check if the demo account exists by trying to sign in
       const { data, error } = await supabase.auth.signInWithPassword({
         email: DEMO_EMAIL,
         password: DEMO_PASSWORD
       });
       
-      if (error) {
+      // If sign-in was successful, we're done
+      if (!error && data.user) {
+        console.log('Demo login successful, redirecting...');
+        router.push('/');
+        return;
+      }
+      
+      // If we got an error other than invalid credentials, show it
+      if (error && !error.message.includes('Invalid login credentials')) {
         console.error('Demo login error:', error);
         
         // If we get a rate limit error, show a specific message
@@ -250,100 +278,75 @@ export default function Login() {
           return;
         }
         
-        // If demo account doesn't exist, create it directly with Supabase
-        if (error.message && error.message.includes('Invalid login credentials')) {
-          console.log('Creating demo account...');
-          
-          // Wait a moment before creating the account to avoid rate limiting
+        throw error;
+      }
+      
+      // If we get here, the demo account doesn't exist, so create it
+      console.log('Demo account does not exist. Creating...');
+      
+      // Create the demo account
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: DEMO_EMAIL,
+        password: DEMO_PASSWORD,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: {
+            display_name: 'Demo User'
+          }
+        }
+      });
+      
+      if (signUpError) {
+        console.error('Error creating demo account:', signUpError);
+        throw signUpError;
+      }
+      
+      console.log('Demo account created successfully!');
+      
+      // Set up profile for demo account
+      if (signUpData?.user) {
+        try {
+          // Wait a moment for the auth to propagate
           await new Promise(resolve => setTimeout(resolve, 1000));
           
-          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-            email: DEMO_EMAIL,
-            password: DEMO_PASSWORD,
-            options: {
-              emailRedirectTo: window.location.origin,
-              data: {
-                display_name: 'Demo User'
-              }
-            }
-          });
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .upsert({
+              id: signUpData.user.id,
+              display_name: 'Demo User',
+              avatar_data: {
+                resolution: 2,
+                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
+                last_edited: new Date().toISOString()
+              },
+              stars_count: 10, // Give demo account some stars to start with
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            });
           
-          if (signUpError) {
-            // If we get a rate limit error, show a specific message
-            if (signUpError.message && signUpError.message.includes('rate')) {
-              setMessage({ 
-                type: 'error', 
-                text: 'Too many login attempts. Please wait a moment and try again.' 
-              });
-              return;
-            }
-            
-            throw signUpError;
+          if (profileError) {
+            console.error('Error setting up demo profile:', profileError);
+          } else {
+            console.log('Demo profile set up successfully!');
           }
-          
-          console.log('Demo account created, setting up profile...');
-          
-          // Set up profile for demo account
-          if (signUpData?.user) {
-            // Wait a moment for the auth to propagate
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            const { error: profileError } = await supabase
-              .from('profiles')
-              .upsert({
-                id: signUpData.user.id,
-                display_name: 'Demo User',
-                avatar_data: {
-                  resolution: 2,
-                  colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
-                  last_edited: new Date().toISOString()
-                },
-                stars_count: 10, // Give demo account some stars to start with
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-              });
-            
-            if (profileError) {
-              console.error('Error setting up demo profile:', profileError);
-            } else {
-              console.log('Demo profile set up successfully!');
-            }
-          }
-          
-          console.log('Demo account created, signing in...');
-          
-          // Wait a moment before signing in to avoid rate limiting
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          // Try signing in again
-          const { error: retryError } = await supabase.auth.signInWithPassword({
-            email: DEMO_EMAIL,
-            password: DEMO_PASSWORD
-          });
-          
-          if (retryError) {
-            // If we get a rate limit error, show a specific message
-            if (retryError.message && retryError.message.includes('rate')) {
-              setMessage({ 
-                type: 'error', 
-                text: 'Too many login attempts. Please wait a moment and try again.' 
-              });
-              return;
-            }
-            
-            throw retryError;
-          }
-        } else {
-          throw error;
+        } catch (profileError) {
+          console.error('Error setting up demo profile:', profileError);
         }
       }
       
+      // Now sign in with the demo account
+      console.log('Signing in with demo account...');
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: DEMO_EMAIL,
+        password: DEMO_PASSWORD
+      });
+      
+      if (signInError) {
+        console.error('Error signing in with demo account:', signInError);
+        throw signInError;
+      }
+      
       console.log('Demo login successful, redirecting...');
-      
-      // Wait a moment before redirecting to ensure the session is established
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Redirect to home page
       router.push('/');
     } catch (error: any) {
       console.error('Demo login error:', error);
