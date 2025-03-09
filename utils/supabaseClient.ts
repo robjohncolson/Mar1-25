@@ -16,14 +16,31 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    storageKey: 'apstats-auth-token',
+    storageKey: 'sb-apstats-auth',
   },
   global: {
     headers: {
       'x-application-name': 'ap-stats-hub',
     },
   },
+  // Disable retries to avoid rate limiting
+  realtime: {
+    params: {
+      eventsPerSecond: 1,
+    },
+  },
 });
+
+// Clear any existing Supabase sessions on client-side
+if (typeof window !== 'undefined') {
+  // Clear any old Supabase tokens that might be causing issues
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith('sb-') && key !== 'sb-apstats-auth') {
+      console.log('Removing old Supabase token:', key);
+      localStorage.removeItem(key);
+    }
+  });
+}
 
 // Types for user profiles and completions
 export type Profile = {

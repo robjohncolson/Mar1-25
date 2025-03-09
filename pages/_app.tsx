@@ -33,6 +33,7 @@ async function ensureDemoAccountExists() {
   }
 }
 
+// Function to check if Supabase is available
 function isSupabaseAvailable() {
   try {
     return typeof supabase.auth !== 'undefined' && 
@@ -66,9 +67,15 @@ export default function App({ Component, pageProps }: AppProps) {
       
       if (available) {
         try {
-          await ensureDemoAccountExists();
+          // Test Supabase connection
+          const { data, error } = await supabase.auth.getSession();
+          if (error) {
+            console.error('Error getting session:', error);
+          } else {
+            console.log('Session check:', data.session ? 'Active' : 'None');
+          }
         } catch (error) {
-          console.error('Failed to set up demo account:', error);
+          console.error('Failed to check session:', error);
         }
       }
     };

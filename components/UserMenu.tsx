@@ -7,7 +7,7 @@ import PixelAvatar from './PixelAvatar';
 
 export default function UserMenu() {
   const router = useRouter();
-  const { user, profile, signOut, isSupabaseAvailable } = useAuth();
+  const { user, profile, session, signOut, isSupabaseAvailable } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -16,6 +16,19 @@ export default function UserMenu() {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Log auth state for debugging
+  useEffect(() => {
+    if (isMounted) {
+      console.log('UserMenu auth state:', { 
+        hasUser: !!user, 
+        hasProfile: !!profile,
+        hasSession: !!session,
+        userEmail: user?.email,
+        profileName: profile?.display_name
+      });
+    }
+  }, [user, profile, session, isMounted]);
 
   // Close the menu when clicking outside
   useEffect(() => {
@@ -32,8 +45,10 @@ export default function UserMenu() {
   }, []);
 
   const handleSignOut = async () => {
-    await signOut();
     setIsOpen(false);
+    await signOut();
+    // Force reload to ensure clean state
+    window.location.href = '/';
   };
   
   const handleSignIn = () => {
@@ -68,7 +83,7 @@ export default function UserMenu() {
   const isLoginPage = router.pathname === '/login';
   
   // If not signed in and on login page, show a disabled button
-  if (!user && isLoginPage) {
+  if (!session && isLoginPage) {
     return (
       <div className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800 opacity-50">
         <span className="hidden md:inline-block mr-2">Sign In</span>
@@ -85,11 +100,11 @@ export default function UserMenu() {
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        {user && profile ? (
+        {session && user ? (
           <>
-            <span className="hidden md:inline-block mr-2">{profile.display_name || user.email}</span>
+            <span className="hidden md:inline-block mr-2">{profile?.display_name || user.email}</span>
             <div className="w-8 h-8 rounded-full overflow-hidden">
-              {profile.avatar_data ? (
+              {profile?.avatar_data ? (
                 <PixelAvatar 
                   avatarData={profile.avatar_data} 
                   size={32} 
@@ -109,7 +124,7 @@ export default function UserMenu() {
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 mac-window p-2">
-          {user ? (
+          {session && user ? (
             <>
               <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-200">
                 <div className="font-bold">{profile?.display_name || 'User'}</div>

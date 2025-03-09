@@ -3,12 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/contexts/AuthContext';
-import { FaEnvelope, FaArrowLeft, FaLock, FaUserPlus, FaUserAlt, FaBug } from 'react-icons/fa';
+import { FaEnvelope, FaArrowLeft, FaLock, FaUserPlus, FaBug } from 'react-icons/fa';
 import { supabase } from '@/utils/supabaseClient';
-
-// Demo account credentials
-const DEMO_EMAIL = 'demo@apstatshub.com';
-const DEMO_PASSWORD = 'apstatsdemo123';
 
 export default function Login() {
   const router = useRouter();
@@ -17,7 +13,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [isDemoLoading, setIsDemoLoading] = useState(false);
   const [debugInfo, setDebugInfo] = useState<string | null>(null);
   const [showDebug, setShowDebug] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -51,12 +46,27 @@ export default function Login() {
           if (authError) info.push(`Error: ${authError.message}`);
           
           info.push(`Session: ${data.session ? 'Active' : 'None'}`);
+          if (data.session) {
+            info.push(`User: ${data.session.user.email}`);
+            info.push(`Expires: ${new Date(data.session.expires_at! * 1000).toLocaleString()}`);
+          }
           
           // Check local storage for auth token
           const hasLocalStorage = typeof window !== 'undefined' && window.localStorage;
           if (hasLocalStorage) {
-            const hasAuthToken = !!localStorage.getItem('apstats-auth-token');
-            info.push(`Auth Token in Storage: ${hasAuthToken ? 'Found' : 'None'}`);
+            const supabaseKeys = Object.keys(localStorage).filter(key => 
+              key.startsWith('sb-') || key.includes('supabase')
+            );
+            
+            if (supabaseKeys.length > 0) {
+              info.push(`Supabase Storage Keys: ${supabaseKeys.join(', ')}`);
+              
+              // Check if we have the correct storage key
+              const hasAuthToken = supabaseKeys.includes('sb-apstats-auth');
+              info.push(`Has Correct Auth Token: ${hasAuthToken ? 'Yes' : 'No'}`);
+            } else {
+              info.push('No Supabase Storage Keys Found');
+            }
           }
           
           // Check cookies
@@ -136,7 +146,6 @@ export default function Login() {
     try {
       if (isSignUp) {
         console.log('Signing up with:', email);
-        // Sign up with email and password
         
         // First check if the user already exists
         const { error: checkError } = await supabase.auth.signInWithPassword({
@@ -244,121 +253,6 @@ export default function Login() {
     }
   };
 
-  // Handle demo account login
-  const handleDemoLogin = async () => {
-    setIsDemoLoading(true);
-    setMessage(null);
-    
-    try {
-      console.log('Attempting demo login...');
-      
-      // First, check if the demo account exists by trying to sign in
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: DEMO_EMAIL,
-        password: DEMO_PASSWORD
-      });
-      
-      // If sign-in was successful, we're done
-      if (!error && data.user) {
-        console.log('Demo login successful, redirecting...');
-        router.push('/');
-        return;
-      }
-      
-      // If we got an error other than invalid credentials, show it
-      if (error && !error.message.includes('Invalid login credentials')) {
-        console.error('Demo login error:', error);
-        
-        // If we get a rate limit error, show a specific message
-        if (error.message && error.message.includes('rate')) {
-          setMessage({ 
-            type: 'error', 
-            text: 'Too many login attempts. Please wait a moment and try again.' 
-          });
-          return;
-        }
-        
-        throw error;
-      }
-      
-      // If we get here, the demo account doesn't exist, so create it
-      console.log('Demo account does not exist. Creating...');
-      
-      // Create the demo account
-      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-        email: DEMO_EMAIL,
-        password: DEMO_PASSWORD,
-        options: {
-          emailRedirectTo: window.location.origin,
-          data: {
-            display_name: 'Demo User'
-          }
-        }
-      });
-      
-      if (signUpError) {
-        console.error('Error creating demo account:', signUpError);
-        throw signUpError;
-      }
-      
-      console.log('Demo account created successfully!');
-      
-      // Set up profile for demo account
-      if (signUpData?.user) {
-        try {
-          // Wait a moment for the auth to propagate
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
-          const { error: profileError } = await supabase
-            .from('profiles')
-            .upsert({
-              id: signUpData.user.id,
-              display_name: 'Demo User',
-              avatar_data: {
-                resolution: 2,
-                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f1c40f'],
-                last_edited: new Date().toISOString()
-              },
-              stars_count: 10, // Give demo account some stars to start with
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            });
-          
-          if (profileError) {
-            console.error('Error setting up demo profile:', profileError);
-          } else {
-            console.log('Demo profile set up successfully!');
-          }
-        } catch (profileError) {
-          console.error('Error setting up demo profile:', profileError);
-        }
-      }
-      
-      // Now sign in with the demo account
-      console.log('Signing in with demo account...');
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email: DEMO_EMAIL,
-        password: DEMO_PASSWORD
-      });
-      
-      if (signInError) {
-        console.error('Error signing in with demo account:', signInError);
-        throw signInError;
-      }
-      
-      console.log('Demo login successful, redirecting...');
-      router.push('/');
-    } catch (error: any) {
-      console.error('Demo login error:', error);
-      setMessage({ 
-        type: 'error', 
-        text: error?.message || 'Could not access demo account. Please try again or create your own account.' 
-      });
-    } finally {
-      setIsDemoLoading(false);
-    }
-  };
-
   // During SSR/SSG, return a simple login page without auth functionality
   if (!isMounted) {
     return (
@@ -457,21 +351,6 @@ export default function Login() {
           )}
         </div>
         
-        <div className="mac-window p-6 mb-6">
-          <button
-            onClick={handleDemoLogin}
-            disabled={isDemoLoading || isLoading}
-            className="mac-button w-full py-3 text-center bg-green-600 hover:bg-green-700 text-white flex items-center justify-center"
-          >
-            <FaUserAlt className="mr-2" />
-            {isDemoLoading ? 'Accessing Demo...' : 'Use Demo Account (Instant Access)'}
-          </button>
-          
-          <p className="text-sm text-center mt-2 text-gray-600">
-            No sign up required! Click above to instantly access all features.
-          </p>
-        </div>
-        
         <div className="mac-window p-6">
           <h2 className="text-xl font-bold mb-4">
             {isSignUp ? 'Create a new account' : 'Sign in to your account'}
@@ -501,7 +380,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                 placeholder="your.email@example.com"
-                disabled={isLoading || isDemoLoading}
+                disabled={isLoading}
               />
             </div>
             
@@ -516,7 +395,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Your password"
-                disabled={isLoading || isDemoLoading}
+                disabled={isLoading}
               />
               <p className="text-xs text-gray-500 mt-1">
                 Password must be at least 6 characters long
@@ -526,7 +405,7 @@ export default function Login() {
             <button
               type="submit"
               className="mac-button w-full py-2 text-center mb-4"
-              disabled={isLoading || isDemoLoading}
+              disabled={isLoading}
             >
               {isLoading 
                 ? 'Processing...' 
@@ -540,7 +419,7 @@ export default function Login() {
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
                 className="text-blue-600 hover:underline"
-                disabled={isLoading || isDemoLoading}
+                disabled={isLoading}
               >
                 {isSignUp 
                   ? 'Already have an account? Sign in' 
