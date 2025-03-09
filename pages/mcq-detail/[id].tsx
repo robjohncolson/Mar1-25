@@ -4,6 +4,7 @@ import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
+import CompletionMarker from '@/components/CompletionMarker';
 
 // MCQ locations mapping based on the provided data
 const mcqLocations: Record<string, Record<string, { unit: string; sections: string[] }>> = {
@@ -184,12 +185,13 @@ export default function MCQDetail() {
     <Layout title={`AP Statistics Hub - ${selectedYear} MCQ #${mcqNumber || ''}`}>
       <div className="max-w-4xl mx-auto">
         <div className="mac-window p-4 mb-6">
-          <h1 
-            className="text-3xl font-bold mb-0 flex items-center mac-header p-2"
-            style={{ backgroundColor: mcqNumber ? getMcqColor(parseInt(mcqNumber)) : '#000' }}
-          >
-            <span className="text-black">{selectedYear} Multiple Choice Question #{mcqNumber}</span>
-          </h1>
+          <div className="flex justify-between items-center mac-header p-2" 
+            style={{ backgroundColor: mcqNumber ? getMcqColor(parseInt(mcqNumber)) : '#000' }}>
+            <h1 className="text-3xl font-bold mb-0 flex items-center">
+              <span className="text-black">{selectedYear} Multiple Choice Question #{mcqNumber}</span>
+            </h1>
+            <CompletionMarker contentId={`mcq-${selectedYear}-${mcqNumber}`} />
+          </div>
           <div className="mt-4">
             <Link href={`/mcq-navigation?year=${selectedYear}`}>
               <a className="mac-button inline-flex items-center">

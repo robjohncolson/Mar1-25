@@ -4,6 +4,7 @@ import Layout from '@/components/Layout';
 import Link from 'next/link';
 import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
+import CompletionMarker from '@/components/CompletionMarker';
 
 // FRQ locations mapping based on the provided data
 const frqLocations: Record<string, Record<string, { unit: string; sections: string[] }>> = {
@@ -82,12 +83,13 @@ export default function FRQDetail() {
     <Layout title={`AP Statistics Hub - ${selectedYear} FRQ #${frqNumber || ''}`}>
       <div className="max-w-4xl mx-auto">
         <div className="mac-window p-4 mb-6">
-          <h1 
-            className="text-3xl font-bold mb-0 flex items-center mac-header p-2"
-            style={{ backgroundColor: frqNumber ? getFrqColor(parseInt(frqNumber)) : '#000' }}
-          >
-            <span className="text-black">{selectedYear} Free Response Question #{frqNumber}</span>
-          </h1>
+          <div className="flex justify-between items-center mac-header p-2"
+            style={{ backgroundColor: frqNumber ? getFrqColor(parseInt(frqNumber)) : '#000' }}>
+            <h1 className="text-3xl font-bold mb-0 flex items-center">
+              <span className="text-black">{selectedYear} Free Response Question #{frqNumber}</span>
+            </h1>
+            <CompletionMarker contentId={`frq-${selectedYear}-${frqNumber}`} />
+          </div>
           <div className="mt-4">
             <Link href={`/frq-navigation?year=${selectedYear}`}>
               <a className="mac-button inline-flex items-center">

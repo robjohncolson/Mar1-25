@@ -1,21 +1,40 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { ReactNode } from 'react';
+import Link from 'next/link';
 import { FaGithub, FaHome } from 'react-icons/fa';
+import UserMenu from './UserMenu';
 
 interface LayoutProps {
   children: ReactNode;
   title?: string;
+  description?: string;
 }
 
-export default function Layout({ children, title = 'AP Statistics Hub' }: LayoutProps) {
+export default function Layout({ 
+  children, 
+  title = 'AP Statistics Hub', 
+  description = 'A comprehensive resource for AP Statistics students and teachers'
+}: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col font-mac">
       <Head>
         <title>{title}</title>
-        <meta name="description" content="AP Statistics Resources Hub" />
+        <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        {/* Open Graph / Social Media Meta Tags */}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://apstatshub.vercel.app" />
+        <meta property="og:image" content="https://apstatshub.vercel.app/og-image.png" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://apstatshub.vercel.app/og-image.png" />
       </Head>
 
       <header className="mac-header">
@@ -25,14 +44,17 @@ export default function Layout({ children, title = 'AP Statistics Hub' }: Layout
               <FaHome className="mr-2" /> AP Statistics Hub
             </a>
           </Link>
-          <a 
-            href="https://github.com/robjohncolson/Mar1-25" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center"
-          >
-            <FaGithub className="mr-1" /> GitHub
-          </a>
+          <div className="flex items-center space-x-4">
+            <a 
+              href="https://github.com/robjohncolson/Mar1-25" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <FaGithub className="mr-1" /> GitHub
+            </a>
+            <UserMenu />
+          </div>
         </div>
       </header>
 
