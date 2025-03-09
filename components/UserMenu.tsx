@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthContext';
 import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt } from 'react-icons/fa';
 import PixelAvatar from './PixelAvatar';
 
 export default function UserMenu() {
+  const router = useRouter();
   const { user, profile, signOut, isSupabaseAvailable } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -33,6 +35,11 @@ export default function UserMenu() {
     await signOut();
     setIsOpen(false);
   };
+  
+  const handleSignIn = () => {
+    setIsOpen(false);
+    router.push('/login');
+  };
 
   // During SSR/SSG, return a simple placeholder
   if (!isMounted) {
@@ -47,12 +54,26 @@ export default function UserMenu() {
   // If Supabase is not available, render a simple sign-in button
   if (!isSupabaseAvailable) {
     return (
-      <Link href="/login">
-        <a className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800">
-          <span className="hidden md:inline-block mr-2">Sign In</span>
-          <FaSignInAlt className="w-5 h-5" />
-        </a>
-      </Link>
+      <button 
+        onClick={handleSignIn}
+        className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800"
+      >
+        <span className="hidden md:inline-block mr-2">Sign In</span>
+        <FaSignInAlt className="w-5 h-5" />
+      </button>
+    );
+  }
+
+  // If we're already on the login page, don't show the sign-in option
+  const isLoginPage = router.pathname === '/login';
+  
+  // If not signed in and on login page, show a disabled button
+  if (!user && isLoginPage) {
+    return (
+      <div className="flex items-center space-x-2 mac-button py-1 px-3 bg-gray-200 text-gray-800 opacity-50">
+        <span className="hidden md:inline-block mr-2">Sign In</span>
+        <FaSignInAlt className="w-5 h-5" />
+      </div>
     );
   }
 
@@ -107,11 +128,12 @@ export default function UserMenu() {
               </button>
             </>
           ) : (
-            <Link href="/login">
-              <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center">
-                <FaSignInAlt className="mr-2" /> Sign in
-              </a>
-            </Link>
+            <button
+              onClick={handleSignIn}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded flex items-center"
+            >
+              <FaSignInAlt className="mr-2" /> Sign in
+            </button>
           )}
         </div>
       )}

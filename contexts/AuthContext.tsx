@@ -107,24 +107,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     console.log('Signing in with email/password:', email);
     
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    
-    if (error) {
-      console.error('Sign in error:', error);
-    } else {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      
+      if (error) {
+        console.error('Sign in error:', error);
+        setIsLoading(false);
+        return { error };
+      }
+      
       console.log('Sign in successful:', data.user?.email);
       
       // Ensure profile exists
       if (data.user) {
-        await createUserProfileIfNotExists(data.user.id);
+        try {
+          await createUserProfileIfNotExists(data.user.id);
+        } catch (profileError) {
+          console.error('Error ensuring profile exists:', profileError);
+          // Continue anyway, as authentication was successful
+        }
       }
+      
+      setIsLoading(false);
+      return { error: null };
+    } catch (error) {
+      console.error('Unexpected error during sign in:', error);
+      setIsLoading(false);
+      return { error };
     }
-    
-    setIsLoading(false);
-    return { error };
   };
 
   const signUp = async (email: string, password: string) => {
@@ -135,55 +148,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     console.log('Signing up with email/password:', email);
     
-    // First, check if the user already exists
-    const { data: existingUser, error: checkError } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    
-    if (!checkError && existingUser.user) {
-      console.log('User already exists, signing in:', email);
+    try {
+      // Create a new user
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          // Skip email verification for simplicity
+          emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
+          data: {
+            display_name: email.split('@')[0] // Use part of email as display name
+          }
+        }
+      });
       
-      // Ensure profile exists
-      await createUserProfileIfNotExists(existingUser.user.id);
+      if (error) {
+        console.error('Sign up error:', error);
+        setIsLoading(false);
+        return { error, user: null };
+      }
       
-      setIsLoading(false);
-      return { error: null, user: existingUser.user };
-    }
-    
-    // Create a new user
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        // Skip email verification for simplicity
-        emailRedirectTo: `${config.site.baseUrl}/auth/callback`,
-        data: {
-          display_name: email.split('@')[0] // Use part of email as display name
+      console.log('Sign up successful:', data.user?.email);
+      
+      // Create a profile for the new user
+      if (data.user) {
+        try {
+          // Wait a moment for the auth to propagate
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Create profile
+          await createUserProfileIfNotExists(data.user.id, email.split('@')[0]);
+        } catch (profileError) {
+          console.error('Error creating profile:', profileError);
+          // Continue anyway, as authentication was successful
         }
       }
-    });
-    
-    if (error) {
-      console.error('Sign up error:', error);
+      
+      setIsLoading(false);
+      return { error: null, user: data.user };
+    } catch (error) {
+      console.error('Unexpected error during sign up:', error);
       setIsLoading(false);
       return { error, user: null };
     }
-    
-    console.log('Sign up successful:', data.user?.email);
-    
-    // Create a profile for the new user
-    if (data.user) {
-      try {
-        // Create profile
-        await createUserProfileIfNotExists(data.user.id, email.split('@')[0]);
-      } catch (profileError) {
-        console.error('Error creating profile:', profileError);
-      }
-    }
-    
-    setIsLoading(false);
-    return { error, user: data.user };
   };
 
   const signOut = async () => {

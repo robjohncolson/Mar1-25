@@ -106,16 +106,63 @@ export default function Login() {
       return;
     }
     
+    if (password.length < 6) {
+      setMessage({ type: 'error', text: 'Password must be at least 6 characters long' });
+      return;
+    }
+    
     setMessage(null);
     
     try {
       if (isSignUp) {
         console.log('Signing up with:', email);
         // Sign up with email and password
+        
+        // First check if the user already exists
+        const { error: checkError } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+        
+        if (!checkError) {
+          // User already exists and password is correct
+          console.log('User already exists with these credentials, redirecting...');
+          setMessage({ 
+            type: 'success', 
+            text: 'Account already exists! Signing you in...' 
+          });
+          
+          // Wait a moment before redirecting
+          setTimeout(() => {
+            router.push('/');
+          }, 1500);
+          return;
+        }
+        
+        // Check for rate limiting
+        if (checkError.message && checkError.message.includes('rate')) {
+          setMessage({ 
+            type: 'error', 
+            text: 'Too many login attempts. Please wait a moment and try again.' 
+          });
+          return;
+        }
+        
+        // Create new account
         const { error, user } = await signUp(email, password);
         
         if (error) {
           console.error('Sign up error:', error);
+          
+          // Check for rate limiting
+          if (error.message && error.message.includes('rate')) {
+            setMessage({ 
+              type: 'error', 
+              text: 'Too many signup attempts. Please wait a moment and try again.' 
+            });
+            return;
+          }
+          
           setMessage({ type: 'error', text: error.message || 'Failed to create account' });
         } else {
           console.log('Sign up successful, user:', user?.email);
@@ -136,7 +183,25 @@ export default function Login() {
         
         if (error) {
           console.error('Sign in error:', error);
-          setMessage({ type: 'error', text: error.message || 'Invalid login credentials' });
+          
+          // Check for rate limiting
+          if (error.message && error.message.includes('rate')) {
+            setMessage({ 
+              type: 'error', 
+              text: 'Too many login attempts. Please wait a moment and try again.' 
+            });
+            return;
+          }
+          
+          // Provide a more helpful message for invalid credentials
+          if (error.message && error.message.includes('Invalid login credentials')) {
+            setMessage({ 
+              type: 'error', 
+              text: 'Invalid email or password. Please check your credentials and try again.' 
+            });
+          } else {
+            setMessage({ type: 'error', text: error.message || 'Failed to sign in' });
+          }
         } else {
           console.log('Sign in successful, redirecting...');
           // Redirect to home page
@@ -145,6 +210,16 @@ export default function Login() {
       }
     } catch (error: any) {
       console.error('Authentication error:', error);
+      
+      // Check for rate limiting
+      if (error.message && error.message.includes('rate')) {
+        setMessage({ 
+          type: 'error', 
+          text: 'Too many authentication attempts. Please wait a moment and try again.' 
+        });
+        return;
+      }
+      
       setMessage({ type: 'error', text: error?.message || 'An unexpected error occurred' });
     }
   };
@@ -157,7 +232,7 @@ export default function Login() {
     try {
       console.log('Attempting demo login...');
       
-      // Try direct sign-in first with Supabase client
+      // Use a direct API call to sign in with the demo account
       const { data, error } = await supabase.auth.signInWithPassword({
         email: DEMO_EMAIL,
         password: DEMO_PASSWORD
@@ -166,9 +241,21 @@ export default function Login() {
       if (error) {
         console.error('Demo login error:', error);
         
+        // If we get a rate limit error, show a specific message
+        if (error.message && error.message.includes('rate')) {
+          setMessage({ 
+            type: 'error', 
+            text: 'Too many login attempts. Please wait a moment and try again.' 
+          });
+          return;
+        }
+        
         // If demo account doesn't exist, create it directly with Supabase
         if (error.message && error.message.includes('Invalid login credentials')) {
           console.log('Creating demo account...');
+          
+          // Wait a moment before creating the account to avoid rate limiting
+          await new Promise(resolve => setTimeout(resolve, 1000));
           
           const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
             email: DEMO_EMAIL,
@@ -182,6 +269,15 @@ export default function Login() {
           });
           
           if (signUpError) {
+            // If we get a rate limit error, show a specific message
+            if (signUpError.message && signUpError.message.includes('rate')) {
+              setMessage({ 
+                type: 'error', 
+                text: 'Too many login attempts. Please wait a moment and try again.' 
+              });
+              return;
+            }
+            
             throw signUpError;
           }
           
@@ -190,7 +286,7 @@ export default function Login() {
           // Set up profile for demo account
           if (signUpData?.user) {
             // Wait a moment for the auth to propagate
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             
             const { error: profileError } = await supabase
               .from('profiles')
@@ -216,6 +312,9 @@ export default function Login() {
           
           console.log('Demo account created, signing in...');
           
+          // Wait a moment before signing in to avoid rate limiting
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
           // Try signing in again
           const { error: retryError } = await supabase.auth.signInWithPassword({
             email: DEMO_EMAIL,
@@ -223,6 +322,15 @@ export default function Login() {
           });
           
           if (retryError) {
+            // If we get a rate limit error, show a specific message
+            if (retryError.message && retryError.message.includes('rate')) {
+              setMessage({ 
+                type: 'error', 
+                text: 'Too many login attempts. Please wait a moment and try again.' 
+              });
+              return;
+            }
+            
             throw retryError;
           }
         } else {
@@ -231,6 +339,10 @@ export default function Login() {
       }
       
       console.log('Demo login successful, redirecting...');
+      
+      // Wait a moment before redirecting to ensure the session is established
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       // Redirect to home page
       router.push('/');
     } catch (error: any) {
