@@ -19,6 +19,7 @@
     "@supabase/supabase-js": "^2.49.1",
     "autoprefixer": "^10.4.15",
     "next": "^14.0.0",
+    "next-auth": "^4.24.11",
     "octokit": "^3.1.0",
     "postcss": "^8.4.31",
     "qrcode.react": "^3.1.0",

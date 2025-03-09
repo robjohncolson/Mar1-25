@@ -4,9 +4,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { SessionProvider } from 'next-auth/react';
+import { NextAuthProvider } from '@/contexts/NextAuthContext';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -38,11 +39,13 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <AuthProvider>
-        <ErrorBoundary>
-          <Component {...pageProps} />
-        </ErrorBoundary>
-      </AuthProvider>
+      <SessionProvider session={session}>
+        <NextAuthProvider>
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
+        </NextAuthProvider>
+      </SessionProvider>
     </>
   );
 } 

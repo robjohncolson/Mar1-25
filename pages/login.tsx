@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
-import { useAuth } from '@/contexts/AuthContext';
+import { useNextAuth } from '@/contexts/NextAuthContext';
 import { FaEnvelope, FaArrowLeft, FaLock, FaUserPlus, FaBug } from 'react-icons/fa';
 import { supabase } from '@/utils/supabaseClient';
 
 export default function Login() {
   const router = useRouter();
-  const { signIn, signUp, isLoading } = useAuth();
+  const { signInWithCredentials, signUpWithCredentials, isLoading } = useNextAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -83,26 +83,8 @@ export default function Login() {
     
     if (error && typeof error === 'string') {
       setMessage({ type: 'error', text: error });
-    }
-    
-    // Check for hash error parameters in the URL (from redirects)
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const hashError = hashParams.get('error');
-    const hashErrorDescription = hashParams.get('error_description');
-    
-    if (hashError) {
-      let errorMessage = 'Authentication failed';
       
-      if (hashErrorDescription) {
-        errorMessage = hashErrorDescription.replace(/\+/g, ' ');
-      }
-      
-      setMessage({ 
-        type: 'error', 
-        text: errorMessage 
-      });
-      
-      // Clean up the URL
+      // Clear the error from the URL
       if (window.history && window.history.replaceState) {
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -132,7 +114,7 @@ export default function Login() {
     try {
       if (isSignUp) {
         // Create new account
-        const { error, user } = await signUp(email, password);
+        const { error, user } = await signUpWithCredentials(email, password);
         
         if (error) {
           setMessage({ type: 'error', text: error.message || 'Failed to create account' });
@@ -157,7 +139,7 @@ export default function Login() {
         }
       } else {
         // Sign in with email and password
-        const { error } = await signIn(email, password);
+        const { error } = await signInWithCredentials(email, password);
         
         if (error) {
           if (error.message && error.message.includes('Email not confirmed')) {
@@ -185,138 +167,85 @@ export default function Login() {
     }
   };
 
-  // During SSR/SSG, return a simple login page without auth functionality
-  if (!isMounted) {
-    return (
-      <Layout title="AP Statistics Hub - Login">
-        <div className="max-w-md mx-auto">
-          <div className="mac-window p-4 mb-6">
-            <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
-              <FaEnvelope className="mr-2 text-mac-white" /> 
-              <span className="text-mac-white">Sign In</span>
-            </h1>
-            <div className="mt-4">
-              <Link href="/">
-                <a className="mac-button inline-flex items-center">
-                  <FaArrowLeft className="mr-2" /> Back to Home
-                </a>
-              </Link>
-            </div>
-          </div>
-          
-          <div className="mac-window p-6">
-            <h2 className="text-xl font-bold mb-4">Loading authentication...</h2>
-            <p className="mb-6 text-gray-600">
-              Please wait while we initialize the authentication system.
-            </p>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
   return (
-    <Layout title={`AP Statistics Hub - ${isSignUp ? 'Sign Up' : 'Login'}`}>
+    <Layout title="AP Statistics Hub - Login">
       <div className="max-w-md mx-auto">
         <div className="mac-window p-4 mb-6">
-          <h1 className="text-3xl font-bold mb-0 flex items-center mac-header p-2">
-            {isSignUp ? (
-              <>
-                <FaUserPlus className="mr-2 text-mac-white" /> 
-                <span className="text-mac-white">Create Account</span>
-              </>
-            ) : (
-              <>
-                <FaEnvelope className="mr-2 text-mac-white" /> 
-                <span className="text-mac-white">Sign In</span>
-              </>
-            )}
+          <h1 className="text-2xl font-bold mb-0 flex items-center mac-header p-2">
+            <span className="text-mac-white">
+              {isSignUp ? 'Create Account' : 'Sign In'}
+            </span>
           </h1>
-          <div className="mt-4 flex justify-between">
-            <Link href="/">
-              <a className="mac-button inline-flex items-center">
-                <FaArrowLeft className="mr-2" /> Back to Home
-              </a>
-            </Link>
-            
-            <button 
-              onClick={() => setShowDebug(!showDebug)} 
-              className="mac-button inline-flex items-center"
-            >
-              <FaBug className="mr-2" /> {showDebug ? 'Hide Debug' : 'Show Debug'}
-            </button>
-          </div>
-          
-          {showDebug && debugInfo && (
-            <div className="mt-4 p-3 bg-gray-100 text-xs font-mono">
-              <h3 className="font-bold mb-2">Debug Information:</h3>
-              <pre className="whitespace-pre-wrap">{debugInfo}</pre>
-            </div>
-          )}
         </div>
         
         <div className="mac-window p-6">
-          <h2 className="text-xl font-bold mb-4">
-            {isSignUp ? 'Create a new account' : 'Sign in to your account'}
-          </h2>
-          
-          <p className="mb-6 text-gray-600">
-            {isSignUp 
-              ? 'Create an account to track your progress and customize your experience.' 
-              : 'Sign in to track your progress and access your personalized content.'}
-          </p>
-          
           {message && (
-            <div className={`p-3 mb-4 rounded ${message.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+            <div className={`p-3 mb-4 rounded ${
+              message.type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
+            }`}>
               {message.text}
             </div>
           )}
           
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium mb-1">
                 Email Address
               </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                placeholder="your.email@example.com"
-                disabled={isLoading}
-              />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaEnvelope className="text-gray-400" />
+                </div>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mac-input pl-10 w-full"
+                  placeholder="you@example.com"
+                  disabled={isLoading}
+                />
+              </div>
             </div>
             
             <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium mb-1">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Your password"
-                disabled={isLoading}
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Password must be at least 6 characters long
-              </p>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="text-gray-400" />
+                </div>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mac-input pl-10 w-full"
+                  placeholder="••••••••"
+                  disabled={isLoading}
+                />
+              </div>
             </div>
             
-            <button
-              type="submit"
-              className="mac-button w-full py-2 text-center mb-4"
-              disabled={isLoading}
-            >
-              {isLoading 
-                ? 'Processing...' 
-                : isSignUp 
-                  ? 'Create Account' 
-                  : 'Sign In'}
-            </button>
+            <div className="flex items-center justify-between mb-6">
+              <button
+                type="submit"
+                className="mac-button flex items-center justify-center w-full"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span>Processing...</span>
+                ) : isSignUp ? (
+                  <>
+                    <FaUserPlus className="mr-2" />
+                    Create Account
+                  </>
+                ) : (
+                  'Sign In'
+                )}
+              </button>
+            </div>
             
             <div className="text-center">
               <button
@@ -325,12 +254,34 @@ export default function Login() {
                 className="text-blue-600 hover:underline"
                 disabled={isLoading}
               >
-                {isSignUp 
-                  ? 'Already have an account? Sign in' 
-                  : 'Need an account? Sign up'}
+                {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
               </button>
             </div>
           </form>
+          
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="flex justify-between items-center">
+              <Link href="/">
+                <a className="text-gray-600 hover:text-gray-900 flex items-center">
+                  <FaArrowLeft className="mr-2" /> Back to Home
+                </a>
+              </Link>
+              
+              <button
+                onClick={() => setShowDebug(!showDebug)}
+                className="text-gray-500 hover:text-gray-700 flex items-center text-sm"
+              >
+                <FaBug className="mr-1" /> {showDebug ? 'Hide Debug' : 'Debug Info'}
+              </button>
+            </div>
+            
+            {showDebug && debugInfo && (
+              <div className="mt-4 p-3 bg-gray-100 text-xs font-mono">
+                <h3 className="font-bold mb-2">Debug Information:</h3>
+                <pre className="whitespace-pre-wrap">{debugInfo}</pre>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
