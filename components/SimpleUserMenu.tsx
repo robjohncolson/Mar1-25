@@ -2,13 +2,39 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSimpleAuth } from '@/contexts/SimpleAuthContext';
-import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt, FaStar } from 'react-icons/fa';
+import PixelAvatar from './PixelAvatar';
 
 export default function SimpleUserMenu() {
   const router = useRouter();
   const { user, isAuthenticated, logout } = useSimpleAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [avatarData, setAvatarData] = useState({
+    resolution: 1,
+    colors: ['#808080'],
+    last_edited: null as string | null
+  });
+  const [starCount, setStarCount] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Load avatar data from localStorage on mount
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      try {
+        const storedAvatarData = localStorage.getItem(`avatar_data_${user.id}`);
+        if (storedAvatarData) {
+          setAvatarData(JSON.parse(storedAvatarData));
+        }
+        
+        const storedStarCount = localStorage.getItem(`star_count_${user.id}`);
+        if (storedStarCount) {
+          setStarCount(parseInt(storedStarCount, 10));
+        }
+      } catch (error) {
+        console.error('Error loading avatar data:', error);
+      }
+    }
+  }, [isAuthenticated, user]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -35,6 +61,25 @@ export default function SimpleUserMenu() {
     router.push('/simple-login');
   };
 
+  // Handle avatar color change
+  const handleAvatarColorChange = (index: number, color: string) => {
+    if (!user) return;
+    
+    const newColors = [...avatarData.colors];
+    newColors[index] = color;
+    
+    const newAvatarData = {
+      ...avatarData,
+      colors: newColors,
+      last_edited: new Date().toISOString()
+    };
+    
+    setAvatarData(newAvatarData);
+    
+    // Save to localStorage
+    localStorage.setItem(`avatar_data_${user.id}`, JSON.stringify(newAvatarData));
+  };
+
   // If user is not logged in, show sign in button
   if (!isAuthenticated || !user) {
     return (
@@ -52,14 +97,14 @@ export default function SimpleUserMenu() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center focus:outline-none"
-        aria-expanded={isOpen}
+        className="flex items-center text-sm focus:outline-none"
         aria-haspopup="true"
       >
-        <div className="flex items-center">
-          <FaUserCircle size={24} className="text-gray-600 dark:text-gray-300 mr-2" />
-          <span className="text-sm font-medium">{user.username}</span>
-        </div>
+        <PixelAvatar
+          avatarData={avatarData}
+          size={32}
+          className="rounded-full"
+        />
       </button>
 
       {isOpen && (
@@ -69,9 +114,18 @@ export default function SimpleUserMenu() {
               {user.name || user.username}
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-              {user.username}
+              @{user.username}
+            </div>
+            <div className="text-xs text-yellow-500 mt-1 flex items-center">
+              <FaStar className="mr-1" /> {starCount} star{starCount !== 1 ? 's' : ''}
             </div>
           </div>
+
+          <Link href="/simple-profile">
+            <a className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+              <FaUser className="inline mr-2" /> Profile
+            </a>
+          </Link>
 
           <button
             onClick={handleSignOut}

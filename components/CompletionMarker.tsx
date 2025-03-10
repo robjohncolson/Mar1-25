@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useAuth } from '@/contexts/AuthContext';
-import { toggleCompletion, supabase } from '@/utils/supabaseClient';
+import { toggleCompletion, supabase, updateAvatarState } from '@/utils/supabaseClient';
 
 type CompletionMarkerProps = {
   contentId: string;
@@ -66,6 +66,9 @@ export default function CompletionMarker({ contentId, className = '' }: Completi
       
       if (result) {
         setIsCompleted(result.status === 'completed');
+        
+        // Update avatar state based on new star count
+        await updateAvatarState(user.id);
         
         // Refresh profile to update stars count
         refreshProfile();

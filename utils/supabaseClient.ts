@@ -304,4 +304,167 @@ export const updateStarsCount = async (userId: string) => {
       updated_at: new Date().toISOString()
     })
     .eq('id', userId);
+};
+
+// Helper function to mark content as completed
+export const markContentAsCompleted = async (userId: string, contentId: string) => {
+  const { data, error } = await supabase
+    .from('completions')
+    .upsert({
+      user_id: userId,
+      content_id: contentId,
+      status: 'completed',
+      updated_at: new Date().toISOString()
+    })
+    .select()
+    .single();
+  
+  if (error) {
+    console.error('Error marking content as completed:', error);
+    return null;
+  }
+  
+  // Update stars count after marking as completed
+  await updateStarsCount(userId);
+  
+  return data as Completion;
+};
+
+// Helper function to get user's star count
+export const getUserStarCount = async (userId: string) => {
+  const { count, error } = await supabase
+    .from('completions')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .eq('status', 'completed');
+  
+  if (error) {
+    console.error('Error getting user star count:', error);
+    return 0;
+  }
+  
+  return count || 0;
+};
+
+// Helper function to update avatar state based on star count
+export const updateAvatarState = async (userId: string) => {
+  // Get current star count
+  const starCount = await getUserStarCount(userId);
+  
+  // Get current profile
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('avatar_data')
+    .eq('id', userId)
+    .single();
+  
+  if (profileError) {
+    console.error('Error getting profile for avatar update:', profileError);
+    return null;
+  }
+  
+  let avatarData = profile?.avatar_data || {
+    resolution: 1,
+    colors: ['#808080'],
+    last_edited: null
+  };
+  
+  // Determine avatar size based on star count
+  let avatarSize: '1x1' | '4x4' | '3x3' = '1x1';
+  let colors: string[] = [];
+  
+  if (starCount >= 9) {
+    avatarSize = '3x3';
+    // If current colors array doesn't have 9 elements, create default
+    if (!avatarData.colors || avatarData.colors.length !== 9) {
+      colors = Array(9).fill('#808080');
+    } else {
+      colors = avatarData.colors.slice(0, 9);
+    }
+  } else if (starCount >= 4) {
+    avatarSize = '4x4';
+    // If current colors array doesn't have 16 elements, create default
+    if (!avatarData.colors || avatarData.colors.length !== 16) {
+      colors = Array(16).fill('#808080');
+    } else {
+      colors = avatarData.colors.slice(0, 16);
+    }
+  } else if (starCount >= 1) {
+    avatarSize = '1x1';
+    // Keep user-set color if it exists, otherwise use default
+    colors = avatarData.colors && avatarData.colors.length > 0 
+      ? [avatarData.colors[0]] 
+      : ['#808080'];
+  } else {
+    // 0 stars: gray 1x1 pixel, non-customizable
+    avatarSize = '1x1';
+    colors = ['#808080'];
+  }
+  
+  // Update avatar data in profile
+  const resolution = avatarSize === '1x1' ? 1 : avatarSize === '4x4' ? 4 : 3;
+  
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({
+      avatar_data: {
+        resolution,
+        colors,
+        last_edited: new Date().toISOString()
+      },
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', userId)
+    .select()
+    .single();
+  
+  if (error) {
+    console.error('Error updating avatar state:', error);
+    return null;
+  }
+  
+  return data as Profile;
+};
+
+// Helper function to set avatar colors
+export const setAvatarColors = async (userId: string, colors: string[]) => {
+  // Get current profile
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('avatar_data')
+    .eq('id', userId)
+    .single();
+  
+  if (profileError) {
+    console.error('Error getting profile for color update:', profileError);
+    return null;
+  }
+  
+  const avatarData = profile?.avatar_data || {
+    resolution: 1,
+    colors: ['#808080'],
+    last_edited: null
+  };
+  
+  // Update colors while keeping the same resolution
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({
+      avatar_data: {
+        ...avatarData,
+        colors,
+        last_edited: new Date().toISOString()
+      },
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', userId)
+    .select()
+    .single();
+  
+  if (error) {
+    console.error('Error updating avatar colors:', error);
+    return null;
+  }
+  
+  return data as Profile;
 }; 

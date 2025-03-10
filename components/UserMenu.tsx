@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthContext';
-import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt, FaSync } from 'react-icons/fa';
+import { FaUser, FaSignOutAlt, FaUserCircle, FaSignInAlt, FaSync, FaStar } from 'react-icons/fa';
 import PixelAvatar from './PixelAvatar';
 import { supabase } from '@/utils/supabaseClient';
 
@@ -101,9 +101,9 @@ export default function UserMenu() {
       >
         {profile ? (
           <PixelAvatar
-            avatarData={{
-              resolution: profile.avatar_data?.resolution || 2,
-              colors: profile.avatar_data?.colors || ['#3498db']
+            avatarData={profile.avatar_data || {
+              resolution: 1,
+              colors: ['#808080']
             }}
             size={32}
             className="rounded-full"
@@ -122,6 +122,11 @@ export default function UserMenu() {
             <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
               {user.email}
             </div>
+            {profile && (
+              <div className="text-xs text-yellow-500 mt-1 flex items-center">
+                <FaStar className="mr-1" /> {profile.stars_count} star{profile.stars_count !== 1 ? 's' : ''}
+              </div>
+            )}
           </div>
 
           <Link href="/profile">

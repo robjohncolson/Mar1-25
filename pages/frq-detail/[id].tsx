@@ -2,9 +2,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
-import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaBookOpen, FaLayerGroup, FaExternalLinkAlt, FaStar } from 'react-icons/fa';
 import QRCodeGenerator from '@/components/QRCodeGenerator';
 import CompletionMarker from '@/components/CompletionMarker';
+import { useAuth } from '@/contexts/AuthContext';
+import { markContentAsCompleted, updateAvatarState } from '@/utils/supabaseClient';
+import PixelAvatar from '@/components/PixelAvatar';
 
 // FRQ locations mapping based on the provided data
 const frqLocations: Record<string, Record<string, { unit: string; sections: string[] }>> = {
@@ -40,6 +43,9 @@ export default function FRQDetail() {
   const [frqNumber, setFrqNumber] = useState<string | null>(null);
   const [frqData, setFrqData] = useState<{ unit: string; sections: string[] } | null>(null);
   const [selectedYear, setSelectedYear] = useState<string>('2017');
+  const [isMarkingComplete, setIsMarkingComplete] = useState(false);
+  const [completionSuccess, setCompletionSuccess] = useState(false);
+  const { user, profile, refreshProfile } = useAuth();
 
   useEffect(() => {
     if (id && typeof id === 'string' && year && typeof year === 'string') {
@@ -79,6 +85,36 @@ export default function FRQDetail() {
     }
   };
 
+  // Function to handle marking content as completed
+  const handleMarkComplete = async () => {
+    if (!user || !frqNumber || isMarkingComplete) return;
+    
+    const contentId = `frq-${selectedYear}-${frqNumber}`;
+    setIsMarkingComplete(true);
+    
+    try {
+      // Mark the content as completed
+      await markContentAsCompleted(user.id, contentId);
+      
+      // Update the avatar state based on the new star count
+      await updateAvatarState(user.id);
+      
+      // Refresh the profile to get the updated data
+      await refreshProfile();
+      
+      setCompletionSuccess(true);
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => {
+        setCompletionSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error('Error marking content as completed:', error);
+    } finally {
+      setIsMarkingComplete(false);
+    }
+  };
+
   return (
     <Layout title={`AP Statistics Hub - ${selectedYear} FRQ #${frqNumber || ''}`}>
       <div className="max-w-4xl mx-auto">
@@ -90,13 +126,56 @@ export default function FRQDetail() {
             </h1>
             <CompletionMarker contentId={`frq-${selectedYear}-${frqNumber}`} />
           </div>
-          <div className="mt-4">
+          <div className="mt-4 flex justify-between items-center">
             <Link href={`/frq-navigation?year=${selectedYear}`}>
               <a className="mac-button inline-flex items-center">
                 <FaArrowLeft className="mr-2" /> Back to FRQ Navigation
               </a>
             </Link>
+            
+            {user && (
+              <button
+                onClick={handleMarkComplete}
+                disabled={isMarkingComplete}
+                className={`mac-button inline-flex items-center ${
+                  completionSuccess ? 'bg-green-500 text-white' : ''
+                }`}
+              >
+                <FaStar className="mr-2" />
+                {isMarkingComplete 
+                  ? 'Marking...' 
+                  : completionSuccess 
+                    ? 'Completed!' 
+                    : 'Mark Complete'}
+              </button>
+            )}
           </div>
+          
+          {user && profile && completionSuccess && profile.avatar_data && (
+            <div className="mt-4 p-3 bg-green-100 rounded flex items-center">
+              <div className="mr-3">
+                <PixelAvatar 
+                  avatarData={profile.avatar_data} 
+                  size={40} 
+                />
+              </div>
+              <div>
+                <p className="text-green-800 font-medium">
+                  Great job! You've earned a gold star for completing this content.
+                </p>
+                <p className="text-green-700 text-sm">
+                  You now have {profile.stars_count} star{profile.stars_count !== 1 ? 's' : ''}.
+                  {profile.stars_count >= 9 
+                    ? ' Your avatar has reached 3x3 resolution!' 
+                    : profile.stars_count >= 4 
+                      ? ' Your avatar has reached 4x4 resolution!' 
+                      : profile.stars_count >= 1 
+                        ? ' Your avatar is now customizable!' 
+                        : ''}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
         
         {!frqData ? (
